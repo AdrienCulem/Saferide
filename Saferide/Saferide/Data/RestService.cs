@@ -37,14 +37,13 @@ namespace Saferide.Data
                     var answer = await response.Content.ReadAsStringAsync();
                     token = JsonConvert.DeserializeObject<Token>(answer);
                     Constants.StringToken = token.access_token;
-                    Constants.Firstname = token.Firstname;
                     var tokenValidtyInSeconds = token.expires_in;
                     DateTime tokenExpires = DateTime.Now.AddSeconds(tokenValidtyInSeconds);
                     Constants.TokenValidity = tokenExpires;
                     Constants.IsConnected = true;
                     return "Success";
                 }
-                return "Error";
+                return "Invalid";
             }
             catch (Exception)
             {

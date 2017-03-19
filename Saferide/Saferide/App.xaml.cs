@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Saferide.Data;
+using Saferide.Models;
 using Xamarin.Forms;
 
 namespace Saferide
@@ -19,22 +20,73 @@ namespace Saferide
             LoginManager = new LoginManager(service);
             IncidentManager = new IncidentManager(service);
             InitializeComponent();
-            MainPage = new MasterDetailPageView();
         }
 
         protected override void OnStart()
         {
-            // Handle when your app starts
+            if (Constants.IsConnected)
+            {
+                MainPage = new MasterDetailPageView();
+            }
+            else
+            {
+            MainPage = new LoginPageView();
+
+            }
         }
 
         protected override void OnSleep()
         {
-            // Handle when your app sleeps
+            Current.Properties["IsConnected"] = Constants.IsConnected;
+            Current.Properties["Username"] = Constants.Username;
+            Current.Properties["Password"] = Constants.Password;
+            Current.Properties["StringToken"] = Constants.StringToken;
+            Current.Properties["TokenValidity"] = Constants.TokenValidity;
         }
 
         protected override void OnResume()
         {
-            // Handle when your app resumes
+            LoadPersistedValues();
+            CheckTokenValidity();
         }
+
+        protected void LoadPersistedValues()
+        {
+            //Load all saved Constants
+            if (Current.Properties.ContainsKey("IsConnected"))
+            {
+                Constants.IsConnected = (bool)Current.Properties["IsConnected"];
+            }
+            if (Current.Properties.ContainsKey("Username"))
+            {
+                Constants.StringToken = (string)Current.Properties["Username"];
+            }
+            if (Current.Properties.ContainsKey("Password"))
+            {
+                Constants.StringToken = (string)Current.Properties["Password"];
+            }
+            if (Current.Properties.ContainsKey("TokenValidity"))
+            {
+                Constants.TokenValidity = Convert.ToDateTime(Current.Properties["TokenValidity"]);
+            }
+            if (Current.Properties.ContainsKey("StringToken"))
+            {
+                Constants.StringToken = (string)Current.Properties["StringToken"];
+            }
+        }
+
+        private async void CheckTokenValidity()
+        {
+            if (DateTime.Now > Constants.TokenValidity)
+            {
+                var user = new User
+                {
+                    Username = Constants.Username,
+                    Password = Constants.Password
+                };
+                await App.LoginManager.Authenticate(user);
+            }
+        }
+
     }
 }
