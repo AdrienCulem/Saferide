@@ -24,14 +24,14 @@ namespace Saferide
 
         protected override void OnStart()
         {
+            LoadPersistedValues();
             if (Constants.IsConnected)
             {
                 MainPage = new MasterDetailPageView();
             }
             else
             {
-            MainPage = new LoginPageView();
-
+                MainPage = new LoginPageView();
             }
         }
 
@@ -52,7 +52,6 @@ namespace Saferide
 
         protected void LoadPersistedValues()
         {
-            //Load all saved Constants
             if (Current.Properties.ContainsKey("IsConnected"))
             {
                 Constants.IsConnected = (bool)Current.Properties["IsConnected"];

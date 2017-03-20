@@ -91,7 +91,6 @@ namespace Saferide.ViewModels
                 {
                     case "Success":
                         XFToast.LongMessage("Saferide vous souhaite la bienvenue!");
-                        //Need to be improved
                         Application.Current.MainPage = new MasterDetailPageView();
                         break;
                     case "Invalid":

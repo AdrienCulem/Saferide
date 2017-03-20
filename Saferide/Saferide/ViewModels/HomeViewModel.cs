@@ -19,6 +19,7 @@ namespace Saferide.ViewModels
             {
                 return new Command<string>(async (key) =>
                 {
+                    IsBusy = true;
                     if (UserPosition.Latitude == 0 && UserPosition.Longitude == 0)
                     {
                         GetGpsInfos();
@@ -30,13 +31,14 @@ namespace Saferide.ViewModels
                         IncidentType = key
                     };
                     var result = await App.IncidentManager.NewIncident(incident);
+                    IsBusy = false;
                     switch (result)
                     {
-                        case "Succes":
-                            XFToast.ShortMessage("Nice");
+                        case "Success":
+                            XFToast.ShortMessage("Tu viens de signaler un incident!");
                             break;
                         case "Error":
-                            XFToast.ShortMessage("Nul");
+                            XFToast.ShortMessage("Oups, une erreur est survenue");
                             break;
                     }
                 });

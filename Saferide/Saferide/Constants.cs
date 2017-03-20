@@ -12,6 +12,6 @@ namespace Saferide
         public static bool IsConnected;
         public static DateTime TokenValidity;
         public static string GetTokenUrl = "http://safe-ride.azurewebsites.net/token";
-        public static string IncidentUrl = "http://safe-ride.azurewebsites.net/incident";
+        public static string IncidentUrl = "http://safe-ride.azurewebsites.net/api/incidents";
     }
 }

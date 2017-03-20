@@ -53,6 +53,7 @@ namespace Saferide.Data
 
         public async Task<String> NewIncident(Incident incident)
         {
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Constants.StringToken);
             var uri = new Uri(String.Format(Constants.IncidentUrl));
             try
             {
