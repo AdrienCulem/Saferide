@@ -68,15 +68,15 @@ namespace Saferide.ViewModels
 
         public async void VerifyLogs()
         {
-            var user = new User()
+            var user = new LoginUser()
             {
                 grant_type = "passsword",
                 Username = _username,
                 Password = _password
             };
 
-            Constants.Password = _password;
-            Constants.Username = _username;
+            Constants.CurrentUser.Password = _password;
+            Constants.CurrentUser.Username = _username;
 
             if (Username == null || Password == null)
             {

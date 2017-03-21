@@ -47,7 +47,8 @@ namespace Saferide.Web.Controllers.API.Auth
 
             IDictionary<string, string> data = new Dictionary<string, string>
             {
-                { "Test", "test" }
+                { "Firstname", user.Firstname },
+                { "Lastname", user.Lastname}
             };
             AuthenticationProperties propreties = new AuthenticationProperties(data);
             AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, propreties);

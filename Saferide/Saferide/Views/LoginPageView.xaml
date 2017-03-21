@@ -18,7 +18,7 @@
                        Text="{Binding Username, Mode=OneWayToSource}"/>
                 <Entry x:Name="PasswordEntry"
                        Placeholder="Mot de passe"
-                       Text="{Binding PasswordLogin, Mode=OneWayToSource}"
+                       Text="{Binding Password, Mode=OneWayToSource}"
                        IsPassword="true"/>
                 <Button x:Name="LoginButton"
                     Text="Se connecter"

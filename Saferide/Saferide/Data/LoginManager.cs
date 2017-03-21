@@ -16,7 +16,7 @@ namespace Saferide.Data
             _restService = service;
         }
 
-        public async Task<string> Authenticate(User user)
+        public async Task<string> Authenticate(LoginUser user)
         {
             return await _restService.Authenticate(user);
         }

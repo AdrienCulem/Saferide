@@ -38,10 +38,7 @@ namespace Saferide
         protected override void OnSleep()
         {
             Current.Properties["IsConnected"] = Constants.IsConnected;
-            Current.Properties["Username"] = Constants.Username;
-            Current.Properties["Password"] = Constants.Password;
-            Current.Properties["StringToken"] = Constants.StringToken;
-            Current.Properties["TokenValidity"] = Constants.TokenValidity;
+            Current.Properties["CurrentUser"] = Constants.CurrentUser;
         }
 
         protected override void OnResume()
@@ -56,32 +53,20 @@ namespace Saferide
             {
                 Constants.IsConnected = (bool)Current.Properties["IsConnected"];
             }
-            if (Current.Properties.ContainsKey("Username"))
+            if (Current.Properties.ContainsKey("CurrentUser"))
             {
-                Constants.StringToken = (string)Current.Properties["Username"];
-            }
-            if (Current.Properties.ContainsKey("Password"))
-            {
-                Constants.StringToken = (string)Current.Properties["Password"];
-            }
-            if (Current.Properties.ContainsKey("TokenValidity"))
-            {
-                Constants.TokenValidity = Convert.ToDateTime(Current.Properties["TokenValidity"]);
-            }
-            if (Current.Properties.ContainsKey("StringToken"))
-            {
-                Constants.StringToken = (string)Current.Properties["StringToken"];
+                Constants.CurrentUser = (CurrentUser)Current.Properties["CurrentUser"];
             }
         }
 
         private async void CheckTokenValidity()
         {
-            if (DateTime.Now > Constants.TokenValidity)
+            if (DateTime.Now > Constants.CurrentUser.TokenValidity)
             {
-                var user = new User
+                var user = new LoginUser()
                 {
-                    Username = Constants.Username,
-                    Password = Constants.Password
+                    Username = Constants.CurrentUser.Username,
+                    Password = Constants.CurrentUser.Password
                 };
                 await App.LoginManager.Authenticate(user);
             }
