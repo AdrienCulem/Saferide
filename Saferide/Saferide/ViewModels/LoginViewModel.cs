@@ -8,13 +8,13 @@ namespace Saferide.ViewModels
 {
     public class LoginViewModel : BaseViewModel
     {
-        string _username, _password;
-
-        bool _isBusy;
+        private string _username;
+        private string _password;
+        private bool _isBusy;
 
         public ICommand LoginClickedCommand { get; set; }
 
-        public bool isBusy
+        public bool IsBusy
         {
             set
             {
@@ -61,17 +61,16 @@ namespace Saferide.ViewModels
                 return _password;
             }
         }
-
         public LoginViewModel()
         {
-            LoginClickedCommand = new Command(verifyLogs);
+            LoginClickedCommand = new Command(VerifyLogs);
         }
 
-        public async void verifyLogs()
+        public async void VerifyLogs()
         {
             var user = new User()
             {
-                grant_type = "password",
+                grant_type = "passsword",
                 Username = _username,
                 Password = _password
             };
@@ -85,7 +84,7 @@ namespace Saferide.ViewModels
             }
             else
             {
-                isBusy = true;
+                IsBusy = true;
                 string result = await App.LoginManager.Authenticate(user);
                 switch (result)
                 {
@@ -100,7 +99,7 @@ namespace Saferide.ViewModels
                         XFToast.ShortErrorMessage();
                         break;
                 }
-                isBusy = false;
+                IsBusy = false;
             }
         }
     }

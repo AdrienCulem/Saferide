@@ -8,10 +8,22 @@ namespace Saferide
 {
     public static class Constants
     {
-        public static string Password, Username, StringToken, Firstname;
-        public static bool IsConnected;
-        public static DateTime TokenValidity;
-        public static string GetTokenUrl = "http://safe-ride.azurewebsites.net/token";
-        public static string IncidentUrl = "http://safe-ride.azurewebsites.net/api/incidents";
+        internal static string Password;
+        internal static string Username;
+        internal static string StringToken;
+        internal static string Firstname;
+        internal static bool IsConnected;
+        internal static DateTime TokenValidity;
+        internal static string GetTokenUrl = "http://safe-ride.azurewebsites.net/token";
+        internal static string IncidentUrl = "http://safe-ride.azurewebsites.net/api/incidents";
+
+        public static void Disconnect()
+        {
+            Password = null;
+            Username = null;
+            IsConnected = false;
+            Firstname = null;
+            StringToken = null;
+        }
     }
 }

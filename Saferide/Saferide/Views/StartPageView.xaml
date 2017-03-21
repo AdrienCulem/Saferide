@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Saferide.Views.StartPageView"
+             Title="Saferide">
+    <ScrollView>
+        <StackLayout VerticalOptions="Center"
+                     HorizontalOptions="Center">
+            <Button x:Name="LoginButton"
+                    Text="Se connecter"
+                    TextColor="White"
+                    BackgroundColor="Navy"
+                    Command="{Binding LoginClickedCommand}" />
+            <Button x:Name="RegisterButton"
+                    Text="Créer un compte"
+                    TextColor="White"
+                    BackgroundColor="Navy"
+                    Command="{Binding RegisterClickedCommand}" />
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
