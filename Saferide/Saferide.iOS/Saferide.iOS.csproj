@@ -190,9 +190,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Saferide\Saferide.Portable.csproj">
+    <ProjectReference Include="..\Saferide\Saferide.csproj">
       <Project>{7EDAEB1C-E44D-4415-919C-29257B8DAFA6}</Project>
-      <Name>Saferide.Portable</Name>
+      <Name>Saferide</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
