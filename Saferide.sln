@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mobile", "Mobile", "{6986ED
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Saferide.Android", "Saferide\Saferide.Android\Saferide.Android.csproj", "{A32FD83E-10C2-42CE-A019-94F93FA8327D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Saferide", "Saferide\Saferide\Saferide.csproj", "{7EDAEB1C-E44D-4415-919C-29257B8DAFA6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Saferide.Portable", "Saferide\Saferide\Saferide.Portable.csproj", "{7EDAEB1C-E44D-4415-919C-29257B8DAFA6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Saferide.UWP", "Saferide\Saferide.UWP\Saferide.UWP.csproj", "{8772D387-8CD1-48FB-B849-7F196997EEA0}"
 EndProject
