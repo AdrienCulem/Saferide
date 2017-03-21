@@ -263,6 +263,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="ConnectionString.config" />
     <None Include="Properties\PublishProfiles\safe-ride - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\safe-ride - Web Deploy.pubxml" />
     <Content Include="Scripts\bootstrap.js" />

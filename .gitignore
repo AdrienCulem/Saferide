@@ -291,4 +291,6 @@ __pycache__/
 *.odx.cs
 *.xsd.cs
 
+Saferide/Saferide.Web/ConnectionString.config
+
 # End of https://www.gitignore.io/api/visualstudio
