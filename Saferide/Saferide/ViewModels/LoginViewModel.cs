@@ -70,13 +70,13 @@ namespace Saferide.ViewModels
         {
             var user = new LoginUser()
             {
-                grant_type = "passsword",
+                grant_type = "password",
                 Username = _username,
                 Password = _password
             };
 
-            Constants.CurrentUser.Password = _password;
-            Constants.CurrentUser.Username = _username;
+            Constants.Password = _password;
+            Constants.Username = _username;
 
             if (Username == null || Password == null)
             {

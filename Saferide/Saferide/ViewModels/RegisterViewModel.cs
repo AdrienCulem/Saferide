@@ -117,10 +117,10 @@ namespace Saferide.ViewModels
                     {
                         if (arePasswordTheSame)
                         {
-                            var user = new User
+                            var user = new NewUser()
                             {
-                                FirstName = _firstName,
-                                LastName = _lastName,
+                                Firstame = _firstName,
+                                Lastname = _lastName,
                                 Email = _email,
                                 Password = _password,
                                 ConfirmPassword = _confirmPassword

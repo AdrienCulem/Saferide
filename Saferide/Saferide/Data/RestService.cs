@@ -18,7 +18,6 @@ namespace Saferide.Data
         {
             client = new HttpClient();
             client.MaxResponseContentBufferSize = 256000;
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Constants.CurrentUser.BearerToken);
         }
         public async Task<string> Authenticate(LoginUser user)
         {
@@ -36,10 +35,10 @@ namespace Saferide.Data
                 {
                     var answer = await response.Content.ReadAsStringAsync();
                     token = JsonConvert.DeserializeObject<Token>(answer);
-                    Constants.CurrentUser.BearerToken = token.access_token;
+                    Constants.BearerToken = token.access_token;
                     var tokenValidtyInSeconds = token.expires_in;
                     DateTime tokenExpires = DateTime.Now.AddSeconds(tokenValidtyInSeconds);
-                    Constants.CurrentUser.TokenValidity = tokenExpires;
+                    Constants.TokenValidity = tokenExpires;
                     Constants.IsConnected = true;
                     return "Success";
                 }
@@ -53,7 +52,7 @@ namespace Saferide.Data
 
         public async Task<String> NewIncident(Incident incident)
         {
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Constants.StringToken);
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Constants.BearerToken);
             var uri = new Uri(String.Format(Constants.IncidentUrl));
             try
             {

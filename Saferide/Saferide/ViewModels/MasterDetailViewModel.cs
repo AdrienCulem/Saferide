@@ -26,7 +26,6 @@ namespace Saferide.ViewModels
 
                     if (page == typeof(LoginPageView))
                     {
-                        Constants.Disconnect();
                         Application.Current.MainPage = new NavigationPage(new StartPageView());
                     }
                     else

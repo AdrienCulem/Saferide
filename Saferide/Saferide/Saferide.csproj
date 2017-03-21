@@ -35,9 +35,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="App.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Data\IncidentManager.cs" />
     <Compile Include="Data\IRestService.cs" />
@@ -46,10 +44,6 @@
     <Compile Include="GPS\UserPosition.cs" />
     <Compile Include="Helpers\XFToast.cs" />
     <Compile Include="Interfaces\IMessage.cs" />
-    <Compile Include="MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Models\CurrentUser.cs" />
     <Compile Include="Models\Incident.cs" />
     <Compile Include="Models\MasterPageItem.cs" />
     <Compile Include="Models\NewUser.cs" />
@@ -77,16 +71,6 @@
     <Compile Include="Views\StartPageView.xaml.cs">
       <DependentUpon>StartPageView.xaml</DependentUpon>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="MainPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="App.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Acr.UserDialogs, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">

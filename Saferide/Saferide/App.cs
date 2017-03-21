@@ -1,15 +1,12 @@
 ﻿using Saferide.Views;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Saferide.Data;
 using Saferide.Models;
 using Xamarin.Forms;
 
 namespace Saferide
 {
-    public partial class App : Application
+    public class App : Application
     {
         public static LoginManager LoginManager { get; private set; }
         public static IncidentManager IncidentManager { get; private set; }
@@ -19,7 +16,6 @@ namespace Saferide
             var service = new RestService();
             LoginManager = new LoginManager(service);
             IncidentManager = new IncidentManager(service);
-            InitializeComponent();
         }
 
         protected override void OnStart()
@@ -35,10 +31,10 @@ namespace Saferide
             }
         }
 
-        protected override void OnSleep()
+        protected override async void OnSleep()
         {
             Current.Properties["IsConnected"] = Constants.IsConnected;
-            Current.Properties["CurrentUser"] = Constants.CurrentUser;
+            await Current.SavePropertiesAsync();
         }
 
         protected override void OnResume()
@@ -51,26 +47,21 @@ namespace Saferide
         {
             if (Current.Properties.ContainsKey("IsConnected"))
             {
-                Constants.IsConnected = (bool)Current.Properties["IsConnected"];
-            }
-            if (Current.Properties.ContainsKey("CurrentUser"))
-            {
-                Constants.CurrentUser = (CurrentUser)Current.Properties["CurrentUser"];
+                Constants.IsConnected = (bool) Current.Properties["IsConnected"];
             }
         }
 
         private async void CheckTokenValidity()
         {
-            if (DateTime.Now > Constants.CurrentUser.TokenValidity)
+            if (DateTime.Now > Constants.TokenValidity)
             {
                 var user = new LoginUser()
                 {
-                    Username = Constants.CurrentUser.Username,
-                    Password = Constants.CurrentUser.Password
+                    Username = Constants.Username,
+                    Password = Constants.Password
                 };
                 await App.LoginManager.Authenticate(user);
             }
         }
-
     }
 }

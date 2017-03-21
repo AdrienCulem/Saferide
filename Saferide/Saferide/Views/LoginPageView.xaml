@@ -25,6 +25,7 @@
                     TextColor="White"
                     BackgroundColor="Navy"
                     Command="{Binding LoginClickedCommand}" />
+                <ActivityIndicator Color="Navy" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>
