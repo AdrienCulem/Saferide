@@ -17,6 +17,7 @@ namespace Saferide
         internal static DateTime TokenValidity;
         internal static string GetTokenUrl = "http://safe-ride.azurewebsites.net/token";
         internal static string IncidentUrl = "http://safe-ride.azurewebsites.net/api/incidents";
+        internal static string RegisterUrl = "http://safe-ride.azurewebsites.net/api/register";
     }
 }
 

@@ -20,5 +20,10 @@ namespace Saferide.Data
         {
             return await _restService.Authenticate(user);
         }
+
+        public async Task<string> Register(NewUser newUser)
+        {
+            return await _restService.Register(newUser);
+        }
     }
 }

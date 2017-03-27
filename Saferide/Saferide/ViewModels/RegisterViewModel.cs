@@ -87,7 +87,7 @@ namespace Saferide.ViewModels
             RegisterClickedCommand = new Command(Register);
         }
 
-        private void Register()
+        private async void Register()
         {
             bool isMailValid;
             try
@@ -125,6 +125,12 @@ namespace Saferide.ViewModels
                                 Password = _password,
                                 ConfirmPassword = _confirmPassword
                             };
+                            var result = await App.LoginManager.Register(user);
+                            switch (result)
+                            {
+                                case "Success":
+                                    XFToast.ShortMessage("Bravo tu es maintenant enregistré!");
+                            }
                         }
                         else
                         {

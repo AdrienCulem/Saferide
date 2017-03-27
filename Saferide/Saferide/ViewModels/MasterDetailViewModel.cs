@@ -50,10 +50,12 @@ namespace Saferide.ViewModels
 
             MenuList = new List<MasterPageItem>();
 
-            var page1 = new MasterPageItem() { Title = "Accueil", Icon = "home_icon.png", TargetType = typeof(HomePageView) };
-            var page3 = new MasterPageItem() { Title = "Se déconnecter", Icon = "logoff_black.png", TargetType = typeof(LoginPageView) };
+            var page1 = new MasterPageItem() { Title = "Accueil", Icon = "", TargetType = typeof(HomePageView) };
+            var page2 = new MasterPageItem() { Title = "Incidents", Icon = "", TargetType = typeof(LoginPageView) };
+            var page3 = new MasterPageItem() { Title = "Se déconnecter", Icon = "", TargetType = typeof(LoginPageView) };
 
             MenuList.Add(page1);
+            MenuList.Add(page2);
             MenuList.Add(page3);
         }
     }

@@ -72,5 +72,28 @@ namespace Saferide.Data
                 return "Error";
             }
         }
+
+        public async Task<string> Register(NewUser newUser)
+        {
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Constants.BearerToken);
+            var uri = new Uri(String.Format(Constants.RegisterUrl));
+            try
+            {
+                var json = JsonConvert.SerializeObject(newUser);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = null;
+                response = await client.PostAsync(uri, content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return "Success";
+                }
+                return "Error";
+            }
+            catch
+            {
+                return "Error";
+            }
+        }
     }
 }

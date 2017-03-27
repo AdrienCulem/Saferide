@@ -14,7 +14,7 @@
                        FontSize="30"
                        HorizontalTextAlignment="Center" />
                 <Entry x:Name="UsernameEntry"
-                       Placeholder="Nom d'utilisateur"
+                       Placeholder="Email"
                        Text="{Binding Username, Mode=OneWayToSource}"/>
                 <Entry x:Name="PasswordEntry"
                        Placeholder="Mot de passe"
