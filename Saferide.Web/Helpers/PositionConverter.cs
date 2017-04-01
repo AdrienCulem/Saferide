@@ -1,0 +1,91 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using Saferide.Web.Models.Poco;
+
+namespace Saferide.Web.Helpers
+{
+    public class PositionConverter
+    {
+        public static double ConvertDegreesToRadians(double degrees)
+        {
+            return (Math.PI / 180) * degrees;
+        }
+
+        public static double ConvertRadiansToDegrees(double radian)
+        {
+            return radian * (180.0 / Math.PI);
+        }
+
+        private double radLat; // latitude in radians
+        private double radLon; // longitude in radians
+
+        private double degLat; // latitude in degrees
+        private double degLon; // longitude in degrees
+
+        private static double MIN_LAT = ConvertDegreesToRadians(-90d); // -PI/2
+        private static double MAX_LAT = ConvertDegreesToRadians(90d); //  PI/2
+        private static double MIN_LON = ConvertDegreesToRadians(-180d); // -PI
+        private static double MAX_LON = ConvertDegreesToRadians(180d); //  PI
+
+        private const double earthRadius = 6371.01;
+
+        public PositionConverter(Position pos)
+        {
+            radLat = pos.RadLatitude;
+            radLon = pos.RadLongitude;
+            degLat = pos.Latitude;
+            degLon = pos.Longitude;
+
+        }
+
+        public Position[] BoundingCoordinates(double distance)
+        {
+            if (distance < 0d)
+                throw new Exception("Distance cannot be less than 0");
+
+            // angular distance in radians on a great circle
+            double radDist = distance / earthRadius;
+
+            double minLat = radLat - radDist;
+            double maxLat = radLat + radDist;
+
+            double minLon, maxLon;
+            if (minLat > MIN_LAT && maxLat < MAX_LAT)
+            {
+                double deltaLon = Math.Asin(Math.Sin(radDist) /
+                                            Math.Cos(radLat));
+                minLon = radLon - deltaLon;
+                if (minLon < MIN_LON) minLon += 2d * Math.PI;
+                maxLon = radLon + deltaLon;
+                if (maxLon > MAX_LON) maxLon -= 2d * Math.PI;
+            }
+            else
+            {
+                // a pole is within the distance
+                minLat = Math.Max(minLat, MIN_LAT);
+                maxLat = Math.Min(maxLat, MAX_LAT);
+                minLon = MIN_LON;
+                maxLon = MAX_LON;
+            }
+
+            Position[] array = new Position[2];
+            array[0] = new Position()
+            {
+                RadLatitude = minLat,
+                RadLongitude = minLon,
+                Latitude = ConvertRadiansToDegrees(minLat),
+                Longitude = ConvertRadiansToDegrees(minLon)
+            };
+            array[1] = new Position()
+            {
+                RadLatitude = maxLat,
+                RadLongitude = maxLon,
+                Latitude = ConvertRadiansToDegrees(maxLat),
+                Longitude = ConvertRadiansToDegrees(maxLon)
+            };
+            return array;
+        }
+    }
+}

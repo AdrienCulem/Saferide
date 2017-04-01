@@ -42,6 +42,7 @@
     <Compile Include="Data\LoginManager.cs" />
     <Compile Include="Data\RestService.cs" />
     <Compile Include="GPS\UserPosition.cs" />
+    <Compile Include="Helpers\PositionConverter.cs" />
     <Compile Include="Helpers\XFToast.cs" />
     <Compile Include="Interfaces\IMessage.cs" />
     <Compile Include="Models\Incident.cs" />

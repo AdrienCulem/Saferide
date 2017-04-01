@@ -10,5 +10,8 @@ namespace Saferide.Web.Models.Poco
     {
         public double Longitude { get; set; }
         public double Latitude { get; set; }
+
+        public double RadLatitude { get; set; }
+        public double RadLongitude { get; set; }
     }
 }

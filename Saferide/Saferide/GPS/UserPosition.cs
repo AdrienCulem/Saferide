@@ -4,5 +4,7 @@
     {
         public static double Latitude = 0;
         public static double Longitude = 0;
+        public static double RadLat = 0;
+        public static double RadLon = 0;
     }
 }

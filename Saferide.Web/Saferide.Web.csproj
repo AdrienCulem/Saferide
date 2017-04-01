@@ -243,6 +243,10 @@
     <Compile Include="Migrations\201703251027088_DontKnow.Designer.cs">
       <DependentUpon>201703251027088_DontKnow.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201704011658318_AddingIncidentGet.cs" />
+    <Compile Include="Migrations\201704011658318_AddingIncidentGet.Designer.cs">
+      <DependentUpon>201704011658318_AddingIncidentGet.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -251,6 +255,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Poco\Position.cs" />
     <Compile Include="Models\Poco\RegisterUser.cs" />
+    <Compile Include="Helpers\PositionConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -354,6 +359,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703251027088_DontKnow.resx">
       <DependentUpon>201703251027088_DontKnow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704011658318_AddingIncidentGet.resx">
+      <DependentUpon>201704011658318_AddingIncidentGet.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

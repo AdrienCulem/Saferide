@@ -175,8 +175,10 @@ namespace Saferide.ViewModels
                         PositionStatus = t.Result.Timestamp.ToString("G");
                         PositionLatitude = "La: " + t.Result.Latitude.ToString("N4");
                         UserPosition.Latitude = Convert.ToDouble(t.Result.Latitude.ToString());
+                        UserPosition.RadLat = PositionConverter.ConvertDegreesToRadians(UserPosition.Latitude);
                         PositionLongitude = "Lo: " + t.Result.Longitude.ToString("N4");
                         UserPosition.Longitude = Convert.ToDouble(t.Result.Longitude.ToString());
+                        UserPosition.RadLon = PositionConverter.ConvertDegreesToRadians(UserPosition.Longitude);
                     }
 
                 }, _scheduler);
@@ -198,8 +200,10 @@ namespace Saferide.ViewModels
             PositionStatus = e.Position.Timestamp.ToString("G");
             PositionLatitude = "La: " + e.Position.Latitude.ToString("N4");
             UserPosition.Latitude = Convert.ToDouble(e.Position.Latitude.ToString());
+            UserPosition.RadLat = PositionConverter.ConvertDegreesToRadians(UserPosition.Latitude);
             PositionLongitude = "Lo: " + e.Position.Longitude.ToString("N4");
             UserPosition.Longitude = Convert.ToDouble(e.Position.Longitude.ToString());
+            UserPosition.RadLon = PositionConverter.ConvertDegreesToRadians(UserPosition.Longitude);
         }
     }
 }
