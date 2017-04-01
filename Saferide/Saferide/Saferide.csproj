@@ -47,6 +47,7 @@
     <Compile Include="Models\Incident.cs" />
     <Compile Include="Models\MasterPageItem.cs" />
     <Compile Include="Models\NewUser.cs" />
+    <Compile Include="Models\Position.cs" />
     <Compile Include="Models\Token.cs" />
     <Compile Include="Models\LoginUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

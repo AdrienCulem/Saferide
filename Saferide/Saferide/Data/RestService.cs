@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
 using Saferide.Models;
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -94,6 +96,29 @@ namespace Saferide.Data
             {
                 return "Error";
             }
+        }
+
+        public async Task<List<Incident>> GetIncident(Position pos)
+        {
+            List<Incident> incidentsList = new List<Incident>();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Constants.BearerToken);
+            var uri = new Uri(String.Format(Constants.GetIncidentsUrl));
+            try
+            {
+                var json = JsonConvert.SerializeObject(pos);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await client.PostAsync(uri, content);
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsStringAsync();
+                    incidentsList = JsonConvert.DeserializeObject<List<Incident>>(result);
+                }
+            }
+            catch(Exception e)
+            {
+                Debug.WriteLine(e.ToString());
+            }
+            return incidentsList;
         }
     }
 }

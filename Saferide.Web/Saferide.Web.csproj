@@ -18,8 +18,7 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort>
-    </IISExpressSSLPort>
+    <IISExpressSSLPort>44325</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -220,6 +219,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\API\Auth\ApplicationOAuthProvider.cs" />
+    <Compile Include="Controllers\API\GetIncidentsController.cs" />
     <Compile Include="Controllers\API\IncidentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -249,6 +249,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Poco\Incident.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Poco\Position.cs" />
     <Compile Include="Models\Poco\RegisterUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
