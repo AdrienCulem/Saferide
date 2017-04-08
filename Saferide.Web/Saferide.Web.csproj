@@ -221,6 +221,7 @@
     <Compile Include="Controllers\API\Auth\ApplicationOAuthProvider.cs" />
     <Compile Include="Controllers\API\GetIncidentsController.cs" />
     <Compile Include="Controllers\API\IncidentsController.cs" />
+    <Compile Include="Controllers\API\RegisterController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">

@@ -163,7 +163,7 @@ namespace Saferide.ViewModels
             PositionLongitude = String.Empty;
             IsBusy = true;
             await Geolocator.GetPositionAsync(timeout: 10000, cancelToken: _cancelSource.Token, includeHeading: true)
-                .ContinueWith((Task<Position> t) =>
+                .ContinueWith(t =>
                 {
                     IsBusy = false;
                     if (t.IsFaulted)

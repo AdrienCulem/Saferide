@@ -28,35 +28,42 @@ namespace Saferide.ViewModels
                     {
                         Application.Current.MainPage = new NavigationPage(new StartPageView());
                     }
+                    else if (page == typeof(MapPageView))
+                    {
+                        Application.Current.MainPage = new NavigationPage(new MapPageView());
+                    }
                     else
                     {
-                        mainpage.Detail = new NavigationPage((Page)Activator.CreateInstance(page));
+                        if (mainpage != null)
+                        {
+                            mainpage.Detail = new NavigationPage((Page) Activator.CreateInstance(page));
+                        }
                     }
-
-                    mainpage.IsPresented = false;
-
+                    if (mainpage != null)
+                    {
+                        mainpage.IsPresented = false;
+                    }
                     RaisePropertyChanged();
                 }
             }
-            get
-            {
-                return _itemSelected;
-            }
+            get { return _itemSelected; }
         }
 
 
         public MasterDetailViewModel()
         {
-
             MenuList = new List<MasterPageItem>();
 
-            var page1 = new MasterPageItem() { Title = "Accueil", Icon = "", TargetType = typeof(HomePageView) };
-            var page2 = new MasterPageItem() { Title = "Incidents", Icon = "", TargetType = typeof(LoginPageView) };
-            var page3 = new MasterPageItem() { Title = "Se déconnecter", Icon = "", TargetType = typeof(LoginPageView) };
+            var page1 = new MasterPageItem() {Title = "Accueil", Icon = "", TargetType = typeof(HomePageView)};
+            var page2 = new MasterPageItem() {Title = "Incidents", Icon = "", TargetType = typeof(IncidentsPageView)};
+            var page3 = new MasterPageItem() {Title = "Carte", Icon = "", TargetType = typeof(MapPageView)};
+            var page4 = new MasterPageItem() {Title = "Se déconnecter", Icon = "", TargetType = typeof(LoginPageView)};
+
 
             MenuList.Add(page1);
             MenuList.Add(page2);
             MenuList.Add(page3);
+            MenuList.Add(page4);
         }
     }
 }

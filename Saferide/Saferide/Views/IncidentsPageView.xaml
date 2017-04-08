@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Saferide.Views.IncidentsPageView"
+             Title="Incidents">
+  <ListView ItemsSource="{Binding ListContent}"
+            HasUnevenRows="true"
+            IsGroupingEnabled="true"
+            CachingStrategy="RecycleElement"
+            IsRefreshing="{Binding IsBusy, Mode=OneWay}">
+    <!--Custom View Cells-->
+    
+    <ListView.ItemTemplate>
+      <DataTemplate>
+        <ViewCell>
+          <StackLayout>
+            <Label Text="{Binding Longitude}" 
+                   Style="{DynamicResource ListItemTextStyle}" />
+            <Label Text="{Binding Latitude}" 
+                   Style="{DynamicResource ListItemDetailTextStyle}"/>
+            <Label Text="{Binding IncidentType}" 
+                     Style="{DynamicResource ListItemDetailTextStyle}"/>
+                    </StackLayout>
+        </ViewCell>
+      </DataTemplate>
+    </ListView.ItemTemplate>
+  </ListView>
+</ContentPage>

@@ -19,9 +19,9 @@ namespace Saferide.Data
             return await _restService.NewIncident(incident);
         }
 
-        public async Task<List<Incident>> GetIncident(Position pos)
+        public async Task<List<Incident>> GetIncidents(Position pos)
         {
-            return await _restService.GetIncident(pos);
+            return await _restService.GetIncidents(pos);
         }
     }
 }

@@ -98,7 +98,7 @@ namespace Saferide.Data
             }
         }
 
-        public async Task<List<Incident>> GetIncident(Position pos)
+        public async Task<List<Incident>> GetIncidents(Position pos)
         {
             List<Incident> incidentsList = new List<Incident>();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Constants.BearerToken);

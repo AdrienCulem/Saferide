@@ -130,6 +130,7 @@ namespace Saferide.ViewModels
                             {
                                 case "Success":
                                     XFToast.ShortMessage("Bravo tu es maintenant enregistré!");
+                                    break;
                             }
                         }
                         else

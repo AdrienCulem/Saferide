@@ -34,6 +34,10 @@ namespace Saferide
         protected override async void OnSleep()
         {
             Current.Properties["IsConnected"] = Constants.IsConnected;
+            Current.Properties["Username"] = Constants.Username;
+            Current.Properties["Password"] = Constants.Password;
+            Current.Properties["Token"] = Constants.BearerToken;
+            Current.Properties["TokenValidty"] = Constants.TokenValidity;
             await Current.SavePropertiesAsync();
         }
 
@@ -48,6 +52,22 @@ namespace Saferide
             if (Current.Properties.ContainsKey("IsConnected"))
             {
                 Constants.IsConnected = (bool) Current.Properties["IsConnected"];
+            }
+            if (Current.Properties.ContainsKey("Username"))
+            {
+                Constants.Username = (string)Current.Properties["Username"];
+            }
+            if (Current.Properties.ContainsKey("Password"))
+            {
+                Constants.Password = (string)Current.Properties["Password"];
+            }
+            if (Current.Properties.ContainsKey("Token"))
+            {
+                Constants.BearerToken = (string)Current.Properties["Token"];
+            }
+            if (Current.Properties.ContainsKey("TokenValidity"))
+            {
+                Constants.TokenValidity = (DateTime)Current.Properties["TokenValidity"];
             }
         }
 

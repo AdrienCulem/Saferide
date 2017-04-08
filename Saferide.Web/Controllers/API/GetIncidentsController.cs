@@ -21,7 +21,7 @@ namespace Saferide.Web.Controllers.API
         public async Task<List<Incident>> PostGetIncidents(Position pos)
         {
             PositionConverter pConvert = new PositionConverter(pos);
-            var result = pConvert.BoundingCoordinates(60);
+            var result = pConvert.BoundingCoordinates(100);
             var incidentsWithinRadius = new List<Incident>();
 
             if (pos == null)
