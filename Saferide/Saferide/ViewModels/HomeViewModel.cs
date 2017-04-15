@@ -7,7 +7,9 @@ using System.Windows.Input;
 using Plugin.Geolocator;
 using Saferide.GPS;
 using Saferide.Helpers;
+using Saferide.Interfaces;
 using Saferide.Models;
+using Saferide.Ressources;
 using Xamarin.Forms;
 using Xamarin.Forms.GoogleMaps;
 using XLabs.Platform.Services.Geolocation;
@@ -17,6 +19,7 @@ namespace Saferide.ViewModels
     public class HomeViewModel : BaseViewModel
     {
         public ICommand GetPosition { get; set; }
+        public ICommand ListenMicrophone { get; set; }
 
         public ICommand IncidentButton
         {
@@ -40,10 +43,10 @@ namespace Saferide.ViewModels
                     switch (result)
                     {
                         case "Success":
-                            XFToast.ShortMessage("Tu viens de signaler un incident!");
+                            XFToast.ShortMessage(AppTexts.SendAnIncident);
                             break;
                         case "Error":
-                            XFToast.ShortMessage("Oups, une erreur est survenue");
+                            XFToast.ShortMessage(AppTexts.Oups);
                             break;
                     }
                 });
@@ -176,11 +179,34 @@ namespace Saferide.ViewModels
             }
         }
 
+        /// <summary>
+        /// The result of the speech recognition
+        /// </summary>
+        public string SpeechResult
+        {
+            get { return _speechResult; }
+            set
+            {
+                if (_speechResult != value)
+                {
+                    _speechResult = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
         private Geocoder _geoCoder;
+        private string _speechResult;
 
         public HomeViewModel()
         {
             GetPosition = new Command(GetGpsInfos);
+            ListenMicrophone = new Command(async () =>
+            {
+                //SpeechResult = "I'm listening";
+                var result = await DependencyService.Get<ISpeechRecognition>().Listen();
+                SpeechResult = result;
+            });
             _geoCoder = new Geocoder();
         }
         /// <summary>
@@ -198,13 +224,13 @@ namespace Saferide.ViewModels
                     return;
 
                 UserPosition.Latitude = position.Latitude;
-                PositionLatitude = "Latitude: " + UserPosition.Latitude;
+                PositionLatitude = Math.Round(UserPosition.Latitude, 2).ToString();
                 UserPosition.Longitude = position.Longitude;
-                PositionLongitude = "Longitude: " + UserPosition.Longitude;
+                PositionLongitude = Math.Round(UserPosition.Longitude, 2).ToString();
                 UserPosition.Heading = position.Heading;
-                PositionHeading = "Heading: " + position.Heading;
+                PositionHeading = Math.Round(position.Heading, 2).ToString();
                 UserPosition.Speed = position.Speed;
-                PositionSpeed = "Speed:" + position.Speed * 3.6;
+                PositionSpeed = Math.Round(position.Speed * 3.6).ToString();
                 IsBusy = false;
                 try
                 {
@@ -243,13 +269,13 @@ namespace Saferide.ViewModels
             {
                 var test = e.Position;
                 UserPosition.Latitude = test.Latitude;
-                PositionLatitude = "Latitude: " + UserPosition.Latitude;
+                PositionLatitude = Math.Round(UserPosition.Latitude, 2).ToString();
                 UserPosition.Longitude = test.Longitude;
-                PositionLongitude = "Longitude:" + UserPosition.Longitude;
+                PositionLongitude = Math.Round(UserPosition.Longitude, 2).ToString();
                 UserPosition.Heading = test.Heading;
-                PositionHeading = "Heading: " + UserPosition.Heading;
+                PositionHeading = Math.Round(test.Heading, 2).ToString();
                 UserPosition.Speed = test.Speed;
-                PositionSpeed = "Speed: " + test.Speed * 3.6;
+                PositionSpeed = Math.Round(test.Speed * 3.6).ToString();
                 try
                 {
                     var revposition = new Xamarin.Forms.GoogleMaps.Position(test.Latitude, test.Longitude);

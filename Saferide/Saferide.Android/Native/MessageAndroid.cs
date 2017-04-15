@@ -1,10 +1,11 @@
 using Android.Widget;
 using Android.App;
 using CyberHelp.Mobile.Droid;
+using CyberHelp.Mobile.Droid.Native;
 using Saferide.Interfaces;
 
 [assembly: Xamarin.Forms.Dependency(typeof(MessageAndroid))]
-namespace CyberHelp.Mobile.Droid
+namespace CyberHelp.Mobile.Droid.Native
 {
     public class MessageAndroid : IMessage
     {

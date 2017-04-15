@@ -117,19 +117,79 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddressView" xml:space="preserve">
+    <value>Address : </value>
+  </data>
+  <data name="BothFields" xml:space="preserve">
+    <value>Both email and password needs to be completed</value>
+  </data>
   <data name="Danger" xml:space="preserve">
     <value>Danger</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="HeadingView" xml:space="preserve">
+    <value>Heading : </value>
   </data>
   <data name="Hole" xml:space="preserve">
     <value>Hole</value>
   </data>
+  <data name="Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Incidents" xml:space="preserve">
+    <value>Incidents</value>
+  </data>
+  <data name="Kilometersperhour" xml:space="preserve">
+    <value>km/h</value>
+  </data>
+  <data name="LatitudeView" xml:space="preserve">
+    <value>Latitude : </value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="Logoff" xml:space="preserve">
+    <value>Log off</value>
+  </data>
+  <data name="LongitudeView" xml:space="preserve">
+    <value>Longitude : </value>
+  </data>
   <data name="Obstacle" xml:space="preserve">
     <value>Obstacle</value>
+  </data>
+  <data name="Oups" xml:space="preserve">
+    <value>Something went wrong :/ </value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
   </data>
   <data name="Position" xml:space="preserve">
     <value>Position</value>
   </data>
+  <data name="PositionView" xml:space="preserve">
+    <value>Position : </value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="Registering" xml:space="preserve">
+    <value>Please register on the website by clicking the button down bellow</value>
+  </data>
+  <data name="SendAnIncident" xml:space="preserve">
+    <value>You just sinagled and incident!</value>
+  </data>
   <data name="SlidingZone" xml:space="preserve">
     <value>Sliding Zone</value>
+  </data>
+  <data name="SpeedView" xml:space="preserve">
+    <value>Speed : </value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>Welcome to Saferide ! </value>
+  </data>
+  <data name="WrongLogins" xml:space="preserve">
+    <value>Password or email is incorrect</value>
   </data>
 </root>

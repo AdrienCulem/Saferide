@@ -3,6 +3,7 @@ using Saferide.Helpers;
 using Saferide.Models;
 using Saferide.Views;
 using System.Windows.Input;
+using Saferide.Ressources;
 using Xamarin.Forms;
 
 namespace Saferide.ViewModels
@@ -11,26 +12,9 @@ namespace Saferide.ViewModels
     {
         private string _username;
         private string _password;
-        private bool _isBusy;
 
         public ICommand LoginClickedCommand { get; set; }
         public ICommand RegisterClickedCommand { get; set; }
-
-        public bool IsBusy
-        {
-            set
-            {
-                if (_isBusy != value)
-                {
-                    _isBusy = value;
-                    RaisePropertyChanged();
-                }
-            }
-            get
-            {
-                return _isBusy;
-            }
-        }
 
         public string Username
         {
@@ -69,7 +53,7 @@ namespace Saferide.ViewModels
             RegisterClickedCommand = new Command(() =>
             {
               var uri = new Uri(
-                  "safe-ride.azurewebsites.net/Account/Register"
+                  Constants.RegisterWebsiteUrl
                   );
                 Device.OpenUri(uri);
             });
@@ -89,7 +73,7 @@ namespace Saferide.ViewModels
 
             if (Username == null || Password == null)
             {
-                XFToast.LongMessage("Veuillez compléter les deux champs");
+                XFToast.LongMessage(AppTexts.BothFields);
             }
             else
             {
@@ -98,11 +82,11 @@ namespace Saferide.ViewModels
                 switch (result)
                 {
                     case "Success":
-                        XFToast.LongMessage("Saferide vous souhaite la bienvenue!");
+                        XFToast.LongMessage(AppTexts.Welcome);
                         Application.Current.MainPage = new MasterDetailPageView();
                         break;
                     case "Invalid":
-                        XFToast.LongMessage("Le mot de passe ou le nom d'utilisateur est incorrect, veuillez réessayer");
+                        XFToast.LongMessage(AppTexts.WrongLogins);
                         break;
                     case "Error":
                         XFToast.ShortErrorMessage();

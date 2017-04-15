@@ -2,6 +2,7 @@
 using Saferide.Views;
 using System;
 using System.Collections.Generic;
+using Saferide.Ressources;
 using Xamarin.Forms;
 
 namespace Saferide.ViewModels
@@ -54,16 +55,14 @@ namespace Saferide.ViewModels
         {
             MenuList = new List<MasterPageItem>();
 
-            var page1 = new MasterPageItem() {Title = "Accueil", Icon = "", TargetType = typeof(HomePageView)};
-            var page2 = new MasterPageItem() {Title = "Incidents", Icon = "", TargetType = typeof(IncidentsPageView)};
-            var page3 = new MasterPageItem() {Title = "Carte", Icon = "", TargetType = typeof(MapPageView)};
-            var page4 = new MasterPageItem() {Title = "Se déconnecter", Icon = "", TargetType = typeof(LoginPageView)};
+            var page1 = new MasterPageItem() {Title = AppTexts.Home, Icon = "homeIcon.png", TargetType = typeof(HomePageView)};
+            var page2 = new MasterPageItem() {Title = AppTexts.Incidents, Icon = "incidentIcon.png", TargetType = typeof(IncidentsPageView)};
+            var page3 = new MasterPageItem() {Title = AppTexts.Logoff, Icon = "logoutIcon.png", TargetType = typeof(LoginPageView)};
 
 
             MenuList.Add(page1);
             MenuList.Add(page2);
             MenuList.Add(page3);
-            MenuList.Add(page4);
         }
     }
 }

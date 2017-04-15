@@ -6,10 +6,7 @@
   <ListView ItemsSource="{Binding ListContent}"
             HasUnevenRows="true"
             IsGroupingEnabled="true"
-            CachingStrategy="RecycleElement"
             IsRefreshing="{Binding IsBusy, Mode=OneWay}">
-    <!--Custom View Cells-->
-    
     <ListView.ItemTemplate>
       <DataTemplate>
         <ViewCell>

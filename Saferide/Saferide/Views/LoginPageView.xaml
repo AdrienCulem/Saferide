@@ -3,35 +3,36 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Saferide.Views.LoginPageView"
              xmlns:ressources="clr-namespace:Saferide.Ressources"
-             Title="Se connecter">
+             xmlns:saferide="clr-namespace:Saferide;assembly=Saferide"
+             Title="{x:Static ressources:AppTexts.Login}">
     <ContentPage.Content>
         <ScrollView Orientation="Vertical" VerticalOptions="FillAndExpand">
             <StackLayout Spacing="20"
                          Padding="20"
                          VerticalOptions="Center">
-                <Label Text="Please register on the website by clicking the button down bellow"
-                       TextColor="Navy"
+                <Label Text="{x:Static ressources:AppTexts.Registering}"
+                       TextColor="{x:Static saferide:Constants.SaferideBlue}"
                        FontSize="14"
                        HorizontalTextAlignment="Center" />
                 <Entry x:Name="UsernameEntry"
-                       Placeholder="Email"
+                       Placeholder="{x:Static ressources:AppTexts.Email}"
                        Text="{Binding Username, Mode=OneWayToSource}"/>
                 <Entry x:Name="PasswordEntry"
-                       Placeholder="Mot de passe"
+                       Placeholder="{x:Static ressources:AppTexts.Password}"
                        Text="{Binding Password, Mode=OneWayToSource}"
                        IsPassword="true"/>
                 <Button x:Name="LoginButton"
-                    Text="Login"
+                    Text="{x:Static ressources:AppTexts.Login}"
                     TextColor="White"
-                    BackgroundColor="Navy"
+                    BackgroundColor="{x:Static saferide:Constants.SaferideBlue}"
                     Command="{Binding LoginClickedCommand}" />
                 <Button x:Name="Register"
-                        Text="Register"
+                        Text="{x:Static ressources:AppTexts.Register}"
                         TextColor="White"
-                        BackgroundColor="Navy"
+                        BackgroundColor="{x:Static saferide:Constants.SaferideBlue}"
                         Command="{Binding RegisterClickedCommand}">
                 </Button>
-                <ActivityIndicator Color="Navy" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+                <ActivityIndicator Color="{x:Static saferide:Constants.SaferideBlue}" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

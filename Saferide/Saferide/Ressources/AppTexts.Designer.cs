@@ -23,7 +23,7 @@ namespace Saferide.Ressources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class AppTexts {
+    public class AppTexts {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -37,7 +37,7 @@ namespace Saferide.Ressources {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Saferide.Ressources.AppTexts", typeof(AppTexts).GetTypeInfo().Assembly);
@@ -52,7 +52,7 @@ namespace Saferide.Ressources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -62,47 +62,227 @@ namespace Saferide.Ressources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Address : .
+        /// </summary>
+        public static string AddressView {
+            get {
+                return ResourceManager.GetString("AddressView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Both email and password needs to be completed.
+        /// </summary>
+        public static string BothFields {
+            get {
+                return ResourceManager.GetString("BothFields", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Danger.
         /// </summary>
-        internal static string Danger {
+        public static string Danger {
             get {
                 return ResourceManager.GetString("Danger", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Email.
+        /// </summary>
+        public static string Email {
+            get {
+                return ResourceManager.GetString("Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Heading : .
+        /// </summary>
+        public static string HeadingView {
+            get {
+                return ResourceManager.GetString("HeadingView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hole.
         /// </summary>
-        internal static string Hole {
+        public static string Hole {
             get {
                 return ResourceManager.GetString("Hole", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Home.
+        /// </summary>
+        public static string Home {
+            get {
+                return ResourceManager.GetString("Home", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Incidents.
+        /// </summary>
+        public static string Incidents {
+            get {
+                return ResourceManager.GetString("Incidents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to km/h.
+        /// </summary>
+        public static string Kilometersperhour {
+            get {
+                return ResourceManager.GetString("Kilometersperhour", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Latitude : .
+        /// </summary>
+        public static string LatitudeView {
+            get {
+                return ResourceManager.GetString("LatitudeView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login.
+        /// </summary>
+        public static string Login {
+            get {
+                return ResourceManager.GetString("Login", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Log off.
+        /// </summary>
+        public static string Logoff {
+            get {
+                return ResourceManager.GetString("Logoff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Longitude : .
+        /// </summary>
+        public static string LongitudeView {
+            get {
+                return ResourceManager.GetString("LongitudeView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Obstacle.
         /// </summary>
-        internal static string Obstacle {
+        public static string Obstacle {
             get {
                 return ResourceManager.GetString("Obstacle", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Something went wrong :/ .
+        /// </summary>
+        public static string Oups {
+            get {
+                return ResourceManager.GetString("Oups", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password.
+        /// </summary>
+        public static string Password {
+            get {
+                return ResourceManager.GetString("Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Position.
         /// </summary>
-        internal static string Position {
+        public static string Position {
             get {
                 return ResourceManager.GetString("Position", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Position : .
+        /// </summary>
+        public static string PositionView {
+            get {
+                return ResourceManager.GetString("PositionView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Register.
+        /// </summary>
+        public static string Register {
+            get {
+                return ResourceManager.GetString("Register", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please register on the website by clicking the button down bellow.
+        /// </summary>
+        public static string Registering {
+            get {
+                return ResourceManager.GetString("Registering", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You just sinagled and incident!.
+        /// </summary>
+        public static string SendAnIncident {
+            get {
+                return ResourceManager.GetString("SendAnIncident", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sliding Zone.
         /// </summary>
-        internal static string SlidingZone {
+        public static string SlidingZone {
             get {
                 return ResourceManager.GetString("SlidingZone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Speed : .
+        /// </summary>
+        public static string SpeedView {
+            get {
+                return ResourceManager.GetString("SpeedView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Welcome to Saferide ! .
+        /// </summary>
+        public static string Welcome {
+            get {
+                return ResourceManager.GetString("Welcome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password or email is incorrect.
+        /// </summary>
+        public static string WrongLogins {
+            get {
+                return ResourceManager.GetString("WrongLogins", resourceCulture);
             }
         }
     }
