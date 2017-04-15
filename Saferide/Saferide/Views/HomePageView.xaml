@@ -2,12 +2,16 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Saferide.Views.HomePageView"
+             xmlns:Ressources="clr-namespace:Saferide.Ressources"
              Title="Accueil">
     <StackLayout>
         <Label Text="{Binding PositionStatus}" FontSize="Medium" FontAttributes="Bold"/>
         <Label Text="{Binding PositionLatitude}" FontSize="Medium" FontAttributes="Bold"/>
         <Label Text="{Binding PositionLongitude}" FontSize="Medium" FontAttributes="Bold"/>
-        <Button Text="Position" 
+        <Label Text="{Binding PositionHeading}" FontSize="Medium" FontAttributes="Bold"/>
+        <Label Text="{Binding PositionSpeed}" FontSize="Medium" FontAttributes="Bold"/>
+        <Label Text="{Binding PositionAddress}" FontSize="Medium" FontAttributes="Bold"/>
+        <Button Text="{x:Static Ressources:AppTexts.Position}" 
                 Command="{Binding GetPosition}"
                 BackgroundColor="Navy"
                 TextColor="White"
@@ -21,10 +25,10 @@
                 <ColumnDefinition Width="100" />
                 <ColumnDefinition Width="100" />
             </Grid.ColumnDefinitions>
-            <Button Text="Trou" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" Command="{Binding IncidentButton}" CommandParameter="Trou" VerticalOptions="Center"/>
-            <Button Text="Obstacle" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" Command="{Binding IncidentButton}" CommandParameter="Obstacle" VerticalOptions="Center"/>
-            <Button Text="Zone glissante" Grid.Row="1" Grid.Column="0" HorizontalOptions="Center" Command="{Binding IncidentButton}" CommandParameter="Zone glissante" VerticalOptions="Center"/>
-            <Button Text="Danger" Grid.Row="1" Grid.Column="1" HorizontalOptions="Center" Command="{Binding IncidentButton}" CommandParameter="Danger" VerticalOptions="Center" />
+            <Button TextColor="White" BackgroundColor="Navy" Text="{x:Static Ressources:AppTexts.Hole}" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" Command="{Binding IncidentButton}" CommandParameter="Trou" VerticalOptions="Center"/>
+            <Button TextColor="White" BackgroundColor="Navy" Text="{x:Static Ressources:AppTexts.Obstacle}" Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" Command="{Binding IncidentButton}" CommandParameter="Obstacle" VerticalOptions="Center"/>
+            <Button TextColor="White" BackgroundColor="Navy" Text="{x:Static Ressources:AppTexts.SlidingZone}" Grid.Row="1" Grid.Column="0" HorizontalOptions="Center" Command="{Binding IncidentButton}" CommandParameter="Zone glissante" VerticalOptions="Center"/>
+            <Button TextColor="White" BackgroundColor="Navy" Text="{x:Static Ressources:AppTexts.Danger}" Grid.Row="1" Grid.Column="1" HorizontalOptions="Center" Command="{Binding IncidentButton}" CommandParameter="Danger" VerticalOptions="Center" />
         </Grid>
         <ActivityIndicator Color="Navy" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
     </StackLayout>

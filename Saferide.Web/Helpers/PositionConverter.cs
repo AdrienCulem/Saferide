@@ -33,8 +33,8 @@ namespace Saferide.Web.Helpers
 
         public PositionConverter(Position pos)
         {
-            radLat = pos.RadLatitude;
-            radLon = pos.RadLongitude;
+            radLat = ConvertDegreesToRadians(pos.Latitude);
+            radLon = ConvertDegreesToRadians(pos.Longitude);
             degLat = pos.Latitude;
             degLon = pos.Longitude;
 
@@ -73,15 +73,11 @@ namespace Saferide.Web.Helpers
             Position[] array = new Position[2];
             array[0] = new Position()
             {
-                RadLatitude = minLat,
-                RadLongitude = minLon,
                 Latitude = ConvertRadiansToDegrees(minLat),
                 Longitude = ConvertRadiansToDegrees(minLon)
             };
             array[1] = new Position()
             {
-                RadLatitude = maxLat,
-                RadLongitude = maxLon,
                 Latitude = ConvertRadiansToDegrees(maxLat),
                 Longitude = ConvertRadiansToDegrees(maxLon)
             };

@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Saferide.Views.LoginPageView"
+             xmlns:ressources="clr-namespace:Saferide.Ressources"
              Title="Se connecter">
     <ContentPage.Content>
         <ScrollView Orientation="Vertical" VerticalOptions="FillAndExpand">
             <StackLayout Spacing="20"
                          Padding="20"
                          VerticalOptions="Center">
-                <Label Text="{Binding CheckingLogs}"
-                       TextColor="Red"
-                       FontSize="30"
+                <Label Text="Please register on the website by clicking the button down bellow"
+                       TextColor="Navy"
+                       FontSize="14"
                        HorizontalTextAlignment="Center" />
                 <Entry x:Name="UsernameEntry"
                        Placeholder="Email"
@@ -21,10 +21,16 @@
                        Text="{Binding Password, Mode=OneWayToSource}"
                        IsPassword="true"/>
                 <Button x:Name="LoginButton"
-                    Text="Se connecter"
+                    Text="Login"
                     TextColor="White"
                     BackgroundColor="Navy"
                     Command="{Binding LoginClickedCommand}" />
+                <Button x:Name="Register"
+                        Text="Register"
+                        TextColor="White"
+                        BackgroundColor="Navy"
+                        Command="{Binding RegisterClickedCommand}">
+                </Button>
                 <ActivityIndicator Color="Navy" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
             </StackLayout>
         </ScrollView>

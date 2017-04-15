@@ -21,6 +21,15 @@ namespace Saferide.Data
             client = new HttpClient();
             client.MaxResponseContentBufferSize = 256000;
         }
+        /// <summary>
+        /// Authenticate the user on the sever
+        /// </summary>
+        /// <param name="user">
+        /// The user to log
+        /// </param>
+        /// <returns>
+        /// A string that can be "Success", "Invalid" if password isn't right and "Error" if and exception has been thrown
+        /// </returns>
         public async Task<string> Authenticate(LoginUser user)
         {
             var uri = new Uri(string.Format(Constants.GetTokenUrl));
@@ -51,7 +60,7 @@ namespace Saferide.Data
                 return "Error";
             }
         }
-
+        
         public async Task<String> NewIncident(Incident incident)
         {
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Constants.BearerToken);
@@ -67,37 +76,14 @@ namespace Saferide.Data
                 {
                     return "Success";
                 }
-                return "Error";
+                return "Invalid";
             }
             catch
             {
                 return "Error";
             }
         }
-
-        public async Task<string> Register(NewUser newUser)
-        {
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Constants.BearerToken);
-            var uri = new Uri(String.Format(Constants.RegisterUrl));
-            try
-            {
-                var json = JsonConvert.SerializeObject(newUser);
-                var content = new StringContent(json, Encoding.UTF8, "application/json");
-                HttpResponseMessage response = null;
-                response = await client.PostAsync(uri, content);
-
-                if (response.IsSuccessStatusCode)
-                {
-                    return "Success";
-                }
-                return "Error";
-            }
-            catch
-            {
-                return "Error";
-            }
-        }
-
+        
         public async Task<List<Incident>> GetIncidents(Position pos)
         {
             List<Incident> incidentsList = new List<Incident>();

@@ -9,7 +9,6 @@ namespace Saferide.Data
     {
         Task<String> Authenticate(LoginUser user);
         Task<String> NewIncident(Incident incident);
-        Task<String> Register(NewUser newUser);
         Task<List<Incident>> GetIncidents(Position pos);
 
     }

@@ -22,7 +22,7 @@ namespace Saferide.Web.Controllers.API
         {
             PositionConverter pConvert = new PositionConverter(pos);
             var result = pConvert.BoundingCoordinates(100);
-            var incidentsWithinRadius = new List<Incident>();
+            List<Incident> incidentsWithinRadius;
 
             if (pos == null)
             {

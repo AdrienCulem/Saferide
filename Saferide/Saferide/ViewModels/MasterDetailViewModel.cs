@@ -26,7 +26,7 @@ namespace Saferide.ViewModels
 
                     if (page == typeof(LoginPageView))
                     {
-                        Application.Current.MainPage = new NavigationPage(new StartPageView());
+                        Application.Current.MainPage = new NavigationPage(new LoginPageView());
                     }
                     else if (page == typeof(MapPageView))
                     {

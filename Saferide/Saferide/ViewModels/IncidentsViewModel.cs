@@ -19,15 +19,15 @@ namespace Saferide.ViewModels
 
         private async void GetIncidents()
         {
+            IsBusy = true;
             Position pos = new Position
             {
                 Latitude = UserPosition.Latitude,
                 Longitude = UserPosition.Longitude,
-                RadLatitude = UserPosition.RadLat,
-                RadLongitude = UserPosition.RadLon
             };
             ListContent = await App.IncidentManager.GetIncidents(pos);
             RaisePropertyChanged("ListContent");
+            IsBusy = false;
         }
     }
 }

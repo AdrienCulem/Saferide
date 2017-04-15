@@ -1,4 +1,5 @@
-﻿using Saferide.Helpers;
+﻿using System;
+using Saferide.Helpers;
 using Saferide.Models;
 using Saferide.Views;
 using System.Windows.Input;
@@ -13,6 +14,7 @@ namespace Saferide.ViewModels
         private bool _isBusy;
 
         public ICommand LoginClickedCommand { get; set; }
+        public ICommand RegisterClickedCommand { get; set; }
 
         public bool IsBusy
         {
@@ -64,6 +66,13 @@ namespace Saferide.ViewModels
         public LoginViewModel()
         {
             LoginClickedCommand = new Command(VerifyLogs);
+            RegisterClickedCommand = new Command(() =>
+            {
+              var uri = new Uri(
+                  "safe-ride.azurewebsites.net/Account/Register"
+                  );
+                Device.OpenUri(uri);
+            });
         }
 
         public async void VerifyLogs()

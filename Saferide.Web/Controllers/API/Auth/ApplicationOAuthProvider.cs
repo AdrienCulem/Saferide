@@ -38,6 +38,10 @@ namespace Saferide.Web.Controllers.API.Auth
             {
                 context.SetError("invalid_grant", "The user name or password is incorrect.");
                 return;
+            }else if (!user.EmailConfirmed)
+            {
+                context.SetError("EmailNotConfirmed", "The email must be confirmed");
+                return;
             }
 
             ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager,
@@ -48,7 +52,8 @@ namespace Saferide.Web.Controllers.API.Auth
             IDictionary<string, string> data = new Dictionary<string, string>
             {
                 { "Firstname", user.Firstname },
-                { "Lastname", user.Lastname}
+                { "Lastname", user.Lastname},
+                {"EmailConfirmed", user.EmailConfirmed.ToString() }
             };
             AuthenticationProperties propreties = new AuthenticationProperties(data);
             AuthenticationTicket ticket = new AuthenticationTicket(oAuthIdentity, propreties);

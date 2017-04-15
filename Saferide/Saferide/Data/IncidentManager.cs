@@ -14,11 +14,28 @@ namespace Saferide.Data
         {
             _restService = service;
         }
+        /// <summary>
+        /// Send a new incident to the server
+        /// </summary>
+        /// <param name="incident">
+        /// The incident to save
+        /// </param>
+        /// <returns>
+        /// A string that can be "Success", "Invalid" if password isn't right and "Error" if and exception has been thrown
+        /// </returns>
         public async Task<String> NewIncident(Incident incident)
         {
             return await _restService.NewIncident(incident);
         }
-
+        /// <summary>
+        /// Getting the incidents in a certain radius arround the user
+        /// </summary>
+        /// <param name="pos">
+        /// The position of the user
+        /// </param>
+        /// <returns>
+        /// A list of Incident
+        /// </returns>
         public async Task<List<Incident>> GetIncidents(Position pos)
         {
             return await _restService.GetIncidents(pos);

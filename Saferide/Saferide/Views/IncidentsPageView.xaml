@@ -25,4 +25,5 @@
       </DataTemplate>
     </ListView.ItemTemplate>
   </ListView>
+    <ActivityIndicator IsRunning="{Binding IsBusy}"></ActivityIndicator>
 </ContentPage>

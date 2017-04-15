@@ -1,6 +1,4 @@
-﻿@model IEnumerable<Saferide.Web.Models.Poco.Incident>
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -32,18 +30,19 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Saferide</a>
+                @Html.ActionLink("Saferide", "Index", "Home", null, new{@class="navbar-brand"})
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
+                @*<ul class="nav navbar-nav">
                     <li>
                         <a href="#">A propos</a>
                     </li>
                     <li>
                         <a href="#">Contact</a>
                     </li>
-                </ul>
+                </ul>*@
+                @Html.Partial("_LoginPartial")
             </div>
             <!-- /.navbar-collapse -->
         </div>

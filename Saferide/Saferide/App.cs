@@ -27,7 +27,7 @@ namespace Saferide
             }
             else
             {
-                MainPage = new NavigationPage(new StartPageView());
+                MainPage = new NavigationPage(new LoginPageView());
             }
         }
 
