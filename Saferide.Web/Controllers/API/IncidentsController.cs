@@ -19,7 +19,7 @@ namespace Saferide.Web.Controllers.API
             {
                 return BadRequest(ModelState);
             }
-
+            incident.Trust = 25;
             string userId = User.Identity.GetUserId();
             incident.UserId = userId;
             _dbContext.Incidents.Add(incident);

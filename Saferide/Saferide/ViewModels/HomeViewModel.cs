@@ -20,38 +20,7 @@ namespace Saferide.ViewModels
     {
         public ICommand GetPosition { get; set; }
         public ICommand ListenMicrophone { get; set; }
-
-        public ICommand IncidentButton
-        {
-            get
-            {
-                return new Command<string>(async (key) =>
-                {
-                    IsBusy = true;
-                    if (UserPosition.Latitude == 0 && UserPosition.Longitude == 0)
-                    {
-                        GetGpsInfos();
-                    }
-                    Incident incident = new Incident
-                    {
-                        Latitude = UserPosition.Latitude,
-                        Longitude = UserPosition.Longitude,
-                        IncidentType = key
-                    };
-                    var result = await App.IncidentManager.NewIncident(incident);
-                    IsBusy = false;
-                    switch (result)
-                    {
-                        case "Success":
-                            XFToast.ShortMessage(AppTexts.SendAnIncident);
-                            break;
-                        case "Error":
-                            XFToast.ShortMessage(AppTexts.Oups);
-                            break;
-                    }
-                });
-            }
-        }
+        public ICommand IncidentButton => new Command<string>(NewIncident);
 
         private readonly TaskScheduler _scheduler = TaskScheduler.FromCurrentSynchronizationContext();
 
@@ -132,6 +101,7 @@ namespace Saferide.ViewModels
                 }
             }
         }
+
         /// <summary>
         /// Where the user is heading
         /// </summary>
@@ -147,6 +117,7 @@ namespace Saferide.ViewModels
                 }
             }
         }
+
         /// <summary>
         /// The speed of the user
         /// </summary>
@@ -200,19 +171,38 @@ namespace Saferide.ViewModels
 
         public HomeViewModel()
         {
-            GetPosition = new Command(GetGpsInfos);
+            GetPosition = new Command(async () =>
+            {
+                await GetGpsInfos();
+            });
             ListenMicrophone = new Command(async () =>
             {
                 //SpeechResult = "I'm listening";
                 var result = await DependencyService.Get<ISpeechRecognition>().Listen();
                 SpeechResult = result;
+                switch (result)
+                {
+                    case "new hole":
+                        NewIncident("hole");
+                        break;
+                    case "new obstacle":
+                        NewIncident("obstacle");
+                        break;
+                    case "new sliding zone":
+                        NewIncident("sliding zone");
+                        break;
+                    case "new danger":
+                        NewIncident("danger");
+                        break;
+                }
             });
             _geoCoder = new Geocoder();
         }
+
         /// <summary>
         /// Getting the user's gps informations and starts listening for changes
         /// </summary>
-        public async void GetGpsInfos()
+        public async Task GetGpsInfos()
         {
             try
             {
@@ -250,6 +240,7 @@ namespace Saferide.ViewModels
                 Debug.WriteLine("Unable to get location, may need to increase timeout: " + ex);
             }
         }
+
         /// <summary>
         /// Starts listening for changes
         /// </summary>
@@ -288,6 +279,37 @@ namespace Saferide.ViewModels
                     Debug.WriteLine("Unable to get address: " + ex);
                 }
             });
+        }
+
+        public async void NewIncident(string key)
+        {
+            IsBusy = true;
+            if (UserPosition.Latitude == 0 && UserPosition.Longitude == 0)
+            {
+                await GetGpsInfos();
+            }
+            if (UserPosition.Latitude != 0 && UserPosition.Longitude != 0)
+            {
+                Incident incident = new Incident
+                {
+                    Latitude = UserPosition.Latitude,
+                    Longitude = UserPosition.Longitude,
+                    IncidentType = key
+                };
+                var result = await App.IncidentManager.NewIncident(incident);
+                IsBusy = false;
+                switch (result)
+                {
+                    case "Success":
+                        XFToast.ShortMessage(AppTexts.SendAnIncident);
+                        TextToSpeech.Talk(AppTexts.SendAnIncident);
+                        break;
+                    case "Error":
+                        XFToast.ShortMessage(AppTexts.Oups);
+                        TextToSpeech.Talk(AppTexts.Oups);
+                        break;
+                }
+            }
         }
     }
 }

@@ -9,5 +9,6 @@ namespace Saferide.Interfaces
     public interface ISpeechRecognition
     {
         Task<String> Listen();
+        void Talk(string textToSay);
     }
 }

@@ -248,6 +248,18 @@
     <Compile Include="Migrations\201704011658318_AddingIncidentGet.Designer.cs">
       <DependentUpon>201704011658318_AddingIncidentGet.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201704160751162_AddingTrustToIncidents.cs" />
+    <Compile Include="Migrations\201704160751162_AddingTrustToIncidents.Designer.cs">
+      <DependentUpon>201704160751162_AddingTrustToIncidents.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704160752229_AddingTrustToIncidents1.cs" />
+    <Compile Include="Migrations\201704160752229_AddingTrustToIncidents1.Designer.cs">
+      <DependentUpon>201704160752229_AddingTrustToIncidents1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704160900147_migration3.cs" />
+    <Compile Include="Migrations\201704160900147_migration3.Designer.cs">
+      <DependentUpon>201704160900147_migration3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -363,6 +375,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201704011658318_AddingIncidentGet.resx">
       <DependentUpon>201704011658318_AddingIncidentGet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704160751162_AddingTrustToIncidents.resx">
+      <DependentUpon>201704160751162_AddingTrustToIncidents.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704160752229_AddingTrustToIncidents1.resx">
+      <DependentUpon>201704160752229_AddingTrustToIncidents1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704160900147_migration3.resx">
+      <DependentUpon>201704160900147_migration3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

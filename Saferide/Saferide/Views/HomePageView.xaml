@@ -35,17 +35,17 @@
                 <Button TextColor="White" BackgroundColor="{x:Static saferide:Constants.SaferideBlue}" Text="{x:Static Ressources:AppTexts.Hole}"
                         Grid.Row="0"
                         Grid.Column="0" HorizontalOptions="Center" Command="{Binding IncidentButton}"
-                        CommandParameter="Trou" VerticalOptions="Center" />
+                        CommandParameter="hole" VerticalOptions="Center" />
                 <Button TextColor="White" BackgroundColor="{x:Static saferide:Constants.SaferideBlue}" Text="{x:Static Ressources:AppTexts.Obstacle}"
                         Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" Command="{Binding IncidentButton}"
-                        CommandParameter="Obstacle" VerticalOptions="Center" />
+                        CommandParameter="obstacle" VerticalOptions="Center" />
                 <Button TextColor="White" BackgroundColor="{x:Static saferide:Constants.SaferideBlue}" Text="{x:Static Ressources:AppTexts.SlidingZone}"
                         Grid.Row="1" Grid.Column="0" HorizontalOptions="Center" Command="{Binding IncidentButton}"
-                        CommandParameter="Zone glissante" VerticalOptions="Center" />
+                        CommandParameter="sliding zone" VerticalOptions="Center" />
                 <Button TextColor="White" BackgroundColor="{x:Static saferide:Constants.SaferideBlue}" Text="{x:Static Ressources:AppTexts.Danger}"
                         Grid.Row="1"
                         Grid.Column="1" HorizontalOptions="Center" Command="{Binding IncidentButton}"
-                        CommandParameter="Danger" VerticalOptions="Center" />
+                        CommandParameter="danger" VerticalOptions="Center" />
             </Grid>
             <StackLayout Orientation="Horizontal">
                 <Label Text="{Binding PositionStatus}" FontSize="Medium" FontAttributes="Bold" />

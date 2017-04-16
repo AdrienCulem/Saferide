@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
+    <Compile Include="Helpers\TextToSpeech.cs" />
     <Compile Include="Interfaces\ISpeechRecognition.cs" />
     <Compile Include="Ressources\AppTexts.Designer.cs">
       <AutoGen>True</AutoGen>
