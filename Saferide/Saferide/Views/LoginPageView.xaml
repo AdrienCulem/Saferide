@@ -32,7 +32,6 @@
                         BackgroundColor="{x:Static saferide:Constants.SaferideBlue}"
                         Command="{Binding RegisterClickedCommand}">
                 </Button>
-                <ActivityIndicator Color="{x:Static saferide:Constants.SaferideBlue}" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

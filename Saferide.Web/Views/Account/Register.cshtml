@@ -1,41 +1,35 @@
 ﻿@model Saferide.Web.Models.RegisterViewModel
 @{
     ViewBag.Title = "Register";
+    Layout = "../Shared/_LoginLayout.cshtml";
 }
 
-<h2>@ViewBag.Title.</h2>
-
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new {id = "register-form", role = "form", style = "display: block;"}))
 {
     @Html.AntiForgeryToken()
-    <h4>Create a new account.</h4>
-    <hr />
-    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <h2 class="login-title">REGISTER</h2>
+    @Html.ValidationSummary("", new {@class = "text-danger validationSummary"})
     <div class="form-group">
-        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-        </div>
+        @Html.TextBoxFor(m => m.Email, new {@class = "form-control", tabindex = "1", placeholder = "Email", id = "email"})
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-        </div>
+        @Html.PasswordFor(m => m.Password, new {@class = "form-control", tabindex = "2", placeholder = "Password", id = "password"})
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-        </div>
+        @Html.PasswordFor(m => m.ConfirmPassword, new {@class = "form-control", tabindex = "3", placeholder = "Confirm password", id = "confirm-password"})
     </div>
     <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Register" />
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+                <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Register Now">
+            </div>
         </div>
     </div>
 }
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+<div class="form-group">
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+            @Html.ActionLink("OR LOGIN", "Login", null, new {@class="form-control btn btn-login"})
+        </div>
+    </div>
+</div>

@@ -10,6 +10,7 @@ using Saferide.Helpers;
 using Saferide.Interfaces;
 using Saferide.Models;
 using Saferide.Ressources;
+using Saferide.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.GoogleMaps;
 using XLabs.Platform.Services.Geolocation;
@@ -20,7 +21,7 @@ namespace Saferide.ViewModels
     {
         public ICommand GetPosition { get; set; }
         public ICommand ListenMicrophone { get; set; }
-        public ICommand IncidentButton => new Command<string>(NewIncident);
+        public ICommand IncidentButton => new Command<string>(GoToNewIncident);
 
         private readonly TaskScheduler _scheduler = TaskScheduler.FromCurrentSynchronizationContext();
 
@@ -171,31 +172,28 @@ namespace Saferide.ViewModels
 
         public HomeViewModel()
         {
-            GetPosition = new Command(async () =>
-            {
-                await GetGpsInfos();
-            });
-            ListenMicrophone = new Command(async () =>
-            {
-                //SpeechResult = "I'm listening";
-                var result = await DependencyService.Get<ISpeechRecognition>().Listen();
-                SpeechResult = result;
-                switch (result)
-                {
-                    case "new hole":
-                        NewIncident("hole");
-                        break;
-                    case "new obstacle":
-                        NewIncident("obstacle");
-                        break;
-                    case "new sliding zone":
-                        NewIncident("sliding zone");
-                        break;
-                    case "new danger":
-                        NewIncident("danger");
-                        break;
-                }
-            });
+            GetPosition = new Command(async () => { await GetGpsInfos(); });
+            //ListenMicrophone = new Command(async () =>
+            //{
+            //    //SpeechResult = "I'm listening";
+            //    var result = await DependencyService.Get<ISpeechRecognition>().Listen();
+            //    SpeechResult = result;
+            //    switch (result)
+            //    {
+            //        case "new hole":
+            //            NewIncident("hole");
+            //            break;
+            //        case "new obstacle":
+            //            NewIncident("obstacle");
+            //            break;
+            //        case "new sliding zone":
+            //            NewIncident("sliding zone");
+            //            break;
+            //        case "new danger":
+            //            NewIncident("danger");
+            //            break;
+            //    }
+            //});
             _geoCoder = new Geocoder();
         }
 
@@ -281,34 +279,12 @@ namespace Saferide.ViewModels
             });
         }
 
-        public async void NewIncident(string key)
+        public async void GoToNewIncident(string key)
         {
-            IsBusy = true;
-            if (UserPosition.Latitude == 0 && UserPosition.Longitude == 0)
+            var mainpage = Application.Current.MainPage as MasterDetailPage;
+            if (mainpage != null)
             {
-                await GetGpsInfos();
-            }
-            if (UserPosition.Latitude != 0 && UserPosition.Longitude != 0)
-            {
-                Incident incident = new Incident
-                {
-                    Latitude = UserPosition.Latitude,
-                    Longitude = UserPosition.Longitude,
-                    IncidentType = key
-                };
-                var result = await App.IncidentManager.NewIncident(incident);
-                IsBusy = false;
-                switch (result)
-                {
-                    case "Success":
-                        XFToast.ShortMessage(AppTexts.SendAnIncident);
-                        TextToSpeech.Talk(AppTexts.SendAnIncident);
-                        break;
-                    case "Error":
-                        XFToast.ShortMessage(AppTexts.Oups);
-                        TextToSpeech.Talk(AppTexts.Oups);
-                        break;
-                }
+                await mainpage.Detail.Navigation.PushAsync(new NewIncidentPageView());
             }
         }
     }

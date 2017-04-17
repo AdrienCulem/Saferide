@@ -10,7 +10,7 @@
         <StackLayout Padding="5">
             <Label FontSize="40" 
                    HorizontalTextAlignment="Center" 
-                   Text="{x:Static Ressources:AppTexts.Incidents}">
+                   Text="{x:Static Ressources:AppTexts.Saferide}">
                 <Label.FontFamily>
                     <OnPlatform x:TypeArguments="x:String">
                         <OnPlatform.Android>AmaticSC-Bold.ttf#AmaticSC-Bold</OnPlatform.Android>
@@ -23,30 +23,6 @@
                 HorizontalOptions="Center"
                 Color="{x:Static saferide:Constants.SaferideBlue}"></BoxView>
             <ActivityIndicator Color="{x:Static saferide:Constants.SaferideBlue}" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
-            <Grid HorizontalOptions="Center">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="60" />
-                    <RowDefinition Height="60" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100" />
-                    <ColumnDefinition Width="100" />
-                </Grid.ColumnDefinitions>
-                <Button TextColor="White" BackgroundColor="{x:Static saferide:Constants.SaferideBlue}" Text="{x:Static Ressources:AppTexts.Hole}"
-                        Grid.Row="0"
-                        Grid.Column="0" HorizontalOptions="Center" Command="{Binding IncidentButton}"
-                        CommandParameter="hole" VerticalOptions="Center" />
-                <Button TextColor="White" BackgroundColor="{x:Static saferide:Constants.SaferideBlue}" Text="{x:Static Ressources:AppTexts.Obstacle}"
-                        Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" Command="{Binding IncidentButton}"
-                        CommandParameter="obstacle" VerticalOptions="Center" />
-                <Button TextColor="White" BackgroundColor="{x:Static saferide:Constants.SaferideBlue}" Text="{x:Static Ressources:AppTexts.SlidingZone}"
-                        Grid.Row="1" Grid.Column="0" HorizontalOptions="Center" Command="{Binding IncidentButton}"
-                        CommandParameter="sliding zone" VerticalOptions="Center" />
-                <Button TextColor="White" BackgroundColor="{x:Static saferide:Constants.SaferideBlue}" Text="{x:Static Ressources:AppTexts.Danger}"
-                        Grid.Row="1"
-                        Grid.Column="1" HorizontalOptions="Center" Command="{Binding IncidentButton}"
-                        CommandParameter="danger" VerticalOptions="Center" />
-            </Grid>
             <StackLayout Orientation="Horizontal">
                 <Label Text="{Binding PositionStatus}" FontSize="Medium" FontAttributes="Bold" />
             </StackLayout>
@@ -77,6 +53,11 @@
                     BorderRadius="3" />
             <Button Text="Listen"
                     Command="{Binding ListenMicrophone}"
+                    BackgroundColor="{x:Static saferide:Constants.SaferideBlue}"
+                    TextColor="White"
+                    BorderRadius="3" />
+            <Button Text="Add Incident"
+                    Command="{Binding IncidentButton}"
                     BackgroundColor="{x:Static saferide:Constants.SaferideBlue}"
                     TextColor="White"
                     BorderRadius="3" />

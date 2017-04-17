@@ -1,5 +1,6 @@
 ﻿using Saferide.Views;
 using System;
+using System.Threading.Tasks;
 using Saferide.Data;
 using Saferide.Models;
 using Xamarin.Forms;
@@ -10,17 +11,21 @@ namespace Saferide
     {
         public static LoginManager LoginManager { get; private set; }
         public static IncidentManager IncidentManager { get; private set; }
+        public static TokenManager TokenManager { get; private set; }
+
 
         public App()
         {
             var service = new RestService();
             LoginManager = new LoginManager(service);
             IncidentManager = new IncidentManager(service);
+            TokenManager = new TokenManager(service);
         }
 
         protected override void OnStart()
         {
             LoadPersistedValues();
+            CheckTokenValidity();
             if (Constants.IsConnected)
             {
                 MainPage = new MasterDetailPageView();
@@ -80,7 +85,16 @@ namespace Saferide
                     Username = Constants.Username,
                     Password = Constants.Password
                 };
-                await App.LoginManager.Authenticate(user);
+                await LoginManager.Authenticate(user);
+            }
+            else if(!await TokenManager.IsTokenValid())
+            {
+                var user = new LoginUser()
+                {
+                    Username = Constants.Username,
+                    Password = Constants.Password
+                };
+                await LoginManager.Authenticate(user);
             }
         }
     }

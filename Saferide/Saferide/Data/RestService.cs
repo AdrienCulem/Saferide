@@ -48,8 +48,7 @@ namespace Saferide.Data
                     token = JsonConvert.DeserializeObject<Token>(answer);
                     Constants.BearerToken = token.access_token;
                     var tokenValidtyInSeconds = token.expires_in;
-                    DateTime tokenExpires = DateTime.Now.AddSeconds(tokenValidtyInSeconds);
-                    Constants.TokenValidity = tokenExpires;
+                    Constants.TokenValidity = DateTime.UtcNow.AddSeconds(tokenValidtyInSeconds);
                     Constants.IsConnected = true;
                     return "Success";
                 }
@@ -83,7 +82,34 @@ namespace Saferide.Data
                 return "Error";
             }
         }
-        
+
+        public async Task<bool> IsTokenValid()
+        {
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Constants.BearerToken);
+            var uri = new Uri(String.Format(Constants.IsTokenValidUrl));
+            try
+            {
+                var response = await client.GetAsync(uri);
+                if (response.IsSuccessStatusCode)
+                {
+                    var result = await response.Content.ReadAsStringAsync();
+                    try
+                    {
+                        return Convert.ToBoolean(result);
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.WriteLine(e.ToString());
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(e.ToString());
+            }
+            return false;
+        }
+
         public async Task<List<Incident>> GetIncidents(Position pos)
         {
             List<Incident> incidentsList = new List<Incident>();

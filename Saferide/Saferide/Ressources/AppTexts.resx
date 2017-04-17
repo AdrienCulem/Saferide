@@ -141,6 +141,9 @@
   <data name="Incidents" xml:space="preserve">
     <value>Incidents</value>
   </data>
+  <data name="Saferide" xml:space="preserve">
+    <value>Saferide</value>
+  </data>
   <data name="Kilometersperhour" xml:space="preserve">
     <value>km/h</value>
   </data>
@@ -166,7 +169,7 @@
     <value>Password</value>
   </data>
   <data name="Position" xml:space="preserve">
-    <value>Position</value>
+    <value>Start locating</value>
   </data>
   <data name="PositionView" xml:space="preserve">
     <value>Position : </value>

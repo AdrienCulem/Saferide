@@ -51,8 +51,6 @@ namespace Saferide.Web.Controllers.API.Auth
 
             IDictionary<string, string> data = new Dictionary<string, string>
             {
-                { "Firstname", user.Firstname },
-                { "Lastname", user.Lastname},
                 {"EmailConfirmed", user.EmailConfirmed.ToString() }
             };
             AuthenticationProperties propreties = new AuthenticationProperties(data);

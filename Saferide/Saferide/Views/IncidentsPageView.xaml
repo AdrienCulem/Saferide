@@ -1,26 +1,48 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
+
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:saferide="clr-namespace:Saferide;assembly=Saferide"
              x:Class="Saferide.Views.IncidentsPageView"
              Title="Incidents">
-  <ListView ItemsSource="{Binding ListContent}"
-            HasUnevenRows="true"
-            IsGroupingEnabled="true"
-            IsRefreshing="{Binding IsBusy, Mode=OneWay}">
-    <ListView.ItemTemplate>
-      <DataTemplate>
-        <ViewCell>
-          <StackLayout>
-            <Label Text="{Binding Longitude}" 
-                   Style="{DynamicResource ListItemTextStyle}" />
-            <Label Text="{Binding Latitude}" 
-                   Style="{DynamicResource ListItemDetailTextStyle}"/>
-            <Label Text="{Binding IncidentType}" 
-                     Style="{DynamicResource ListItemDetailTextStyle}"/>
-                    </StackLayout>
-        </ViewCell>
-      </DataTemplate>
-    </ListView.ItemTemplate>
-  </ListView>
-    <ActivityIndicator IsRunning="{Binding IsBusy}"></ActivityIndicator>
+    <StackLayout>
+        <ListView
+            x:Name="ListFolder"
+            ItemsSource="{Binding ListContent}"
+            SelectedItem="{Binding ItemSelected, Mode=TwoWay}"
+            SeparatorVisibility="Default"
+            SeparatorColor="#CCCCCC"
+            RowHeight="70"
+            HeightRequest="1000"
+            IsPullToRefreshEnabled="True"
+            RefreshCommand="{Binding RefreshCommand}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Orientation="Vertical"
+                                     WidthRequest="80"
+                                     Padding="10,0,0,0">
+                            <Label Text="{Binding Latitude}"
+                                   FontSize="15"
+                                   VerticalOptions="Center"
+                                   VerticalTextAlignment="Center"
+                                   TextColor="{x:Static saferide:Constants.SaferideBlue}" />
+                            <Label Text="{Binding Longitude}"
+                                   FontSize="15"
+                                   VerticalOptions="Center"
+                                   VerticalTextAlignment="Center"
+                                   TextColor="{x:Static saferide:Constants.SaferideBlue}" />
+                            <Label Text="{Binding IncidentType}"
+                                   FontSize="15"
+                                   VerticalOptions="Center"
+                                   VerticalTextAlignment="Center"
+                                   TextColor="{x:Static saferide:Constants.SaferideBlue}" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+        </ListView>
+        <ActivityIndicator IsRunning="{Binding IsBusy}" />
+    </StackLayout>
 </ContentPage>

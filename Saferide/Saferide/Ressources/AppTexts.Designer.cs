@@ -206,7 +206,7 @@ namespace Saferide.Ressources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Position.
+        ///   Looks up a localized string similar to Start locating.
         /// </summary>
         public static string Position {
             get {
@@ -238,6 +238,15 @@ namespace Saferide.Ressources {
         public static string Registering {
             get {
                 return ResourceManager.GetString("Registering", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saferide.
+        /// </summary>
+        public static string Saferide {
+            get {
+                return ResourceManager.GetString("Saferide", resourceCulture);
             }
         }
         

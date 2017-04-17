@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
+    <Compile Include="Data\TokenManager.cs" />
     <Compile Include="Helpers\TextToSpeech.cs" />
     <Compile Include="Interfaces\ISpeechRecognition.cs" />
     <Compile Include="Ressources\AppTexts.Designer.cs">
@@ -64,6 +65,7 @@
     <Compile Include="ViewModels\IncidentsViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MasterDetailViewModel.cs" />
+    <Compile Include="ViewModels\NewIncidentViewModel.cs" />
     <Compile Include="ViewModels\RegisterViewModel.cs" />
     <Compile Include="Views\HomePageView.xaml.cs">
       <DependentUpon>HomePageView.xaml</DependentUpon>
@@ -79,6 +81,9 @@
     </Compile>
     <Compile Include="Views\MasterDetailPageView.xaml.cs">
       <DependentUpon>MasterDetailPageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\NewIncidentPageView.xaml.cs">
+      <DependentUpon>NewIncidentPageView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -198,6 +203,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\IncidentsPageView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\NewIncidentPageView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

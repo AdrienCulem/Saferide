@@ -173,13 +173,21 @@ namespace Saferide.Web.Controllers
                     };
                     msg.AddTo(new EmailAddress(user.Email));
                     await client.SendEmailAsync(msg);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("EmailConfirmation", "Account");
                 }
                 AddErrors(result);
             }
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        //
+        // GET: /Account/Login
+        [AllowAnonymous]
+        public ActionResult EmailConfirmation()
+        {
+            return View();
         }
 
         //
@@ -410,7 +418,7 @@ namespace Saferide.Web.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account");
         }
 
         //

@@ -2,6 +2,9 @@
 using Saferide.Views;
 using System;
 using System.Collections.Generic;
+using Saferide.GPS;
+using Saferide.Helpers;
+using Saferide.Interfaces;
 using Saferide.Ressources;
 using Xamarin.Forms;
 
@@ -32,6 +35,17 @@ namespace Saferide.ViewModels
                     else if (page == typeof(MapPageView))
                     {
                         Application.Current.MainPage = new NavigationPage(new MapPageView());
+                    }else if (page == typeof(IncidentsPageView))
+                    {
+                        if (UserPosition.Latitude == 0 || UserPosition.Longitude == 0)
+                        {
+                            DependencyService.Get<ISpeechRecognition>().Talk("U need to start locating first");
+                            XFToast.LongMessage("U need to start locating your phone first");
+                        }
+                        else
+                        {
+                            mainpage.Detail = new NavigationPage(new IncidentsPageView());
+                        }
                     }
                     else
                     {

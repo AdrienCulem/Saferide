@@ -77,8 +77,9 @@ namespace Saferide.ViewModels
             }
             else
             {
-                IsBusy = true;
+                XFToast.ShowLoading();
                 string result = await App.LoginManager.Authenticate(user);
+                XFToast.HideLoading();
                 switch (result)
                 {
                     case "Success":
@@ -92,7 +93,6 @@ namespace Saferide.ViewModels
                         XFToast.ShortErrorMessage();
                         break;
                 }
-                IsBusy = false;
             }
         }
     }
