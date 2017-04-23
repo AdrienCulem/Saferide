@@ -45,10 +45,6 @@ namespace Saferide.ViewModels
                     if (page == typeof(LoginPageView))
                     {
                         Application.Current.MainPage = new NavigationPage(new LoginPageView());
-                    }
-                    else if (page == typeof(MapPageView))
-                    {
-                        Application.Current.MainPage = new NavigationPage(new MapPageView());
                     }else if (page == typeof(IncidentsPageView))
                     {
                         if (UserPosition.Latitude == 0 || UserPosition.Longitude == 0)
