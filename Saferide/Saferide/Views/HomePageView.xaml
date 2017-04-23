@@ -47,17 +47,20 @@
                 <Label Text="{Binding PositionAddress}" LineBreakMode="WordWrap" FontSize="Medium" FontAttributes="Bold" />
             </StackLayout>
             <Button Text="{x:Static Ressources:AppTexts.Position}"
+                    Clicked="ButtonClicked"
                     Command="{Binding GetPosition}"
                     BackgroundColor="{x:Static saferide:Constants.SaferideBlue}"
                     TextColor="White"
                     BorderRadius="3" />
             <Button Text="Listen"
                     Command="{Binding ListenMicrophone}"
+                    Clicked="ButtonClicked"
                     BackgroundColor="{x:Static saferide:Constants.SaferideBlue}"
                     TextColor="White"
                     BorderRadius="3" />
             <Button Text="Add Incident"
                     Command="{Binding IncidentButton}"
+                    Clicked="ButtonClicked"
                     BackgroundColor="{x:Static saferide:Constants.SaferideBlue}"
                     TextColor="White"
                     BorderRadius="3" />

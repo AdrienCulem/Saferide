@@ -18,18 +18,22 @@
             </Grid.ColumnDefinitions>
             <Button TextColor="White" BackgroundColor="{x:Static saferide:Constants.SaferideBlue}"
                     Text="{x:Static Ressources:AppTexts.Hole}"
+                    Clicked="ButtonClicked"
                     Grid.Row="0"
                     Grid.Column="0" HorizontalOptions="Center" Command="{Binding IncidentButton}"
                     CommandParameter="hole" VerticalOptions="Center" />
             <Button TextColor="White" BackgroundColor="{x:Static saferide:Constants.SaferideBlue}"
+                    Clicked="ButtonClicked"
                     Text="{x:Static Ressources:AppTexts.Obstacle}"
                     Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" Command="{Binding IncidentButton}"
                     CommandParameter="obstacle" VerticalOptions="Center" />
             <Button TextColor="White" BackgroundColor="{x:Static saferide:Constants.SaferideBlue}"
+                    Clicked="ButtonClicked"
                     Text="{x:Static Ressources:AppTexts.SlidingZone}"
                     Grid.Row="1" Grid.Column="0" HorizontalOptions="Center" Command="{Binding IncidentButton}"
                     CommandParameter="sliding zone" VerticalOptions="Center" />
             <Button TextColor="White" BackgroundColor="{x:Static saferide:Constants.SaferideBlue}"
+                    Clicked="ButtonClicked"
                     Text="{x:Static Ressources:AppTexts.Danger}"
                     Grid.Row="1"
                     Grid.Column="1" HorizontalOptions="Center" Command="{Binding IncidentButton}"
@@ -37,6 +41,7 @@
         </Grid>
         <Button Text="Listen"
                 Command="{Binding ListenMicrophone}"
+                Clicked="ButtonClicked"
                 BackgroundColor="{x:Static saferide:Constants.SaferideBlue}"
                 TextColor="White"
                 BorderRadius="3" />

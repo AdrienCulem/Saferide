@@ -22,11 +22,13 @@
                        Text="{Binding Password, Mode=OneWayToSource}"
                        IsPassword="true"/>
                 <Button x:Name="LoginButton"
-                    Text="{x:Static ressources:AppTexts.Login}"
+                        Clicked="ButtonClicked"
+                        Text="{x:Static ressources:AppTexts.Login}"
                     TextColor="White"
                     BackgroundColor="{x:Static saferide:Constants.SaferideBlue}"
                     Command="{Binding LoginClickedCommand}" />
                 <Button x:Name="Register"
+                        Clicked="ButtonClicked"
                         Text="{x:Static ressources:AppTexts.Register}"
                         TextColor="White"
                         BackgroundColor="{x:Static saferide:Constants.SaferideBlue}"

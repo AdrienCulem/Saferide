@@ -18,5 +18,12 @@ namespace Saferide.Views
             InitializeComponent();
             BindingContext = new HomeViewModel();
         }
+
+        private async void ButtonClicked(object sender, EventArgs e)
+        {
+            var element = (Button)sender;
+            await element.ScaleTo(1.2, 100, Easing.BounceIn);
+            await element.ScaleTo(1, 100, Easing.SinIn);
+        }
     }
 }
