@@ -6,6 +6,7 @@ using Acr.UserDialogs;
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
+using Android.Locations;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
@@ -22,7 +23,7 @@ using XLabs.Platform.Services.Geolocation;
 namespace Saferide.Droid
 {
     [Activity(Label = "Saferide", Icon = "@drawable/ic_launcher", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
-    public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity, ISpeechRecognition, TextToSpeech.IOnInitListener
+    public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity, ISpeechRecognition, TextToSpeech.IOnInitListener, IGpsEnabled, IGetVersion
     {
         private readonly int VOICE = 10;
         private static string _textRecognized;
@@ -131,6 +132,25 @@ namespace Saferide.Droid
 
             base.OnActivityResult(requestCode, resultVal, data);
             _activityResult = true;
+        }
+
+        public bool IsGpsEnabled()
+        {
+            var context = Forms.Context;
+            var locMgr = context.GetSystemService(LocationService) as LocationManager;
+            string provider = LocationManager.GpsProvider;
+            if (locMgr == null)
+            {
+                return false;
+            }
+            return locMgr.IsProviderEnabled(provider);
+        }
+
+        public string GetVersion()
+        {
+            var version =
+                Forms.Context.PackageManager.GetPackageInfo(Forms.Context.ApplicationContext.PackageName, 0).VersionName;
+            return version;
         }
     }
 }

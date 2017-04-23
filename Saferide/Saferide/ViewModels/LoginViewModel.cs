@@ -13,9 +13,15 @@ namespace Saferide.ViewModels
         private string _username;
         private string _password;
 
-        public ICommand LoginClickedCommand { get; set; }
-        public ICommand RegisterClickedCommand { get; set; }
-
+        public ICommand LoginClickedCommand => new Command(VerifyLogs);
+        public ICommand RegisterClickedCommand => new Command(() =>
+        {
+            Application.Current.MainPage = new NavigationPage(new GenericWebPageView(Constants.RegisterWebsiteUrl));
+        });
+        public ICommand ForgotPasswordCommand => new Command(() =>
+        {
+            Application.Current.MainPage = new NavigationPage(new GenericWebPageView(Constants.ResetPasswordUrl));
+        });
         public string Username
         {
             set
@@ -47,18 +53,6 @@ namespace Saferide.ViewModels
                 return _password;
             }
         }
-        public LoginViewModel()
-        {
-            LoginClickedCommand = new Command(VerifyLogs);
-            RegisterClickedCommand = new Command(() =>
-            {
-              var uri = new Uri(
-                  Constants.RegisterWebsiteUrl
-                  );
-                Device.OpenUri(uri);
-            });
-        }
-
         public async void VerifyLogs()
         {
             var user = new LoginUser()

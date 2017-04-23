@@ -63,6 +63,13 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
+                <Label Text="{Binding VersionNumber}"
+                       TextColor="Gray"
+                       Opacity="0.5"
+                       VerticalOptions="End"
+                       HorizontalOptions="End"
+                       HorizontalTextAlignment="End">
+                </Label>
             </StackLayout>
 
         </ContentPage>

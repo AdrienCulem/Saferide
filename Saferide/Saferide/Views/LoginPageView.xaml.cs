@@ -1,4 +1,5 @@
-﻿using Saferide.ViewModels;
+﻿using System;
+using Saferide.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -11,6 +12,13 @@ namespace Saferide.Views
         {
             InitializeComponent();
             BindingContext = new LoginViewModel();
+        }
+
+        private async void ButtonClicked(object sender, EventArgs e)
+        {
+            var element = (Button) sender;
+            await element.ScaleTo(1.2, 100, Easing.BounceIn);
+            await LoginButton.ScaleTo(1, 100, Easing.SinIn);
         }
     }
 }

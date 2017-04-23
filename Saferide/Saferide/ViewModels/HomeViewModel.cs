@@ -173,27 +173,6 @@ namespace Saferide.ViewModels
         public HomeViewModel()
         {
             GetPosition = new Command(async () => { await GetGpsInfos(); });
-            //ListenMicrophone = new Command(async () =>
-            //{
-            //    //SpeechResult = "I'm listening";
-            //    var result = await DependencyService.Get<ISpeechRecognition>().Listen();
-            //    SpeechResult = result;
-            //    switch (result)
-            //    {
-            //        case "new hole":
-            //            NewIncident("hole");
-            //            break;
-            //        case "new obstacle":
-            //            NewIncident("obstacle");
-            //            break;
-            //        case "new sliding zone":
-            //            NewIncident("sliding zone");
-            //            break;
-            //        case "new danger":
-            //            NewIncident("danger");
-            //            break;
-            //    }
-            //});
             _geoCoder = new Geocoder();
         }
 
@@ -206,7 +185,8 @@ namespace Saferide.ViewModels
             {
                 var locator = CrossGeolocator.Current;
                 locator.DesiredAccuracy = 50;
-                IsBusy = true;
+                //IsBusy = true;
+                XFToast.ShowLoading();
                 var position = await locator.GetPositionAsync(15000);
                 if (position == null)
                     return;
@@ -219,7 +199,8 @@ namespace Saferide.ViewModels
                 PositionHeading = Math.Round(position.Heading, 2).ToString();
                 UserPosition.Speed = position.Speed;
                 PositionSpeed = Math.Round(position.Speed * 3.6).ToString();
-                IsBusy = false;
+                //IsBusy = false;
+                XFToast.HideLoading();
                 try
                 {
                     var revposition = new Xamarin.Forms.GoogleMaps.Position(position.Latitude, position.Longitude);
@@ -281,11 +262,23 @@ namespace Saferide.ViewModels
 
         public async void GoToNewIncident(string key)
         {
-            var mainpage = Application.Current.MainPage as MasterDetailPage;
-            if (mainpage != null)
+            if (DependencyService.Get<IGpsEnabled>().IsGpsEnabled())
             {
-                await mainpage.Detail.Navigation.PushAsync(new NewIncidentPageView());
+                if (UserPosition.Latitude == 0 || UserPosition.Longitude == 0)
+                {
+                    await GetGpsInfos();
+                }
+                var mainpage = Application.Current.MainPage as MasterDetailPage;
+                if (mainpage != null)
+                {
+                    await mainpage.Detail.Navigation.PushAsync(new NewIncidentPageView());
+                }
             }
+            else
+            {
+                XFToast.ShowCustomError("You need to enable location first");
+            }
+            
         }
     }
 }

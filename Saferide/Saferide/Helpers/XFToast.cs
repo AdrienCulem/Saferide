@@ -45,6 +45,11 @@ namespace Saferide.Helpers
             UserDialogs.Instance.ShowError("Oups! Didn't work");
         }
 
+        public static void ShowCustomError(string mess)
+        {
+            UserDialogs.Instance.ShowError(mess);
+        }
+
         public static async Task<PromptResult> PromptAsync(string title, string yes, string no, string placeholder)
         {
             return await UserDialogs.Instance.PromptAsync(null, title, yes, no, placeholder);

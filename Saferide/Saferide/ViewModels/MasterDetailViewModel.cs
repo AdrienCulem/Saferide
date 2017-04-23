@@ -15,6 +15,20 @@ namespace Saferide.ViewModels
         public List<MasterPageItem> MenuList { get; set; }
 
         private MasterPageItem _itemSelected;
+        private string _versionNumber;
+
+        public string VersionNumber
+        {
+            get { return _versionNumber; }
+            set
+            {
+                if (_versionNumber != value)
+                {
+                    _versionNumber = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
 
         public MasterPageItem ItemSelected
         {
@@ -67,6 +81,7 @@ namespace Saferide.ViewModels
 
         public MasterDetailViewModel()
         {
+            VersionNumber = "Version : " + DependencyService.Get<IGetVersion>().GetVersion();
             MenuList = new List<MasterPageItem>();
 
             var page1 = new MasterPageItem() {Title = AppTexts.Home, Icon = "homeIcon.png", TargetType = typeof(HomePageView)};

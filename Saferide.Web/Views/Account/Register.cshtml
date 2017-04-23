@@ -7,21 +7,35 @@
 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new {id = "register-form", role = "form", style = "display: block;"}))
 {
     @Html.AntiForgeryToken()
-    <h2 class="login-title">REGISTER</h2>
-    @Html.ValidationSummary("", new {@class = "text-danger validationSummary"})
+    @Html.ValidationSummary("", new {@class = "customized-font text-danger validationSummary"})
     <div class="form-group">
-        @Html.TextBoxFor(m => m.Email, new {@class = "form-control", tabindex = "1", placeholder = "Email", id = "email"})
+        <span class="input input--hoshi">
+            @Html.TextBoxFor(m => m.Email, new {@class = "input__field input__field--hoshi", tabindex = "1" , id = "input-1", required="true" })
+            <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="input-1">
+                <span class="input__label-content input__label-content--hoshi">Email</span>
+            </label>
+        </span>
     </div>
     <div class="form-group">
-        @Html.PasswordFor(m => m.Password, new {@class = "form-control", tabindex = "2", placeholder = "Password", id = "password"})
+        <span class="input input--hoshi">
+            @Html.PasswordFor(m => m.Password, new { @class = "input__field input__field--hoshi", tabindex = "2", id = "input-2", required = "true" })
+            <label class="input__label input__label--hoshi input__label--hoshi-color-2" for="input-2">
+                <span class="input__label-content input__label-content--hoshi">Password</span>
+            </label>
+        </span>
     </div>
     <div class="form-group">
-        @Html.PasswordFor(m => m.ConfirmPassword, new {@class = "form-control", tabindex = "3", placeholder = "Confirm password", id = "confirm-password"})
+        <span class="input input--hoshi">
+            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "input__field input__field--hoshi", tabindex = "3", id = "input-3" })
+            <label class="input__label input__label--hoshi input__label--hoshi-color-3" for="input-3">
+                <span class="input__label-content input__label-content--hoshi">Confirm password</span>
+            </label>
+        </span>
     </div>
     <div class="form-group">
         <div class="row">
             <div class="col-sm-6 col-sm-offset-3">
-                <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Register Now">
+                <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register limit-width" value="Register Now">
             </div>
         </div>
     </div>
@@ -29,7 +43,7 @@
 <div class="form-group">
     <div class="row">
         <div class="col-sm-6 col-sm-offset-3">
-            @Html.ActionLink("OR LOGIN", "Login", null, new {@class="form-control btn btn-login"})
+            @Html.ActionLink("OR LOGIN", "Login", null, new {@class= "form-control btn btn-login limit-width" })
         </div>
     </div>
 </div>

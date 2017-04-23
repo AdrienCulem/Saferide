@@ -7,6 +7,8 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using Saferide.Views;
+using Xamarin.Forms;
 
 namespace Saferide.Data
 {
@@ -41,7 +43,7 @@ namespace Saferide.Data
                 var content = new StringContent(request, Encoding.UTF8, "application/x-www-form-urlencoded");
                 HttpResponseMessage response = null;
                 response = await client.PostAsync(uri, content);
-
+                var statusCode = (int)response.StatusCode;
                 if (response.IsSuccessStatusCode)
                 {
                     var answer = await response.Content.ReadAsStringAsync();
@@ -51,6 +53,10 @@ namespace Saferide.Data
                     Constants.TokenValidity = DateTime.UtcNow.AddSeconds(tokenValidtyInSeconds);
                     Constants.IsConnected = true;
                     return "Success";
+                }
+                if (statusCode == 401)
+                {
+                    await TryReconnect();
                 }
                 return "Invalid";
             }
@@ -70,10 +76,15 @@ namespace Saferide.Data
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = null;
                 response = await client.PostAsync(uri, content);
+                var statusCode = (int)response.StatusCode;
 
                 if (response.IsSuccessStatusCode)
                 {
                     return "Success";
+                }
+                if (statusCode == 401)
+                {
+                    await TryReconnect();
                 }
                 return "Invalid";
             }
@@ -90,6 +101,7 @@ namespace Saferide.Data
             try
             {
                 var response = await client.GetAsync(uri);
+                var statusCode = (int)response.StatusCode;
                 if (response.IsSuccessStatusCode)
                 {
                     var result = await response.Content.ReadAsStringAsync();
@@ -101,6 +113,10 @@ namespace Saferide.Data
                     {
                         Debug.WriteLine(e.ToString());
                     }
+                }
+                if (statusCode == 401)
+                {
+                    await TryReconnect();
                 }
             }
             catch (Exception e)
@@ -120,10 +136,15 @@ namespace Saferide.Data
                 var json = JsonConvert.SerializeObject(pos);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
                 var response = await client.PostAsync(uri, content);
+                var statusCode = (int)response.StatusCode;
                 if (response.IsSuccessStatusCode)
                 {
                     var result = await response.Content.ReadAsStringAsync();
                     incidentsList = JsonConvert.DeserializeObject<List<Incident>>(result);
+                }
+                if (statusCode == 401)
+                {
+                    await TryReconnect();
                 }
             }
             catch(Exception e)
@@ -131,6 +152,24 @@ namespace Saferide.Data
                 Debug.WriteLine(e.ToString());
             }
             return incidentsList;
+        }
+
+        private async Task TryReconnect()
+        {
+            if (Constants.Username != null && Constants.Password != null)
+            {
+                var user = new LoginUser()
+                {
+                    Username = Constants.Username,
+                    Password = Constants.Password
+                };
+                var result = await App.LoginManager.Authenticate(user);
+                switch (result)
+                {
+                    case "Success": return;
+                }
+            }
+            Application.Current.MainPage = new NavigationPage(new LoginPageView());
         }
     }
 }

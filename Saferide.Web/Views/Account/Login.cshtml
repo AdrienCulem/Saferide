@@ -6,17 +6,22 @@
 @using (Html.BeginForm("Login", "Account", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {id = "login-form", role = "form", style = "display:block;"}))
 {
     @Html.AntiForgeryToken()
-    <h2 class="login-title">LOGIN</h2>
-    @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+    @Html.ValidationSummary(true, "", new {@class = "customized-font text-danger validationSummary" })
     <div class="form-group">
-        @Html.TextBoxFor(m => m.Email, new {@class = "form-control", placeholder = "Email", id = "email", tabindex = "1"})
-        <br/>
-        @Html.ValidationMessageFor(m => m.Email, "", new {@class = "text-danger"})
+        <span class="input input--hoshi">
+            @Html.TextBoxFor(m => m.Email, new { @class = "input__field input__field--hoshi", id = "input-1", tabindex = "1", required="required" })
+            <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="input-1">
+                <span class="input__label-content input__label-content--hoshi">Email</span>
+            </label>
+        </span>
     </div>
     <div class="form-group">
-        @Html.PasswordFor(m => m.Password, new {@class = "form-control", placeholder = "Password", id = "password", tabindex = "2"})
-        <br/>
-        @Html.ValidationMessageFor(m => m.Password, "", new {@class = "text-danger"})
+        <span class="input input--hoshi">
+            @Html.PasswordFor(m => m.Password, new { @class = "input__field input__field--hoshi", id = "input-2", tabindex = "2", required="required" })
+            <label class="input__label input__label--hoshi input__label--hoshi-color-3" for="input-2">
+                <span class="input__label-content input__label-content--hoshi">Password</span>
+            </label>
+        </span>
     </div>
     <div class="form-group">
     <span id="passwordForget">Forgot your password? Click @Html.ActionLink("here", "ForgotPassword")</span>
@@ -24,7 +29,7 @@
     <div class="form-group">
         <div class="row">
             <div class="col-sm-6 col-sm-offset-3">
-                <input type="submit" name="login-submit" id="login-submit" tabindex="3" class="form-control btn btn-login" value="Login">
+                <input type="submit" name="login-submit" id="login-submit" tabindex="3" class="limit-width form-control btn btn-login" value="Login">
             </div>
         </div>
     </div>
@@ -32,7 +37,7 @@
     <div class="form-group">
         <div class="row">
             <div class="col-sm-6 col-sm-offset-3">
-                @Html.ActionLink("OR REGISTER", "Register", null, new {@class="form-control btn btn-login"})
+                @Html.ActionLink("OR REGISTER", "Register", null, new {@class = "form-control btn btn-login limit-width"})
             </div>
         </div>
     </div>

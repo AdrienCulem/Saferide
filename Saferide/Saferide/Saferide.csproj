@@ -38,6 +38,8 @@
     <Compile Include="App.cs" />
     <Compile Include="Data\TokenManager.cs" />
     <Compile Include="Helpers\TextToSpeech.cs" />
+    <Compile Include="Interfaces\IGetVersion.cs" />
+    <Compile Include="Interfaces\IGpsEnabled.cs" />
     <Compile Include="Interfaces\ISpeechRecognition.cs" />
     <Compile Include="Ressources\AppTexts.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -67,6 +69,9 @@
     <Compile Include="ViewModels\MasterDetailViewModel.cs" />
     <Compile Include="ViewModels\NewIncidentViewModel.cs" />
     <Compile Include="ViewModels\RegisterViewModel.cs" />
+    <Compile Include="Views\GenericWebPageView.xaml.cs">
+      <DependentUpon>GenericWebPageView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\HomePageView.xaml.cs">
       <DependentUpon>HomePageView.xaml</DependentUpon>
     </Compile>
@@ -209,6 +214,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\NewIncidentPageView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\GenericWebPageView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

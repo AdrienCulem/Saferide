@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Saferide.Views.GenericWebPageView">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Return" Clicked="MenuItem_OnClicked"></ToolbarItem>
+    </ContentPage.ToolbarItems>
+    <ScrollView>    
+        <WebView x:Name="GenericWebView"
+             HeightRequest="1000"
+             Navigating="GenericWebView_OnNavigating"
+             Navigated="GenericWebView_OnNavigated"></WebView>
+    </ScrollView>
+</ContentPage>

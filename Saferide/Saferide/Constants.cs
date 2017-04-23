@@ -17,12 +17,13 @@ namespace Saferide
         public static string Email;
         public static Color SaferideBlue = Color.FromHex("#3f48cc");
         public static DateTime TokenValidity;
-        public static string GetTokenUrl = "http://safe-ride.azurewebsites.net/token";
-        public static string IncidentUrl = "http://safe-ride.azurewebsites.net/api/incidents";
-        public static string RegisterUrl = "http://safe-ride.azurewebsites.net/api/register";
-        public static string GetIncidentsUrl = "http://safe-ride.azurewebsites.net/api/getincidents";
-        public static string RegisterWebsiteUrl = "http://safe-ride.azurewebsites.net/Account/Register";
-        public static string IsTokenValidUrl = "http://safe-ride.azurewebsites.net/api/istokenvalid";
+        public static string GetTokenUrl = "https://safe-ride.azurewebsites.net/token";
+        public static string IncidentUrl = "https://safe-ride.azurewebsites.net/api/incidents";
+        public static string RegisterUrl = "https://safe-ride.azurewebsites.net/api/register";
+        public static string GetIncidentsUrl = "https://safe-ride.azurewebsites.net/api/getincidents";
+        public static string RegisterWebsiteUrl = "https://safe-ride.azurewebsites.net/Account/Register";
+        public static string IsTokenValidUrl = "https://safe-ride.azurewebsites.net/api/istokenvalid";
+        public static string ResetPasswordUrl = "https://safe-ride.azurewebsites.net/Account/ForgotPassword";
 
     }
 }
