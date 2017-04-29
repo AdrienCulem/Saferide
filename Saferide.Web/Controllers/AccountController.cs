@@ -6,6 +6,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Saferide.Web.Models;
+using SendGrid;
+using SendGrid.Helpers.Mail;
 
 namespace Saferide.Web.Controllers
 {
@@ -156,17 +158,36 @@ namespace Saferide.Web.Controllers
                     
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    var callbackUrl = Url.Action(
+                        "ConfirmEmail", "Account",
+                        new { userId = user.Id, code = code },
+                        protocol: Request?.Url?.Scheme);
 
-                    return RedirectToAction("Index", "Home");
+                    var client = new SendGridClient(Keys.SendGridKey);
+                    var msg = new SendGridMessage()
+                    {
+                        From = new EmailAddress("culemadrien@gmail.com", "noreply-saferide"),
+                        Subject = "Activate your Saferide account",
+                        HtmlContent = callbackUrl
+                    };
+                    msg.AddTo(new EmailAddress(user.Email));
+                    await client.SendEmailAsync(msg);
+                    return RedirectToAction("EmailConfirmation", "Account");
                 }
                 AddErrors(result);
             }
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        //
+        // GET: /Account/Login
+        [AllowAnonymous]
+        public ActionResult EmailConfirmation()
+        {
+            return View();
         }
 
         //
@@ -208,10 +229,18 @@ namespace Saferide.Web.Controllers
 
                 // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                 // Send an email with this link
-                // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
-                // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                // return RedirectToAction("ForgotPasswordConfirmation", "Account");
+                string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                var client = new SendGridClient(Keys.SendGridKey);
+                var msg = new SendGridMessage()
+                {
+                    From = new EmailAddress("culemadrien@gmail.com", "noreply-saferide"),
+                    Subject = "Reset Password",
+                    HtmlContent = "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>"
+                };
+                msg.AddTo(new EmailAddress(user.Email));
+                await client.SendEmailAsync(msg);
+                return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
 
             // If we got this far, something failed, redisplay form
@@ -389,7 +418,7 @@ namespace Saferide.Web.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account");
         }
 
         //

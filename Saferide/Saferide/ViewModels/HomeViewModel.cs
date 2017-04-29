@@ -1,11 +1,18 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Plugin.Geolocator;
 using Saferide.GPS;
 using Saferide.Helpers;
+using Saferide.Interfaces;
 using Saferide.Models;
+using Saferide.Ressources;
+using Saferide.Views;
 using Xamarin.Forms;
+using Xamarin.Forms.GoogleMaps;
 using XLabs.Platform.Services.Geolocation;
 
 namespace Saferide.ViewModels
@@ -13,79 +20,45 @@ namespace Saferide.ViewModels
     public class HomeViewModel : BaseViewModel
     {
         public ICommand GetPosition { get; set; }
-        public ICommand IncidentButton
-        {
-            get
-            {
-                return new Command<string>(async (key) =>
-                {
-                    IsBusy = true;
-                    if (UserPosition.Latitude == 0 && UserPosition.Longitude == 0)
-                    {
-                        GetGpsInfos();
-                    }
-                    Incident incident = new Incident
-                    {
-                        Latitude = UserPosition.Latitude,
-                        Longitude = UserPosition.Longitude,
-                        IncidentType = key
-                    };
-                    var result = await App.IncidentManager.NewIncident(incident);
-                    IsBusy = false;
-                    switch (result)
-                    {
-                        case "Success":
-                            XFToast.ShortMessage("Tu viens de signaler un incident!");
-                            break;
-                        case "Error":
-                            XFToast.ShortMessage("Oups, une erreur est survenue");
-                            break;
-                    }
-                });
-            }
-        }
+        public ICommand ListenMicrophone { get; set; }
+        public ICommand IncidentButton => new Command<string>(GoToNewIncident);
 
-        private IGeolocator _geolocator;
         private readonly TaskScheduler _scheduler = TaskScheduler.FromCurrentSynchronizationContext();
 
-        private CancellationTokenSource _cancelSource;
         /// <summary>
         /// The position status
         /// </summary>
         private string _positionStatus = string.Empty;
+
         /// <summary>
         /// The position latitude
         /// </summary>
         private string _positionLatitude = string.Empty;
+
         /// <summary>
         /// The position longitude
         /// </summary>
         private string _positionLongitude = string.Empty;
 
-        bool _isBusy;
+        /// <summary>
+        /// The position heading
+        /// </summary>
+        private string _positionHeading = string.Empty;
 
-        public bool IsBusy
-        {
-            set
-            {
-                if (_isBusy != value)
-                {
-                    _isBusy = value;
-                    RaisePropertyChanged();
-                }
-            }
-            get
-            {
-                return _isBusy;
-            }
-        }
+        /// <summary>
+        /// The address of the user
+        /// </summary>
+        private string _positionAddress = string.Empty;
+
+
+        /// <summary>
+        /// The speed
+        /// </summary>
+        private string _positionSpeed;
 
         public string PositionStatus
         {
-            get
-            {
-                return _positionStatus;
-            }
+            get { return _positionStatus; }
             set
             {
                 if (_positionStatus != value)
@@ -102,10 +75,7 @@ namespace Saferide.ViewModels
         /// <value>The position latitude.</value>
         public string PositionLatitude
         {
-            get
-            {
-                return _positionLatitude;
-            }
+            get { return _positionLatitude; }
             set
             {
                 if (_positionLatitude != value)
@@ -122,10 +92,7 @@ namespace Saferide.ViewModels
         /// <value>The position longitude.</value>
         public string PositionLongitude
         {
-            get
-            {
-                return _positionLongitude;
-            }
+            get { return _positionLongitude; }
             set
             {
                 if (_positionLongitude != value)
@@ -136,70 +103,182 @@ namespace Saferide.ViewModels
             }
         }
 
-        private IGeolocator Geolocator
+        /// <summary>
+        /// Where the user is heading
+        /// </summary>
+        public string PositionHeading
         {
-            get
+            get { return _positionHeading; }
+            set
             {
-                if (_geolocator == null)
+                if (_positionHeading != value)
                 {
-                    _geolocator = DependencyService.Get<IGeolocator>(); /*?? Resolver.Resolve<IGeolocator>();*/
-                    _geolocator.PositionError += OnListeningError;
-                    _geolocator.PositionChanged += OnPositionChanged;
+                    _positionHeading = value;
+                    RaisePropertyChanged();
                 }
-                return _geolocator;
             }
         }
+
+        /// <summary>
+        /// The speed of the user
+        /// </summary>
+        public string PositionSpeed
+        {
+            get { return _positionSpeed; }
+            set
+            {
+                if (_positionSpeed != value)
+                {
+                    _positionSpeed = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        /// <summary>
+        /// The speed of the user
+        /// </summary>
+        public string PositionAddress
+        {
+            get { return _positionAddress; }
+            set
+            {
+                if (_positionAddress != value)
+                {
+                    _positionAddress = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        /// <summary>
+        /// The result of the speech recognition
+        /// </summary>
+        public string SpeechResult
+        {
+            get { return _speechResult; }
+            set
+            {
+                if (_speechResult != value)
+                {
+                    _speechResult = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        private Geocoder _geoCoder;
+        private string _speechResult;
 
         public HomeViewModel()
         {
-            GetPosition = new Command(GetGpsInfos);
+            GetPosition = new Command(async () => { await GetGpsInfos(); });
+            _geoCoder = new Geocoder();
         }
-        public async void GetGpsInfos()
+
+        /// <summary>
+        /// Getting the user's gps informations and starts listening for changes
+        /// </summary>
+        public async Task GetGpsInfos()
         {
-            _cancelSource = new CancellationTokenSource();
-
-            PositionStatus = String.Empty;
-            PositionLatitude = String.Empty;
-            PositionLongitude = String.Empty;
-            IsBusy = true;
-            await Geolocator.GetPositionAsync(timeout: 10000, cancelToken: _cancelSource.Token, includeHeading: true)
-                .ContinueWith((Task<Position> t) =>
-                {
-                    IsBusy = false;
-                    if (t.IsFaulted)
-                        PositionStatus = ((GeolocationException)t.Exception.InnerException).Error.ToString();
-                    else if (t.IsCanceled)
-                        PositionStatus = "Canceled";
-                    else
-                    {
-                        PositionStatus = t.Result.Timestamp.ToString("G");
-                        PositionLatitude = "La: " + t.Result.Latitude.ToString("N4");
-                        UserPosition.Latitude = Convert.ToDouble(t.Result.Latitude.ToString());
-                        PositionLongitude = "Lo: " + t.Result.Longitude.ToString("N4");
-                        UserPosition.Longitude = Convert.ToDouble(t.Result.Longitude.ToString());
-                    }
-
-                }, _scheduler);
-            if (!Geolocator.IsListening)
+            try
             {
-                Geolocator.StartListening(1000, 10);
+                var locator = CrossGeolocator.Current;
+                locator.DesiredAccuracy = 50;
+                //IsBusy = true;
+                XFToast.ShowLoading();
+                var position = await locator.GetPositionAsync(15000);
+                if (position == null)
+                    return;
+
+                UserPosition.Latitude = position.Latitude;
+                PositionLatitude = Math.Round(UserPosition.Latitude, 2).ToString();
+                UserPosition.Longitude = position.Longitude;
+                PositionLongitude = Math.Round(UserPosition.Longitude, 2).ToString();
+                UserPosition.Heading = position.Heading;
+                PositionHeading = Math.Round(position.Heading, 2).ToString();
+                UserPosition.Speed = position.Speed;
+                PositionSpeed = Math.Round(position.Speed * 3.6).ToString();
+                //IsBusy = false;
+                XFToast.HideLoading();
+                try
+                {
+                    var revposition = new Xamarin.Forms.GoogleMaps.Position(position.Latitude, position.Longitude);
+                    var addresses = await _geoCoder.GetAddressesForPositionAsync(revposition);
+                    var address = addresses.FirstOrDefault();
+                    PositionAddress = address.Replace("\n", " ");
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Unable to get address: " + ex);
+                }
+                await StartListening();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Unable to get location, may need to increase timeout: " + ex);
             }
         }
 
-        private void OnListeningError(object sender, PositionErrorEventArgs e)
+        /// <summary>
+        /// Starts listening for changes
+        /// </summary>
+        /// <returns></returns>
+        async Task StartListening()
         {
-            ////			BeginInvokeOnMainThread (() => {
-            ////				ListenStatus.Text = e.Error.ToString();
-            ////			});
+            if (!CrossGeolocator.Current.IsListening)
+            {
+                await CrossGeolocator.Current.StartListeningAsync(15000, 10, true);
+            }
+            CrossGeolocator.Current.PositionChanged += Current_PositionChanged;
         }
 
-        private void OnPositionChanged(object sender, PositionEventArgs e)
+        private void Current_PositionChanged(object sender, Plugin.Geolocator.Abstractions.PositionEventArgs e)
         {
-            PositionStatus = e.Position.Timestamp.ToString("G");
-            PositionLatitude = "La: " + e.Position.Latitude.ToString("N4");
-            UserPosition.Latitude = Convert.ToDouble(e.Position.Latitude.ToString());
-            PositionLongitude = "Lo: " + e.Position.Longitude.ToString("N4");
-            UserPosition.Longitude = Convert.ToDouble(e.Position.Longitude.ToString());
+            Device.BeginInvokeOnMainThread(async () =>
+            {
+                var test = e.Position;
+                UserPosition.Latitude = test.Latitude;
+                PositionLatitude = Math.Round(UserPosition.Latitude, 2).ToString();
+                UserPosition.Longitude = test.Longitude;
+                PositionLongitude = Math.Round(UserPosition.Longitude, 2).ToString();
+                UserPosition.Heading = test.Heading;
+                PositionHeading = Math.Round(test.Heading, 2).ToString();
+                UserPosition.Speed = test.Speed;
+                PositionSpeed = Math.Round(test.Speed * 3.6).ToString();
+                try
+                {
+                    var revposition = new Xamarin.Forms.GoogleMaps.Position(test.Latitude, test.Longitude);
+                    var addresses = await _geoCoder.GetAddressesForPositionAsync(revposition);
+                    var address = addresses.FirstOrDefault();
+                    PositionAddress = address.Replace("\n", " ");
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Unable to get address: " + ex);
+                }
+            });
+        }
+
+        public async void GoToNewIncident(string key)
+        {
+            if (DependencyService.Get<IGpsEnabled>().IsGpsEnabled())
+            {
+                if (UserPosition.Latitude == 0 || UserPosition.Longitude == 0)
+                {
+                    await GetGpsInfos();
+                }
+                var mainpage = Application.Current.MainPage as MasterDetailPage;
+                if (mainpage != null)
+                {
+                    await mainpage.Detail.Navigation.PushAsync(new NewIncidentPageView());
+                }
+            }
+            else
+            {
+                XFToast.ShowCustomError("You need to enable location first");
+            }
+            
         }
     }
 }

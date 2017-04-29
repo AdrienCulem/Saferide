@@ -27,10 +27,9 @@ namespace Saferide.Web.Migrations
             //    );
             //
 
-            var userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(context));
-
-            var user = new ApplicationUser { Email = "culemadrien@gmail.com", UserName = "culemadrien@gmail.com" };
-            var result = userManager.Create(user, "Rslmyzra");
+            var RoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+            RoleManager.Create(new IdentityRole("Admin"));
+            RoleManager.Create(new IdentityRole("FreeUser"));
         }
     }
 }

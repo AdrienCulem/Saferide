@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "EmailConfirmation";
+    Layout = "../Shared/_LoginLayout.cshtml";
+}
+
+<div class="center-block">
+    <p class="customized-font">
+        Check your email to validate your email then try to login!
+    </p>
+</div>
+<div class="form-group">
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+            @Html.ActionLink("LOGIN", "Login", null, new { @class = "form-control btn btn-login" })
+        </div>
+    </div>
+</div>

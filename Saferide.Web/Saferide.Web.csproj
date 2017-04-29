@@ -18,7 +18,7 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort />
+    <IISExpressSSLPort>44325</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -81,6 +81,9 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="SendGrid, Version=9.1.0.0, Culture=neutral, PublicKeyToken=4f047e93159395ca, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sendgrid.9.1.0\lib\net452\SendGrid.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -216,12 +219,16 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\API\Auth\ApplicationOAuthProvider.cs" />
+    <Compile Include="Controllers\API\GetIncidentsController.cs" />
     <Compile Include="Controllers\API\IncidentsController.cs" />
+    <Compile Include="Controllers\API\IsTokenValidController.cs" />
+    <Compile Include="Controllers\API\RegisterController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Keys.cs" />
     <Compile Include="Migrations\201703051741164_firstOne.cs" />
     <Compile Include="Migrations\201703051741164_firstOne.Designer.cs">
       <DependentUpon>201703051741164_firstOne.cs</DependentUpon>
@@ -234,12 +241,39 @@
     <Compile Include="Migrations\201703172223253_AddingIncident1.Designer.cs">
       <DependentUpon>201703172223253_AddingIncident1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703251027088_DontKnow.cs" />
+    <Compile Include="Migrations\201703251027088_DontKnow.Designer.cs">
+      <DependentUpon>201703251027088_DontKnow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704011658318_AddingIncidentGet.cs" />
+    <Compile Include="Migrations\201704011658318_AddingIncidentGet.Designer.cs">
+      <DependentUpon>201704011658318_AddingIncidentGet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704160751162_AddingTrustToIncidents.cs" />
+    <Compile Include="Migrations\201704160751162_AddingTrustToIncidents.Designer.cs">
+      <DependentUpon>201704160751162_AddingTrustToIncidents.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704160752229_AddingTrustToIncidents1.cs" />
+    <Compile Include="Migrations\201704160752229_AddingTrustToIncidents1.Designer.cs">
+      <DependentUpon>201704160752229_AddingTrustToIncidents1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704160900147_migration3.cs" />
+    <Compile Include="Migrations\201704160900147_migration3.Designer.cs">
+      <DependentUpon>201704160900147_migration3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704170818228_AddingDescription.cs" />
+    <Compile Include="Migrations\201704170818228_AddingDescription.Designer.cs">
+      <DependentUpon>201704170818228_AddingDescription.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Poco\Incident.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Poco\Position.cs" />
+    <Compile Include="Models\Poco\RegisterUser.cs" />
+    <Compile Include="Helpers\PositionConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -248,6 +282,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Fields.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -266,9 +301,11 @@
     <Content Include="ConnectionStrings.config" />
     <None Include="Properties\PublishProfiles\safe-ride - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\safe-ride - Web Deploy.pubxml" />
+    <Content Include="login-background-min.jpeg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="Scripts\classie.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.js" />
@@ -320,6 +357,9 @@
     <Content Include="Service References\Application Insights\ConnectedService.json" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
+    <Content Include="Views\Shared\_LoginLayout.cshtml" />
+    <Content Include="Views\Account\EmailConfirmation.cshtml" />
+    <Content Include="Views\Home\Start.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -340,6 +380,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703172223253_AddingIncident1.resx">
       <DependentUpon>201703172223253_AddingIncident1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703251027088_DontKnow.resx">
+      <DependentUpon>201703251027088_DontKnow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704011658318_AddingIncidentGet.resx">
+      <DependentUpon>201704011658318_AddingIncidentGet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704160751162_AddingTrustToIncidents.resx">
+      <DependentUpon>201704160751162_AddingTrustToIncidents.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704160752229_AddingTrustToIncidents1.resx">
+      <DependentUpon>201704160752229_AddingTrustToIncidents1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704160900147_migration3.resx">
+      <DependentUpon>201704160900147_migration3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704170818228_AddingDescription.resx">
+      <DependentUpon>201704170818228_AddingDescription.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

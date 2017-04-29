@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:saferide="clr-namespace:Saferide;assembly=Saferide"
+             xmlns:Ressources="clr-namespace:Saferide.Ressources;assembly=Saferide"
+             x:Class="Saferide.Views.NewIncidentPageView"
+             Title="Add an incident">
+    <StackLayout>
+        <Grid HorizontalOptions="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60" />
+                <RowDefinition Height="60" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="100" />
+            </Grid.ColumnDefinitions>
+            <Button TextColor="White" BackgroundColor="{x:Static saferide:Constants.SaferideBlue}"
+                    Text="{x:Static Ressources:AppTexts.Hole}"
+                    Clicked="ButtonClicked"
+                    Grid.Row="0"
+                    Grid.Column="0" HorizontalOptions="Center" Command="{Binding IncidentButton}"
+                    CommandParameter="hole" VerticalOptions="Center" />
+            <Button TextColor="White" BackgroundColor="{x:Static saferide:Constants.SaferideBlue}"
+                    Clicked="ButtonClicked"
+                    Text="{x:Static Ressources:AppTexts.Obstacle}"
+                    Grid.Row="0" Grid.Column="1" HorizontalOptions="Center" Command="{Binding IncidentButton}"
+                    CommandParameter="obstacle" VerticalOptions="Center" />
+            <Button TextColor="White" BackgroundColor="{x:Static saferide:Constants.SaferideBlue}"
+                    Clicked="ButtonClicked"
+                    Text="{x:Static Ressources:AppTexts.SlidingZone}"
+                    Grid.Row="1" Grid.Column="0" HorizontalOptions="Center" Command="{Binding IncidentButton}"
+                    CommandParameter="sliding zone" VerticalOptions="Center" />
+            <Button TextColor="White" BackgroundColor="{x:Static saferide:Constants.SaferideBlue}"
+                    Clicked="ButtonClicked"
+                    Text="{x:Static Ressources:AppTexts.Danger}"
+                    Grid.Row="1"
+                    Grid.Column="1" HorizontalOptions="Center" Command="{Binding IncidentButton}"
+                    CommandParameter="danger" VerticalOptions="Center" />
+        </Grid>
+        <Button Text="Listen"
+                Command="{Binding ListenMicrophone}"
+                Clicked="ButtonClicked"
+                BackgroundColor="{x:Static saferide:Constants.SaferideBlue}"
+                TextColor="White"
+                BorderRadius="3" />
+        <Label Text="{Binding SpeechResult, Mode=TwoWay}"></Label>
+    </StackLayout>
+</ContentPage>

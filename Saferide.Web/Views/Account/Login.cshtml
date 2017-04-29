@@ -1,63 +1,43 @@
-﻿@using Saferide.Web.Models
-@model LoginViewModel
+﻿@model Saferide.Web.Models.LoginViewModel
 @{
-    ViewBag.Title = "Log in";
+    ViewBag.Title = "Register";
+    Layout = "../Shared/_LoginLayout.cshtml";
 }
-
-<h2>@ViewBag.Title.</h2>
-<div class="row">
-    <div class="col-md-8">
-        <section id="loginForm">
-            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {
-                @Html.AntiForgeryToken()
-                <h4>Use a local account to log in.</h4>
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <div class="checkbox">
-                            @Html.CheckBoxFor(m => m.RememberMe)
-                            @Html.LabelFor(m => m.RememberMe)
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Log in" class="btn btn-default" />
-                    </div>
-                </div>
-                <p>
-                    @*@Html.ActionLink("Register as a new user", "Register")*@
-                </p>
-                @* Enable this once you have account confirmation enabled for password reset functionality
-                    <p>
-                        @Html.ActionLink("Forgot your password?", "ForgotPassword")
-                    </p>*@
-            }
-        </section>
+@using (Html.BeginForm("Login", "Account", new {ReturnUrl = ViewBag.ReturnUrl}, FormMethod.Post, new {id = "login-form", role = "form", style = "display:block;"}))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new {@class = "customized-font text-danger validationSummary" })
+    <div class="form-group">
+        <span class="input input--hoshi">
+            @Html.TextBoxFor(m => m.Email, new { @class = "input__field input__field--hoshi", id = "input-1", tabindex = "1", required="required" })
+            <label class="input__label input__label--hoshi input__label--hoshi-color-1" for="input-1">
+                <span class="input__label-content input__label-content--hoshi">Email</span>
+            </label>
+        </span>
     </div>
-    <div class="col-md-4">
-        <section id="socialLoginForm">
-            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-        </section>
+    <div class="form-group">
+        <span class="input input--hoshi">
+            @Html.PasswordFor(m => m.Password, new { @class = "input__field input__field--hoshi", id = "input-2", tabindex = "2", required="required" })
+            <label class="input__label input__label--hoshi input__label--hoshi-color-3" for="input-2">
+                <span class="input__label-content input__label-content--hoshi">Password</span>
+            </label>
+        </span>
     </div>
-</div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+    <div class="form-group">
+    <span id="passwordForget">Forgot your password? Click @Html.ActionLink("here", "ForgotPassword")</span>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+                <input type="submit" name="login-submit" id="login-submit" tabindex="3" class="limit-width form-control btn btn-login" value="Login">
+            </div>
+        </div>
+    </div>
 }
+    <div class="form-group">
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-3">
+                @Html.ActionLink("OR REGISTER", "Register", null, new {@class = "form-control btn btn-login limit-width"})
+            </div>
+        </div>
+    </div>

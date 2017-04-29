@@ -23,11 +23,13 @@ namespace Saferide.Web
                       "~/Scripts/respond.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/js").Include(
+                "~/Scripts/classie.js",
                 "~/Scripts/saferide.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/Site.css",
+                      "~/Content/Fields.css"));
         }
     }
 }

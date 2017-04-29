@@ -1,6 +1,4 @@
-﻿@model IEnumerable<Saferide.Web.Models.Poco.Incident>
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -8,7 +6,7 @@
     <title>Saferide - @ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
+    <link rel="shortcut icon" type="image/x-icon" href="~/favicon.ico" />
     <script type='text/javascript'>
         var appInsights = window.appInsights || function (config) {
             function r(config) { t[config] = function () { var i = arguments; t.queue.push(function () { t[config].apply(t, i) }) } }
@@ -22,37 +20,75 @@
     </script>
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <nav id="saferidenavbar" class="navbar navbar-fixed-top " role="navigation">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
+                <button type="button" class="white navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="white-background sr-only">Toggle navigation</span>
+                    <span class="white-background icon-bar"></span>
+                    <span class="white-background icon-bar"></span>
+                    <span class="white-background icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Saferide</a>
+                @Html.ActionLink("Saferide", "Index", "Home", null, new{@class="navbar-brand white"})
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
+                @*<ul class="nav navbar-nav">
                     <li>
                         <a href="#">A propos</a>
                     </li>
                     <li>
                         <a href="#">Contact</a>
                     </li>
-                </ul>
+                </ul>*@
+                @Html.Partial("_LoginPartial")
             </div>
             <!-- /.navbar-collapse -->
         </div>
         <!-- /.container -->
     </nav>
 @RenderBody()
-@*@Scripts.Render("~/bundles/js");*@
+@Scripts.Render("~/bundles/js");
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/bootstrap")
 @RenderSection("scripts", required: false)
+<script>
+    (function() {
+        // trim polyfill : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/Trim
+        if (!String.prototype.trim) {
+            (function() {
+                // Make sure we trim BOM and NBSP
+                var rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g;
+                String.prototype.trim = function() {
+                    return this.replace(rtrim, '');
+                };
+            })();
+        }
+
+        [].slice.call( document.querySelectorAll( 'input.input__field' ) ).forEach( function( inputEl ) {
+            // in case the input is already filled..
+            if( inputEl.value.trim() !== '' ) {
+                classie.add( inputEl.parentNode, 'input--filled' );
+            }
+
+            // events:
+            inputEl.addEventListener( 'focus', onInputFocus );
+            inputEl.addEventListener( 'blur', onInputBlur );
+        } );
+
+        function onInputFocus( ev ) {
+            classie.add( ev.target.parentNode, 'input--filled' );
+        }
+
+        function onInputBlur( ev ) {
+            if( ev.target.value.trim() === '' ) {
+                classie.remove( ev.target.parentNode, 'input--filled' );
+            }
+        }
+    })();
+    $("#login-form").validate();
+    $("#register-form").validate();
+</script>
 </body>
 </html>

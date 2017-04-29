@@ -1,31 +1,51 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Saferide.Views.LoginPageView"
-             Title="Se connecter">
+             xmlns:ressources="clr-namespace:Saferide.Ressources"
+             xmlns:saferide="clr-namespace:Saferide;assembly=Saferide"
+             Title="{x:Static ressources:AppTexts.Login}">
     <ContentPage.Content>
         <ScrollView Orientation="Vertical" VerticalOptions="FillAndExpand">
             <StackLayout Spacing="20"
                          Padding="20"
                          VerticalOptions="Center">
-                <Label Text="{Binding CheckingLogs}"
-                       TextColor="Red"
-                       FontSize="30"
+                <Label Text="{x:Static ressources:AppTexts.Registering}"
+                       TextColor="{x:Static saferide:Constants.SaferideBlue}"
+                       FontSize="14"
                        HorizontalTextAlignment="Center" />
                 <Entry x:Name="UsernameEntry"
-                       Placeholder="Nom d'utilisateur"
+                       Placeholder="{x:Static ressources:AppTexts.Email}"
                        Text="{Binding Username, Mode=OneWayToSource}"/>
                 <Entry x:Name="PasswordEntry"
-                       Placeholder="Mot de passe"
+                       Placeholder="{x:Static ressources:AppTexts.Password}"
                        Text="{Binding Password, Mode=OneWayToSource}"
                        IsPassword="true"/>
                 <Button x:Name="LoginButton"
-                    Text="Se connecter"
+                        Clicked="ButtonClicked"
+                        Text="{x:Static ressources:AppTexts.Login}"
                     TextColor="White"
-                    BackgroundColor="Navy"
+                    BackgroundColor="{x:Static saferide:Constants.SaferideBlue}"
                     Command="{Binding LoginClickedCommand}" />
-                <ActivityIndicator Color="Navy" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+                <Button x:Name="Register"
+                        Clicked="ButtonClicked"
+                        Text="{x:Static ressources:AppTexts.Register}"
+                        TextColor="White"
+                        BackgroundColor="{x:Static saferide:Constants.SaferideBlue}"
+                        Command="{Binding RegisterClickedCommand}">
+                </Button>
+                <StackLayout
+                    x:Name="ForgotPassword">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ForgotPasswordCommand}"></TapGestureRecognizer>
+                    </StackLayout.GestureRecognizers>
+                    <Label Text="Forgot your password?"
+                           HorizontalTextAlignment="Center"></Label>
+                    <Label Text="Click here!"
+                           TextColor="#3f48cc"
+                           HorizontalTextAlignment="Center">
+                    </Label>
+                </StackLayout>
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Configuration;
+using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -7,15 +9,37 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Saferide.Web.Models;
+using SendGrid;
+using SendGrid.Helpers.Mail;
 
 namespace Saferide.Web
 {
     public class EmailService : IIdentityMessageService
     {
-        public Task SendAsync(IdentityMessage message)
+        public async Task SendAsync(IdentityMessage message)
         {
             // Plug in your email service here to send an email.
-            return Task.FromResult(0);
+            await configSendGridasync(message);
+        }
+
+        private async Task configSendGridasync(IdentityMessage message)
+        {
+            var client = new SendGridClient(Keys.SendGridKey);
+            var myMessage = new SendGridMessage();
+            var email = new EmailAddress(message.Destination);
+            myMessage.AddTo(email);
+            myMessage.From = new EmailAddress(
+                                "culemadrien@outlook.com", "Culem A.");
+            myMessage.Subject = message.Subject;
+            myMessage.PlainTextContent = message.Body;
+
+            var credentials = new NetworkCredential(
+                       ConfigurationManager.AppSettings["mailAccount"],
+                       ConfigurationManager.AppSettings["mailPassword"]
+                       );
+
+            // Create a Web transport for sending email.
+            var response = await client.SendEmailAsync(myMessage);
         }
     }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
@@ -30,6 +31,13 @@ namespace Saferide.Web
                 LoginPath = new PathString("/Account/Login"),
                 Provider = new CookieAuthenticationProvider
                 {
+                    OnApplyRedirect = ctx =>
+                    {
+                        if (!IsApiRequest(ctx))
+                        {
+                            ctx.Response.Redirect(ctx.RedirectUri);
+                        }
+                    },
                     // Enables the application to validate the security stamp when the user logs in.
                     // This is a security feature which is used when you change a password or add an external login to your account.  
                     OnValidateIdentity = SecurityStampValidator.OnValidateIdentity<ApplicationUserManager, ApplicationUser>(
@@ -83,6 +91,11 @@ namespace Saferide.Web
             //    ClientId = "",
             //    ClientSecret = ""
             //});
+        }
+        private bool IsApiRequest(CookieApplyRedirectContext request)
+        {
+            var path = VirtualPathUtility.ToAbsolute("~/api/");
+            return request.Request.Uri.LocalPath.StartsWith(path);
         }
     }
 }

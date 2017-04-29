@@ -1,7 +1,9 @@
-﻿using Saferide.Helpers;
+﻿using System;
+using Saferide.Helpers;
 using Saferide.Models;
 using Saferide.Views;
 using System.Windows.Input;
+using Saferide.Ressources;
 using Xamarin.Forms;
 
 namespace Saferide.ViewModels
@@ -10,26 +12,16 @@ namespace Saferide.ViewModels
     {
         private string _username;
         private string _password;
-        private bool _isBusy;
 
-        public ICommand LoginClickedCommand { get; set; }
-
-        public bool IsBusy
+        public ICommand LoginClickedCommand => new Command(VerifyLogs);
+        public ICommand RegisterClickedCommand => new Command(() =>
         {
-            set
-            {
-                if (_isBusy != value)
-                {
-                    _isBusy = value;
-                    RaisePropertyChanged();
-                }
-            }
-            get
-            {
-                return _isBusy;
-            }
-        }
-
+            Application.Current.MainPage = new NavigationPage(new GenericWebPageView(Constants.RegisterWebsiteUrl));
+        });
+        public ICommand ForgotPasswordCommand => new Command(() =>
+        {
+            Application.Current.MainPage = new NavigationPage(new GenericWebPageView(Constants.ResetPasswordUrl));
+        });
         public string Username
         {
             set
@@ -61,11 +53,6 @@ namespace Saferide.ViewModels
                 return _password;
             }
         }
-        public LoginViewModel()
-        {
-            LoginClickedCommand = new Command(VerifyLogs);
-        }
-
         public async void VerifyLogs()
         {
             var user = new LoginUser()
@@ -80,26 +67,26 @@ namespace Saferide.ViewModels
 
             if (Username == null || Password == null)
             {
-                XFToast.LongMessage("Veuillez compléter les deux champs");
+                XFToast.LongMessage(AppTexts.BothFields);
             }
             else
             {
-                IsBusy = true;
+                XFToast.ShowLoading();
                 string result = await App.LoginManager.Authenticate(user);
+                XFToast.HideLoading();
                 switch (result)
                 {
                     case "Success":
-                        XFToast.LongMessage("Saferide vous souhaite la bienvenue!");
+                        XFToast.LongMessage(AppTexts.Welcome);
                         Application.Current.MainPage = new MasterDetailPageView();
                         break;
                     case "Invalid":
-                        XFToast.LongMessage("Le mot de passe ou le nom d'utilisateur est incorrect, veuillez réessayer");
+                        XFToast.LongMessage(AppTexts.WrongLogins);
                         break;
                     case "Error":
                         XFToast.ShortErrorMessage();
                         break;
                 }
-                IsBusy = false;
             }
         }
     }
