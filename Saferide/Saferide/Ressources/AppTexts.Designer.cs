@@ -80,6 +80,15 @@ namespace Saferide.Ressources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Danger.
         /// </summary>
         public static string Danger {
@@ -89,11 +98,38 @@ namespace Saferide.Ressources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Description.
+        /// </summary>
+        public static string Description {
+            get {
+                return ResourceManager.GetString("Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Done.
+        /// </summary>
+        public static string Done {
+            get {
+                return ResourceManager.GetString("Done", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email.
         /// </summary>
         public static string Email {
             get {
                 return ResourceManager.GetString("Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter the description here.
+        /// </summary>
+        public static string EnterDescription {
+            get {
+                return ResourceManager.GetString("EnterDescription", resourceCulture);
             }
         }
         
@@ -206,15 +242,6 @@ namespace Saferide.Ressources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Start locating.
-        /// </summary>
-        public static string Position {
-            get {
-                return ResourceManager.GetString("Position", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Position : .
         /// </summary>
         public static string PositionView {
@@ -274,6 +301,33 @@ namespace Saferide.Ressources {
         public static string SpeedView {
             get {
                 return ResourceManager.GetString("SpeedView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start riding.
+        /// </summary>
+        public static string StartRiding {
+            get {
+                return ResourceManager.GetString("StartRiding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stop riding.
+        /// </summary>
+        public static string StopRiding {
+            get {
+                return ResourceManager.GetString("StopRiding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wait a second.
+        /// </summary>
+        public static string WaitASec {
+            get {
+                return ResourceManager.GetString("WaitASec", resourceCulture);
             }
         }
         

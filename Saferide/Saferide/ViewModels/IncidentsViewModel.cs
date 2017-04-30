@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Saferide.GPS;
+using Saferide.Helpers;
 using Saferide.Interfaces;
 using Saferide.Models;
 using Xamarin.Forms;
@@ -24,18 +25,9 @@ namespace Saferide.ViewModels
 
         private async void GetIncidents()
         {
-            if (UserPosition.Latitude == 0 || UserPosition.Longitude == 0)
-            {
-                DependencyService.Get<ISpeechRecognition>().Talk("U need to start locating first");
-            }
             IsBusy = true;
-            Position pos = new Position
-            {
-                Latitude = UserPosition.Latitude,
-                Longitude = UserPosition.Longitude,
-            };
-            ListContent = await App.IncidentManager.GetIncidents(pos);
-            RaisePropertyChanged("ListContent");
+            await GetIncident.GetIncidents();
+            ListContent = Constants.NearestIncidents;
             IsBusy = false;
         }
     }

@@ -11,7 +11,6 @@ namespace Saferide
     {
         public static LoginManager LoginManager { get; private set; }
         public static IncidentManager IncidentManager { get; private set; }
-        public static TokenManager TokenManager { get; private set; }
 
 
         public App()
@@ -19,7 +18,6 @@ namespace Saferide
             var service = new RestService();
             LoginManager = new LoginManager(service);
             IncidentManager = new IncidentManager(service);
-            TokenManager = new TokenManager(service);
         }
 
         protected override void OnStart()
@@ -79,15 +77,6 @@ namespace Saferide
         private async void CheckTokenValidity()
         {
             if (DateTime.Now > Constants.TokenValidity)
-            {
-                var user = new LoginUser()
-                {
-                    Username = Constants.Username,
-                    Password = Constants.Password
-                };
-                await LoginManager.Authenticate(user);
-            }
-            else if(!await TokenManager.IsTokenValid())
             {
                 var user = new LoginUser()
                 {

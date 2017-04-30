@@ -13,11 +13,12 @@ using Android.Widget;
 using Android.OS;
 using Android.Speech;
 using Android.Speech.Tts;
+using Java.Lang;
+using Plugin.Geolocator.Abstractions;
 using Plugin.Permissions;
 using Saferide.Droid;
 using Saferide.Interfaces;
 using Xamarin.Forms;
-using XLabs.Platform.Services.Geolocation;
 [assembly: Xamarin.Forms.Dependency(typeof(MainActivity))]
 
 namespace Saferide.Droid
@@ -40,7 +41,6 @@ namespace Saferide.Droid
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
             Xamarin.FormsGoogleMaps.Init(this, bundle);
-            Xamarin.Forms.DependencyService.Register<IGeolocator, Geolocator>();
             UserDialogs.Init(this);
             textToSpeech = new TextToSpeech(Forms.Context, this, "com.google.android.tts");
             var langAvailable = new List<string> { "Default" };
@@ -63,7 +63,7 @@ namespace Saferide.Droid
             }
             langAvailable = langAvailable.OrderBy(t => t).Distinct().ToList();
             textToSpeech.SetLanguage(lang);
-            textToSpeech.SetPitch(1);
+            textToSpeech.SetPitch(0.9f);
             textToSpeech.SetSpeechRate(1);
             LoadApplication(new App());
         }
@@ -90,7 +90,7 @@ namespace Saferide.Droid
 
         public void Talk(string textToSay)
         {
-            textToSpeech.Speak(textToSay, QueueMode.Flush, null);
+            textToSpeech.Speak(textToSay, QueueMode.Flush, null, null);
         }
 
         void TextToSpeech.IOnInitListener.OnInit(OperationResult status)

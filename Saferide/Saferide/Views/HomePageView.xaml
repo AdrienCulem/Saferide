@@ -46,9 +46,17 @@
                 <Label Text="{x:Static Ressources:AppTexts.AddressView}" FontSize="Medium" FontAttributes="Bold" />
                 <Label Text="{Binding PositionAddress}" LineBreakMode="WordWrap" FontSize="Medium" FontAttributes="Bold" />
             </StackLayout>
-            <Button Text="{x:Static Ressources:AppTexts.Position}"
+            <Button Text="{x:Static Ressources:AppTexts.StartRiding}"
                     Clicked="ButtonClicked"
-                    Command="{Binding GetPosition}"
+                    Command="{Binding StartRiding}"
+                    IsVisible="{Binding IsStoped}"
+                    BackgroundColor="{x:Static saferide:Constants.SaferideBlue}"
+                    TextColor="White"
+                    BorderRadius="3" />
+            <Button Text="{x:Static Ressources:AppTexts.StopRiding}"
+                    Clicked="ButtonClicked"
+                    IsVisible="{Binding IsStarted}"
+                    Command="{Binding StopRiding}"
                     BackgroundColor="{x:Static saferide:Constants.SaferideBlue}"
                     TextColor="White"
                     BorderRadius="3" />

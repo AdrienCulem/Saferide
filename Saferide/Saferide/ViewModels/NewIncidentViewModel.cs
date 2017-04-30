@@ -13,7 +13,6 @@ using Saferide.Models;
 using Saferide.Ressources;
 using Xamarin.Forms;
 using Xamarin.Forms.GoogleMaps;
-using XLabs.Platform.Services.Geolocation;
 
 namespace Saferide.ViewModels
 {
@@ -56,18 +55,24 @@ namespace Saferide.ViewModels
                 switch (result)
                 {
                     case "new hole":
-                        UserDialogs.Instance.ShowLoading("Wait a sec", null);
+                        UserDialogs.Instance.ShowLoading(AppTexts.WaitASec, null);
                         NewIncident("hole");
                         UserDialogs.Instance.HideLoading();
                         break;
                     case "new obstacle":
+                        UserDialogs.Instance.ShowLoading(AppTexts.WaitASec, null);
                         NewIncident("obstacle");
+                        UserDialogs.Instance.HideLoading();
                         break;
                     case "new sliding zone":
+                        UserDialogs.Instance.ShowLoading(AppTexts.WaitASec, null);
                         NewIncident("sliding zone");
+                        UserDialogs.Instance.HideLoading();
                         break;
                     case "new danger":
+                        UserDialogs.Instance.ShowLoading(AppTexts.WaitASec, null);
                         NewIncident("danger");
+                        UserDialogs.Instance.HideLoading();
                         break;
                 }
             });
@@ -78,7 +83,7 @@ namespace Saferide.ViewModels
             if (UserPosition.Latitude != 0 && UserPosition.Longitude != 0)
             {
                 String result;
-                var promptResult = await XFToast.PromptAsync("Decription", "Done", "Cancel", "Enter the description here");
+                var promptResult = await XFToast.PromptAsync(AppTexts.Description, AppTexts.Done, AppTexts.Cancel, AppTexts.EnterDescription);
                 if (!promptResult.Ok)
                 {
                 }

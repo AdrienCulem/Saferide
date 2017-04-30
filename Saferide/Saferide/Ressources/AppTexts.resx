@@ -168,8 +168,11 @@
   <data name="Password" xml:space="preserve">
     <value>Password</value>
   </data>
-  <data name="Position" xml:space="preserve">
-    <value>Start locating</value>
+  <data name="StartRiding" xml:space="preserve">
+    <value>Start riding</value>
+  </data>
+  <data name="StopRiding" xml:space="preserve">
+    <value>Stop riding</value>
   </data>
   <data name="PositionView" xml:space="preserve">
     <value>Position : </value>
@@ -194,5 +197,20 @@
   </data>
   <data name="WrongLogins" xml:space="preserve">
     <value>Password or email is incorrect</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Done" xml:space="preserve">
+    <value>Done</value>
+  </data>
+  <data name="EnterDescription" xml:space="preserve">
+    <value>Enter the description here</value>
+  </data>
+  <data name="WaitASec" xml:space="preserve">
+    <value>Wait a second</value>
   </data>
 </root>
