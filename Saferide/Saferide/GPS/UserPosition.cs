@@ -6,5 +6,6 @@
         public static double Longitude = 0;
         public static double Heading;
         public static double Speed;
+        public static string Address;
     }
 }

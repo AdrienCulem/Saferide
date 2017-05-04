@@ -50,31 +50,7 @@ namespace Saferide.ViewModels
             _geoCoder = new Geocoder();
             ListenMicrophone = new Command(async () =>
             {
-                var result = await DependencyService.Get<ISpeechRecognition>().Listen();
-                SpeechResult = result;
-                switch (result)
-                {
-                    case "new hole":
-                        UserDialogs.Instance.ShowLoading(AppTexts.WaitASec, null);
-                        NewIncident("hole");
-                        UserDialogs.Instance.HideLoading();
-                        break;
-                    case "new obstacle":
-                        UserDialogs.Instance.ShowLoading(AppTexts.WaitASec, null);
-                        NewIncident("obstacle");
-                        UserDialogs.Instance.HideLoading();
-                        break;
-                    case "new sliding zone":
-                        UserDialogs.Instance.ShowLoading(AppTexts.WaitASec, null);
-                        NewIncident("sliding zone");
-                        UserDialogs.Instance.HideLoading();
-                        break;
-                    case "new danger":
-                        UserDialogs.Instance.ShowLoading(AppTexts.WaitASec, null);
-                        NewIncident("danger");
-                        UserDialogs.Instance.HideLoading();
-                        break;
-                }
+                await VoiceRecognition();
             });
         }
 
@@ -95,6 +71,7 @@ namespace Saferide.ViewModels
                         Latitude = UserPosition.Latitude,
                         Longitude = UserPosition.Longitude,
                         Description = promptResult.Text,
+                        Street = UserPosition.Address,
                         IncidentType = key
                     };
                     result = await App.IncidentManager.NewIncident(incident);
@@ -105,6 +82,7 @@ namespace Saferide.ViewModels
                             XFToast.ShowSuccess();
                             TextToSpeech.Talk(AppTexts.SendAnIncident);
                             break;
+                        case "Invalid":
                         case "Error":
                             XFToast.ShowError();
                             //XFToast.ShortMessage(AppTexts.Oups);
@@ -112,6 +90,35 @@ namespace Saferide.ViewModels
                             break;
                     }
                 }
+            }
+        }
+
+        public async Task VoiceRecognition()
+        {
+            var result = await DependencyService.Get<ISpeechRecognition>().Listen();
+            SpeechResult = result;
+            switch (result)
+            {
+                case "new hole":
+                    UserDialogs.Instance.ShowLoading(AppTexts.WaitASec, null);
+                    NewIncident("hole");
+                    UserDialogs.Instance.HideLoading();
+                    break;
+                case "new obstacle":
+                    UserDialogs.Instance.ShowLoading(AppTexts.WaitASec, null);
+                    NewIncident("obstacle");
+                    UserDialogs.Instance.HideLoading();
+                    break;
+                case "new sliding zone":
+                    UserDialogs.Instance.ShowLoading(AppTexts.WaitASec, null);
+                    NewIncident("sliding zone");
+                    UserDialogs.Instance.HideLoading();
+                    break;
+                case "new danger":
+                    UserDialogs.Instance.ShowLoading(AppTexts.WaitASec, null);
+                    NewIncident("danger");
+                    UserDialogs.Instance.HideLoading();
+                    break;
             }
         }
     }

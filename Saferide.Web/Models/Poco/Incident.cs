@@ -10,6 +10,7 @@ namespace Saferide.Web.Models.Poco
         public double Latitude { get; set; }
         public string IncidentType { get; set; }
         public string Description { get; set; }
+        public string Street { get; set; }
         public string UserId { get; set; }
         public int? Trust { get; set; }
         public ApplicationUser User { get; set; }

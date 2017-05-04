@@ -219,6 +219,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\API\Auth\ApplicationOAuthProvider.cs" />
+    <Compile Include="Controllers\API\ConfirmIncidentController.cs" />
     <Compile Include="Controllers\API\GetIncidentsController.cs" />
     <Compile Include="Controllers\API\IncidentsController.cs" />
     <Compile Include="Controllers\API\IsTokenValidController.cs" />
@@ -264,6 +265,10 @@
     <Compile Include="Migrations\201704170818228_AddingDescription.cs" />
     <Compile Include="Migrations\201704170818228_AddingDescription.Designer.cs">
       <DependentUpon>201704170818228_AddingDescription.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705011719514_AddingAField.cs" />
+    <Compile Include="Migrations\201705011719514_AddingAField.Designer.cs">
+      <DependentUpon>201705011719514_AddingAField.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -398,6 +403,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201704170818228_AddingDescription.resx">
       <DependentUpon>201704170818228_AddingDescription.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705011719514_AddingAField.resx">
+      <DependentUpon>201705011719514_AddingAField.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Acr.UserDialogs;
 using MoreLinq;
 using Plugin.Geolocator;
 using Saferide.GPS;
 using Saferide.Helpers;
 using Saferide.Interfaces;
 using Saferide.Models;
+using Saferide.Ressources;
 using Saferide.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.GoogleMaps;
@@ -30,7 +33,7 @@ namespace Saferide.ViewModels
         private readonly TaskScheduler _scheduler = TaskScheduler.FromCurrentSynchronizationContext();
         private Geocoder _geoCoder;
         private string _speechResult;
-        private static int WhenToUpdateIncidents;
+        private static int _whenToUpdateIncidents;
         private string _positionStatus = string.Empty;
         private string _positionLatitude = string.Empty;
         private string _positionLongitude = string.Empty;
@@ -194,7 +197,33 @@ namespace Saferide.ViewModels
                 IsStoped = true;
                 IsStarted = false;
             });
+            ListenMicrophone = new Command(async () =>
+            {
+                await VoiceRecognition();
+            });
             _geoCoder = new Geocoder();
+            PositionHeading = "N";
+            PositionSpeed = "0 km/h";
+        }
+
+        public async Task VoiceRecognition()
+        {
+            var result = await DependencyService.Get<ISpeechRecognition>().Listen();
+            SpeechResult = result;
+            switch (result)
+            {
+                case "new incident":
+                    await GoToNewIncident();
+                    break;
+                case "start riding":
+                    await GetGpsInfos();
+                    break;
+                case "stop riding":
+                    await CrossGeolocator.Current.StopListeningAsync();
+                    IsStoped = true;
+                    IsStarted = false;
+                    break;
+            }
         }
 
         /// <summary>
@@ -211,10 +240,8 @@ namespace Saferide.ViewModels
                     TextToSpeech.Talk(textToSay);
                     return;
                 }
-                var locator = CrossGeolocator.Current;
-                locator.DesiredAccuracy = 20;
                 XFToast.ShowLoading();
-                var position = await locator.GetPositionAsync(15000);
+                var position = await CrossGeolocator.Current.GetPositionAsync(15000);
                 if (position == null)
                     return;
                 UserPosition.Latitude = position.Latitude;
@@ -222,15 +249,17 @@ namespace Saferide.ViewModels
                 UserPosition.Longitude = position.Longitude;
                 PositionLongitude = Math.Round(UserPosition.Longitude, 2).ToString();
                 UserPosition.Heading = position.Heading;
-                PositionHeading = Math.Round(position.Heading, 2).ToString();
+                PositionHeading = PositionHelper.ConvertHeadingToDirection(position.Heading);
                 UserPosition.Speed = position.Speed;
-                PositionSpeed = Math.Round(position.Speed * 3.6).ToString();
+                PositionSpeed = Math.Round(position.Speed * 3.6) + "km/h";
                 XFToast.HideLoading();
                 try
                 {
                     var revposition = new Xamarin.Forms.GoogleMaps.Position(position.Latitude, position.Longitude);
                     var addresses = await _geoCoder.GetAddressesForPositionAsync(revposition);
-                    var address = addresses.FirstOrDefault();
+                    var fullAddress = addresses.FirstOrDefault();
+                    var address = Regex.Match(fullAddress, @"^[^0-9]*").Value;
+                    UserPosition.Address = address;
                     PositionAddress = address.Replace("\n", " ");
                 }
                 catch (Exception ex)
@@ -255,8 +284,7 @@ namespace Saferide.ViewModels
             if (!CrossGeolocator.Current.IsListening)
             {
                 CrossGeolocator.Current.AllowsBackgroundUpdates = true;
-                CrossGeolocator.Current.DesiredAccuracy = 1;
-                await CrossGeolocator.Current.StartListeningAsync(2000, 10, true);
+                await CrossGeolocator.Current.StartListeningAsync(3000, 10, true);
                 IsStoped = false;
                 IsStarted = true;
             }
@@ -270,34 +298,36 @@ namespace Saferide.ViewModels
         {
             Device.BeginInvokeOnMainThread(async () =>
             {
-                var test = e.Position;
-                UserPosition.Latitude = test.Latitude;
+                var position = e.Position;
+                UserPosition.Latitude = position.Latitude;
                 PositionLatitude = Math.Round(UserPosition.Latitude, 2).ToString();
-                UserPosition.Longitude = test.Longitude;
+                UserPosition.Longitude = position.Longitude;
                 PositionLongitude = Math.Round(UserPosition.Longitude, 2).ToString();
-                UserPosition.Heading = test.Heading;
-                PositionHeading = Math.Round(test.Heading, 2).ToString();
-                UserPosition.Speed = test.Speed;
-                PositionSpeed = Math.Round(test.Speed * 3.6).ToString();
+                UserPosition.Heading = position.Heading;
+                PositionHeading = PositionHelper.ConvertHeadingToDirection(position.Heading); ;
+                UserPosition.Speed = position.Speed;
+                PositionSpeed = Math.Round(position.Speed * 3.6) + "km/h";
                 try
                 {
-                    var revposition = new Xamarin.Forms.GoogleMaps.Position(test.Latitude, test.Longitude);
+                    var revposition = new Xamarin.Forms.GoogleMaps.Position(position.Latitude, position.Longitude);
                     var addresses = await _geoCoder.GetAddressesForPositionAsync(revposition);
-                    var address = addresses.FirstOrDefault();
+                    var fullAddress = addresses.FirstOrDefault();
+                    var address = Regex.Match(fullAddress, @"^[^0-9]*").Value;
+                    UserPosition.Address = address;
                     PositionAddress = address.Replace("\n", " ");
                 }
                 catch (Exception ex)
                 {
                     Debug.WriteLine("Unable to get address: " + ex);
                 }
-                if (WhenToUpdateIncidents > 5)
+                if (_whenToUpdateIncidents > 5)
                 {
                     await GetIncidents();
-                    WhenToUpdateIncidents = 0;
+                    _whenToUpdateIncidents = 0;
                 }
                 else
                 {
-                    WhenToUpdateIncidents++;
+                    _whenToUpdateIncidents++;
                 }
                 WarnIncident();
             });
@@ -346,55 +376,55 @@ namespace Saferide.ViewModels
                 foreach (var item in incidentsWithinRadius)
                 {
                     //Current position
-                    var sCoord = new Plugin.Geolocator.Abstractions.Position()
+                    var sCoord = new Position()
                     {
                         Latitude = UserPosition.Latitude,
                         Longitude = UserPosition.Longitude
                     };
                     //Incident to calculate
-                    var eCoord = new Plugin.Geolocator.Abstractions.Position()
+                    var eCoord = new Position()
                     {
                         Latitude = item.Latitude,
                         Longitude = item.Longitude
                     };
                     //Radius of the earth
-                    const int radiusoftheearth = 6371;
-                    var dLat = PositionConverter.ConvertDegreesToRadians(eCoord.Latitude - sCoord.Latitude);
-                    var dLon = PositionConverter.ConvertDegreesToRadians(eCoord.Longitude - sCoord.Longitude);
-                    var a =
-                            Math.Sin(dLat / 2) * Math.Sin(dLat / 2) +
-                            Math.Cos(PositionConverter.ConvertDegreesToRadians(sCoord.Latitude)) * Math.Cos(PositionConverter.ConvertDegreesToRadians(eCoord.Latitude)) *
-                            Math.Sin(dLon / 2) * Math.Sin(dLon / 2)
-                        ;
-                    var c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
-                    //Distance between current position and that incident
-                    var distance = radiusoftheearth * c;
-                    item.DistanceFromCurrentPosition = distance;
+                    item.DistanceFromCurrentPosition =  PositionHelper.DistanceBetweenPoints(eCoord, sCoord);
                     //direction to take from current position 
-                    var directionFromCurrentPosition = Math.Atan2(dLon, dLat);
-                    item.DirectionFromCurrentPosition =
-                        Math.Abs(PositionConverter.ConvertRadiansToDegrees(directionFromCurrentPosition));
+                    item.DirectionFromCurrentPosition = PositionHelper.DirectionFromPosition(eCoord, sCoord);
                 }
-                //Closest incident in the direction
+                //Closest incident in the direction of the user
+                //Only works if the user is moving
                 if (UserPosition.Heading != 0)
                 {
-                    var closestIncident = incidentsWithinRadius.
-                        Where(a => a.DirectionFromCurrentPosition > UserPosition.Heading - 90 && a.DirectionFromCurrentPosition < UserPosition.Heading + 90).
-                        MinBy(a => a.DistanceFromCurrentPosition);
-                    double distanceBetweenTheIncident;
-                    string unit;
-                    if (closestIncident.DistanceFromCurrentPosition < 1)
+                    //All incidents in front of the user in the radius
+                    var incidentsInDirection = incidentsWithinRadius
+                        .Where(a => a.DirectionFromCurrentPosition > UserPosition.Heading - 45 &&
+                                    a.DirectionFromCurrentPosition < UserPosition.Heading + 45)
+                        .ToList();
+                    if (incidentsInDirection.Count != 0)
                     {
-                        distanceBetweenTheIncident = (Math.Round(closestIncident.DistanceFromCurrentPosition, 3)) * 100;
-                        unit = "meters";
+                        //Closest incident in the direction
+                        var closestIncident = incidentsInDirection.
+                            MinBy(a => a.DistanceFromCurrentPosition);
+                        //If the incident is in the same street
+                        if (closestIncident.Street == UserPosition.Address)
+                        {
+                            double distanceBetweenTheIncident;
+                            string unit;
+                            if (closestIncident.DistanceFromCurrentPosition < 1)
+                            {
+                                distanceBetweenTheIncident = (Math.Round(closestIncident.DistanceFromCurrentPosition, 3)) * 1000;
+                                unit = "meters";
+                            }
+                            else
+                            {
+                                distanceBetweenTheIncident = Math.Round(closestIncident.DistanceFromCurrentPosition, 1);
+                                unit = "kilometers";
+                            }
+                            TextToSpeech.Talk("There is and incident of the type" + closestIncident.IncidentType
+                                              + "in" + distanceBetweenTheIncident + unit);
+                        }
                     }
-                    else
-                    {
-                        distanceBetweenTheIncident = Math.Round(closestIncident.DistanceFromCurrentPosition, 1);
-                        unit = "kilometers";
-                    }
-                    TextToSpeech.Talk("There is and incident of the type" + closestIncident.IncidentType
-                                      + "in" + distanceBetweenTheIncident + unit);
                 }
             }
         }

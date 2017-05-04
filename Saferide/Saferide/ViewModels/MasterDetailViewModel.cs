@@ -41,33 +41,43 @@ namespace Saferide.ViewModels
                     var page = ItemSelected.TargetType;
 
                     var mainpage = Application.Current.MainPage as MasterDetailPage;
-
+                    if (mainpage == null)
+                    {
+                        return;
+                    }
                     if (page == typeof(LoginPageView))
                     {
                         Application.Current.MainPage = new NavigationPage(new LoginPageView());
-                    }else if (page == typeof(IncidentsPageView))
+                    }
+                    //else if (page == typeof(IncidentsPageView))
+                    //{
+                    //    if (UserPosition.Latitude == 0 || UserPosition.Longitude == 0)
+                    //    {
+                    //        DependencyService.Get<ISpeechRecognition>().Talk("U need to start riding first");
+                    //        XFToast.LongMessage("U need to start locating your phone first");
+                    //    }
+                    //    else
+                    //    {
+                    //        mainpage.Detail = new NavigationPage(new IncidentsPageView());
+                    //    }
+                    //}
+                    else if (page == typeof(MapPageView))
                     {
                         if (UserPosition.Latitude == 0 || UserPosition.Longitude == 0)
                         {
-                            DependencyService.Get<ISpeechRecognition>().Talk("U need to start locating first");
-                            XFToast.LongMessage("U need to start locating your phone first");
+                            DependencyService.Get<ISpeechRecognition>().Talk("U need to start riding first");
+                            XFToast.LongMessage("U need to start riding first");
                         }
                         else
                         {
-                            mainpage.Detail = new NavigationPage(new IncidentsPageView());
+                            mainpage.Detail = new NavigationPage(new MapPageView());
                         }
                     }
                     else
                     {
-                        if (mainpage != null)
-                        {
-                            mainpage.Detail = new NavigationPage((Page) Activator.CreateInstance(page));
-                        }
+                        mainpage.Detail = new NavigationPage((Page)Activator.CreateInstance(page));
                     }
-                    if (mainpage != null)
-                    {
-                        mainpage.IsPresented = false;
-                    }
+                    mainpage.IsPresented = false;
                     RaisePropertyChanged();
                 }
             }
@@ -80,14 +90,18 @@ namespace Saferide.ViewModels
             VersionNumber = "Version : " + DependencyService.Get<IGetVersion>().GetVersion();
             MenuList = new List<MasterPageItem>();
 
-            var page1 = new MasterPageItem() {Title = AppTexts.Home, Icon = "homeIcon.png", TargetType = typeof(HomePageView)};
-            var page2 = new MasterPageItem() {Title = AppTexts.Incidents, Icon = "incidentIcon.png", TargetType = typeof(IncidentsPageView)};
-            var page3 = new MasterPageItem() {Title = AppTexts.Logoff, Icon = "logoutIcon.png", TargetType = typeof(LoginPageView)};
+            var page1 = new MasterPageItem() { Title = AppTexts.Home, Icon = "homeIcon.png", TargetType = typeof(HomePageView) };
+            //var page2 = new MasterPageItem() { Title = AppTexts.Incidents, Icon = "incidentIcon.png", TargetType = typeof(IncidentsPageView) };
+            var page3 = new MasterPageItem() { Title = AppTexts.Map, Icon = "map.png", TargetType = typeof(MapPageView) };
+            var page4 = new MasterPageItem() { Title = AppTexts.Logoff, Icon = "logoutIcon.png", TargetType = typeof(LoginPageView) };
+
 
 
             MenuList.Add(page1);
-            MenuList.Add(page2);
+            //MenuList.Add(page2);
             MenuList.Add(page3);
+            MenuList.Add(page4);
+
         }
     }
 }

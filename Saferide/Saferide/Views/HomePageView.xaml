@@ -23,6 +23,87 @@
                 HorizontalOptions="Center"
                 Color="{x:Static saferide:Constants.SaferideBlue}"></BoxView>
             <ActivityIndicator Color="{x:Static saferide:Constants.SaferideBlue}" IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" />
+            <Frame  HasShadow="True"
+                    HorizontalOptions="CenterAndExpand"
+                    WidthRequest="200">
+                <StackLayout Orientation="Vertical" HorizontalOptions="Center">
+                    <Label FontSize="35" 
+                           HorizontalTextAlignment="Center" 
+                           Text="{x:Static Ressources:AppTexts.Speed}">
+                        <Label.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String">
+                                <OnPlatform.Android>AmaticSC-Bold.ttf#AmaticSC-Bold</OnPlatform.Android>
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
+                    <Label Text="{Binding PositionSpeed}" FontSize="35" FontAttributes="Bold" HorizontalTextAlignment="Center">
+                        <Label.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String">
+                                <OnPlatform.Android>AmaticSC-Bold.ttf#AmaticSC-Bold</OnPlatform.Android>
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
+                </StackLayout>
+            </Frame>
+            <Frame 
+                HasShadow="True"
+                HorizontalOptions="CenterAndExpand"
+                WidthRequest="200">
+                <StackLayout Orientation="Vertical" HorizontalOptions="Center">
+                    <Label FontSize="35" 
+                           HorizontalTextAlignment="Center" 
+                           Text="{x:Static Ressources:AppTexts.Heading}">
+                        <Label.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String">
+                                <OnPlatform.Android>AmaticSC-Bold.ttf#AmaticSC-Bold</OnPlatform.Android>
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
+                    <Label Text="{Binding PositionHeading}" 
+                           FontSize="35" FontAttributes="Bold" HorizontalTextAlignment="Center">
+                        <Label.FontFamily>
+                            <OnPlatform x:TypeArguments="x:String">
+                                <OnPlatform.Android>AmaticSC-Bold.ttf#AmaticSC-Bold</OnPlatform.Android>
+                            </OnPlatform>
+                        </Label.FontFamily>
+                    </Label>
+                </StackLayout>
+            </Frame>
+            <Button Text="{x:Static Ressources:AppTexts.StartRiding}"
+                    Clicked="ButtonClicked"
+                    Command="{Binding StartRiding}"
+                    IsVisible="{Binding IsStoped}"
+                    BackgroundColor="{x:Static saferide:Constants.SaferideBlue}"
+                    TextColor="White"
+                    WidthRequest="200"
+                    HeightRequest="50"
+                    BorderRadius="3" />
+            <Button Text="{x:Static Ressources:AppTexts.StopRiding}"
+                    Clicked="ButtonClicked"
+                    IsVisible="{Binding IsStarted}"
+                    Command="{Binding StopRiding}"
+                    BackgroundColor="{x:Static saferide:Constants.SaferideBlue}"
+                    TextColor="White"
+                    WidthRequest="200"
+                    HeightRequest="50"
+                    BorderRadius="3" />
+            <Button Text="Listen"
+                    Command="{Binding ListenMicrophone}"
+                    Clicked="ButtonClicked"
+                    BackgroundColor="{x:Static saferide:Constants.SaferideBlue}"
+                    TextColor="White"
+                    WidthRequest="200"
+                    HeightRequest="50"
+                    BorderRadius="3" />
+            <Button Text="Add Incident"
+                    Command="{Binding IncidentButton}"
+                    Clicked="ButtonClicked"
+                    BackgroundColor="{x:Static saferide:Constants.SaferideBlue}"
+                    TextColor="White"
+                    WidthRequest="200"
+                    HeightRequest="50"
+                    BorderRadius="3" />
+            <Label Text="{Binding SpeechResult, Mode=TwoWay}"></Label>
             <StackLayout Orientation="Horizontal">
                 <Label Text="{Binding PositionStatus}" FontSize="Medium" FontAttributes="Bold" />
             </StackLayout>
@@ -35,44 +116,9 @@
                 <Label Text="{Binding PositionLongitude}" FontSize="Medium" FontAttributes="Bold" />
             </StackLayout>
             <StackLayout Orientation="Horizontal">
-                <Label Text="{x:Static Ressources:AppTexts.HeadingView}" FontSize="Medium" FontAttributes="Bold" />
-                <Label Text="{Binding PositionHeading}" FontSize="Medium" FontAttributes="Bold" />
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="{x:Static Ressources:AppTexts.SpeedView}" FontSize="Medium" FontAttributes="Bold" />
-                <Label Text="{Binding PositionSpeed}" FontSize="Medium" FontAttributes="Bold" />
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
                 <Label Text="{x:Static Ressources:AppTexts.AddressView}" FontSize="Medium" FontAttributes="Bold" />
                 <Label Text="{Binding PositionAddress}" LineBreakMode="WordWrap" FontSize="Medium" FontAttributes="Bold" />
             </StackLayout>
-            <Button Text="{x:Static Ressources:AppTexts.StartRiding}"
-                    Clicked="ButtonClicked"
-                    Command="{Binding StartRiding}"
-                    IsVisible="{Binding IsStoped}"
-                    BackgroundColor="{x:Static saferide:Constants.SaferideBlue}"
-                    TextColor="White"
-                    BorderRadius="3" />
-            <Button Text="{x:Static Ressources:AppTexts.StopRiding}"
-                    Clicked="ButtonClicked"
-                    IsVisible="{Binding IsStarted}"
-                    Command="{Binding StopRiding}"
-                    BackgroundColor="{x:Static saferide:Constants.SaferideBlue}"
-                    TextColor="White"
-                    BorderRadius="3" />
-            <Button Text="Listen"
-                    Command="{Binding ListenMicrophone}"
-                    Clicked="ButtonClicked"
-                    BackgroundColor="{x:Static saferide:Constants.SaferideBlue}"
-                    TextColor="White"
-                    BorderRadius="3" />
-            <Button Text="Add Incident"
-                    Command="{Binding IncidentButton}"
-                    Clicked="ButtonClicked"
-                    BackgroundColor="{x:Static saferide:Constants.SaferideBlue}"
-                    TextColor="White"
-                    BorderRadius="3" />
-            <Label Text="{Binding SpeechResult, Mode=TwoWay}"></Label>
         </StackLayout>
     </ScrollView>
 </ContentPage>
