@@ -219,6 +219,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\API\Auth\ApplicationOAuthProvider.cs" />
+    <Compile Include="Controllers\API\BaseApiController.cs" />
     <Compile Include="Controllers\API\ConfirmIncidentController.cs" />
     <Compile Include="Controllers\API\GetIncidentsController.cs" />
     <Compile Include="Controllers\API\IncidentsController.cs" />
@@ -280,6 +281,10 @@
     <Compile Include="Models\Poco\RegisterUser.cs" />
     <Compile Include="Helpers\PositionConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\BaseModelRepository.cs" />
+    <Compile Include="Repository\IncidentRepository.cs" />
+    <Compile Include="Repository\IRepository.cs" />
+    <Compile Include="Repository\UnitOfWork.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>

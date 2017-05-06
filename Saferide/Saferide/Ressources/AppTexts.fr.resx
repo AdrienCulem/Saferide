@@ -117,122 +117,41 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddIncident" xml:space="preserve">
+    <value>Nouvel incident</value>
+  </data>
   <data name="AddressView" xml:space="preserve">
-    <value>Address : </value>
+    <value>Adresse : </value>
   </data>
   <data name="BothFields" xml:space="preserve">
-    <value>Both email and password needs to be completed</value>
+    <value>L'email et le mot de passe doivent être remplis</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Annuler</value>
   </data>
   <data name="Danger" xml:space="preserve">
     <value>Danger</value>
-  </data>
-  <data name="Email" xml:space="preserve">
-    <value>Email</value>
-  </data>
-  <data name="HeadingView" xml:space="preserve">
-    <value>Heading : </value>
-  </data>
-  <data name="Hole" xml:space="preserve">
-    <value>Hole</value>
-  </data>
-  <data name="Home" xml:space="preserve">
-    <value>Home</value>
-  </data>
-  <data name="Incidents" xml:space="preserve">
-    <value>Incidents</value>
-  </data>
-  <data name="Saferide" xml:space="preserve">
-    <value>Saferide</value>
-  </data>
-  <data name="Kilometersperhour" xml:space="preserve">
-    <value>km/h</value>
-  </data>
-  <data name="LatitudeView" xml:space="preserve">
-    <value>Latitude : </value>
-  </data>
-  <data name="Login" xml:space="preserve">
-    <value>Login</value>
-  </data>
-  <data name="Logoff" xml:space="preserve">
-    <value>Log off</value>
-  </data>
-  <data name="LongitudeView" xml:space="preserve">
-    <value>Longitude : </value>
-  </data>
-  <data name="Obstacle" xml:space="preserve">
-    <value>Obstacle</value>
-  </data>
-  <data name="Oups" xml:space="preserve">
-    <value>Something went wrong :/ </value>
-  </data>
-  <data name="Password" xml:space="preserve">
-    <value>Password</value>
-  </data>
-  <data name="StartRiding" xml:space="preserve">
-    <value>Start riding</value>
-  </data>
-  <data name="StopRiding" xml:space="preserve">
-    <value>Stop riding</value>
-  </data>
-  <data name="PositionView" xml:space="preserve">
-    <value>Position : </value>
-  </data>
-  <data name="Register" xml:space="preserve">
-    <value>Register</value>
-  </data>
-  <data name="Registering" xml:space="preserve">
-    <value>Please register on the website by clicking the button down bellow</value>
-  </data>
-  <data name="SendAnIncident" xml:space="preserve">
-    <value>You just sinagled and incident!</value>
-  </data>
-  <data name="SlidingZone" xml:space="preserve">
-    <value>Sliding Zone</value>
-  </data>
-  <data name="SpeedView" xml:space="preserve">
-    <value>Speed : </value>
-  </data>
-  <data name="Welcome" xml:space="preserve">
-    <value>Welcome to Saferide ! </value>
-  </data>
-  <data name="WrongLogins" xml:space="preserve">
-    <value>Password or email is incorrect</value>
-  </data>
-  <data name="Cancel" xml:space="preserve">
-    <value>Cancel</value>
   </data>
   <data name="Description" xml:space="preserve">
     <value>Description</value>
   </data>
   <data name="Done" xml:space="preserve">
-    <value>Done</value>
-  </data>
-  <data name="EnterDescription" xml:space="preserve">
-    <value>Enter the description here</value>
-  </data>
-  <data name="WaitASec" xml:space="preserve">
-    <value>Wait a second</value>
-  </data>
-  <data name="Heading" xml:space="preserve">
-    <value>Heading</value>
-  </data>
-  <data name="Map" xml:space="preserve">
-    <value>Map</value>
-  </data>
-  <data name="Speed" xml:space="preserve">
-    <value>Speed</value>
-  </data>
-  <data name="AddIncident" xml:space="preserve">
-    <value>Add incident</value>
+    <value>Fait</value>
   </data>
   <data name="E" xml:space="preserve">
     <value>E</value>
   </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
   <data name="EnableLocation" xml:space="preserve">
-    <value>U need to enable location first</value>
+    <value>Vous devez d'abord activer la localisation</value>
   </data>
   <data name="ENE" xml:space="preserve">
     <value>ENE</value>
+  </data>
+  <data name="EnterDescription" xml:space="preserve">
+    <value>Entrez la description ici</value>
   </data>
   <data name="ESE" xml:space="preserve">
     <value>ESE</value>
@@ -240,26 +159,56 @@
   <data name="Go" xml:space="preserve">
     <value>Go</value>
   </data>
-  <data name="InternetError" xml:space="preserve">
-    <value>Something wrong happened, check your internet connection</value>
+  <data name="Heading" xml:space="preserve">
+    <value>Direction</value>
+  </data>
+  <data name="HeadingView" xml:space="preserve">
+    <value>Direction :</value>
+  </data>
+  <data name="Hole" xml:space="preserve">
+    <value>Trou</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Accueil</value>
+  </data>
+  <data name="Incidents" xml:space="preserve">
+    <value>Incidents</value>
   </data>
   <data name="Kilometers" xml:space="preserve">
-    <value>Kilometers</value>
+    <value>Kilomètres</value>
+  </data>
+  <data name="Kilometersperhour" xml:space="preserve">
+    <value>km/h</value>
+  </data>
+  <data name="LatitudeView" xml:space="preserve">
+    <value>Latitude : </value>
   </data>
   <data name="Listen" xml:space="preserve">
-    <value>Listen</value>
+    <value>Ecouter</value>
   </data>
   <data name="ListenNewIncident" xml:space="preserve">
-    <value>new incident</value>
+    <value>nouvelle incident</value>
   </data>
   <data name="ListenStartRiding" xml:space="preserve">
-    <value>start riding</value>
+    <value>commencer</value>
   </data>
   <data name="ListenStopRiding" xml:space="preserve">
-    <value>stop riding</value>
+    <value>stop</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Se connecter</value>
+  </data>
+  <data name="Logoff" xml:space="preserve">
+    <value>Se déconnecter</value>
+  </data>
+  <data name="LongitudeView" xml:space="preserve">
+    <value>Longitude : </value>
+  </data>
+  <data name="Map" xml:space="preserve">
+    <value>Carte</value>
   </data>
   <data name="Meters" xml:space="preserve">
-    <value>Meters</value>
+    <value>Mètres</value>
   </data>
   <data name="N" xml:space="preserve">
     <value>N</value>
@@ -271,70 +220,114 @@
     <value>danger</value>
   </data>
   <data name="NewHole" xml:space="preserve">
-    <value>hole</value>
+    <value>trou</value>
   </data>
   <data name="NewObstacle" xml:space="preserve">
     <value>obstacle</value>
   </data>
   <data name="NewSlidingZone" xml:space="preserve">
-    <value>sliding zone</value>
+    <value>zone glissante</value>
   </data>
   <data name="NNE" xml:space="preserve">
     <value>NNE</value>
   </data>
   <data name="NNW" xml:space="preserve">
-    <value>NNW</value>
+    <value>NNO</value>
   </data>
   <data name="NW" xml:space="preserve">
-    <value>NW</value>
+    <value>NO</value>
+  </data>
+  <data name="Obstacle" xml:space="preserve">
+    <value>Obstacle</value>
+  </data>
+  <data name="Oups" xml:space="preserve">
+    <value>Oups, quelque chose ne s'est pas bien passé :/ </value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Mot de passe</value>
+  </data>
+  <data name="PositionView" xml:space="preserve">
+    <value>Position : </value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>S'enregistrer</value>
+  </data>
+  <data name="Registering" xml:space="preserve">
+    <value>Enregistrez-vous sur le site internet en cliquant sur le lien ci dessous</value>
   </data>
   <data name="S" xml:space="preserve">
     <value>S</value>
   </data>
+  <data name="Saferide" xml:space="preserve">
+    <value>Saferide</value>
+  </data>
   <data name="SE" xml:space="preserve">
     <value>SE</value>
   </data>
+  <data name="SendAnIncident" xml:space="preserve">
+    <value>Vous venez de signaler un incidant</value>
+  </data>
   <data name="SignalIncident" xml:space="preserve">
-    <value>There is an incident of the type {0} in {1} {2}</value>
-    <comment>3 variables for the type of the incident, the distance and the metric unit</comment>
+    <value>Il y a un incidant du type {0} dans {1} {2}</value>
+  </data>
+  <data name="SlidingZone" xml:space="preserve">
+    <value>Zone glissante</value>
+  </data>
+  <data name="Speed" xml:space="preserve">
+    <value>Vitesse</value>
+  </data>
+  <data name="SpeedView" xml:space="preserve">
+    <value>Vitesse : </value>
   </data>
   <data name="SSE" xml:space="preserve">
     <value>SSE</value>
   </data>
   <data name="SSW" xml:space="preserve">
-    <value>SSW</value>
+    <value>SSO</value>
+  </data>
+  <data name="StartRiding" xml:space="preserve">
+    <value>Démarer</value>
   </data>
   <data name="StartRidingFirst" xml:space="preserve">
-    <value>U need to start riding first</value>
+    <value>Vous devez d'abord commencer la course</value>
   </data>
-  <data name="String" xml:space="preserve">
-    <value>NewSlidingZone</value>
+  <data name="StopRiding" xml:space="preserve">
+    <value>Arrêter</value>
   </data>
   <data name="SW" xml:space="preserve">
-    <value>SW</value>
+    <value>SO</value>
   </data>
   <data name="W" xml:space="preserve">
-    <value>W</value>
+    <value>O</value>
+  </data>
+  <data name="WaitASec" xml:space="preserve">
+    <value>Patientez une seconde</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>Bienvenue dans Saferide!</value>
   </data>
   <data name="WNW" xml:space="preserve">
-    <value>WNW</value>
+    <value>ONO</value>
+  </data>
+  <data name="WrongLogins" xml:space="preserve">
+    <value>Mot de passe ou email incorrect</value>
   </data>
   <data name="WSW" xml:space="preserve">
-    <value>WSW</value>
+    <value>OSO</value>
   </data>
   <data name="ForgotPassword" xml:space="preserve">
-    <value>Forgot your password?</value>
+    <value>Mot de passe oublié?</value>
   </data>
   <data name="ConnectedAs" xml:space="preserve">
-    <value>Connected as : </value>
+    <value>Connecté avec : </value>
   </data>
   <data name="Speak" xml:space="preserve">
-    <value>Speak</value>
+    <value>Vocale</value>
   </data>
   <data name="WhatOptionForIncident" xml:space="preserve">
-    <value>How would you give the description?</value>
+    <value>Voulez-vous donner une decription : </value>
   </data>
   <data name="Write" xml:space="preserve">
-    <value>Write</value>
+    <value>Ecrite</value>
   </data>
 </root>

@@ -2,8 +2,9 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Saferide.Views.MapPageView"
-             xmlns:maps="clr-namespace:Xamarin.Forms.GoogleMaps;assembly=Xamarin.Forms.GoogleMaps"
+             xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
              xmlns:saferide="clr-namespace:Saferide;assembly=Saferide"
+             xmlns:Ressources="clr-namespace:Saferide.Ressources;assembly=Saferide"
              Title="Map">
   <AbsoluteLayout>
     <Entry 
@@ -14,7 +15,7 @@
     <Button
       AbsoluteLayout.LayoutBounds="1,0,.18,.1" 
       AbsoluteLayout.LayoutFlags="All"
-      Text="Go"
+      Text="{x:Static Ressources:AppTexts.Go}"
       BackgroundColor="{x:Static saferide:Constants.SaferideBlue}"
       x:Name="ButtonGoTo" 
       Clicked="OnGoToClicked"/>

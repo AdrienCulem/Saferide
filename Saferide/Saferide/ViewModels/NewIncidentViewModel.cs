@@ -12,7 +12,7 @@ using Saferide.Interfaces;
 using Saferide.Models;
 using Saferide.Ressources;
 using Xamarin.Forms;
-using Xamarin.Forms.GoogleMaps;
+using Xamarin.Forms.Maps;
 
 namespace Saferide.ViewModels
 {
@@ -59,36 +59,43 @@ namespace Saferide.ViewModels
             if (UserPosition.Latitude != 0 && UserPosition.Longitude != 0)
             {
                 String result;
-                var promptResult = await XFToast.PromptAsync(AppTexts.Description, AppTexts.Done, AppTexts.Cancel, AppTexts.EnterDescription);
-                if (!promptResult.Ok)
+                var actionResult = await XFToast.ActionSheet(AppTexts.WhatOptionForIncident, AppTexts.Cancel, AppTexts.Write, AppTexts.Speak);
+                var promptResult = String.Empty;
+                if (actionResult == AppTexts.Write)
                 {
+                    var tempResult = await XFToast.PromptAsync(AppTexts.Description, AppTexts.Done, AppTexts.Cancel,
+                        AppTexts.EnterDescription);
+                    if (!tempResult.Ok) return;
+                    promptResult = tempResult.Text;
                 }
-                else
+                else if(actionResult == AppTexts.Speak)
                 {
-                    XFToast.ShowLoading();
-                    Incident incident = new Incident
-                    {
-                        Latitude = UserPosition.Latitude,
-                        Longitude = UserPosition.Longitude,
-                        Description = promptResult.Text,
-                        Street = UserPosition.Address,
-                        IncidentType = key
-                    };
-                    result = await App.IncidentManager.NewIncident(incident);
-                    XFToast.HideLoading();
-                    switch (result)
-                    {
-                        case "Success":
-                            XFToast.ShowSuccess();
-                            TextToSpeech.Talk(AppTexts.SendAnIncident);
-                            break;
-                        case "Invalid":
-                        case "Error":
-                            XFToast.ShowError();
-                            //XFToast.ShortMessage(AppTexts.Oups);
-                            TextToSpeech.Talk(AppTexts.Oups);
-                            break;
-                    }
+                    promptResult = await DependencyService.Get<ISpeechRecognition>().Listen();
+                }
+                if(promptResult == String.Empty)return;
+                XFToast.ShowLoading();
+                Incident incident = new Incident
+                {
+                    Latitude = UserPosition.Latitude,
+                    Longitude = UserPosition.Longitude,
+                    Description = promptResult,
+                    Street = UserPosition.Address,
+                    IncidentType = key
+                };
+                result = await App.IncidentManager.NewIncident(incident);
+                XFToast.HideLoading();
+                switch (result)
+                {
+                    case "Success":
+                        XFToast.ShowSuccess();
+                        TextToSpeech.Talk(AppTexts.SendAnIncident);
+                        break;
+                    case "Invalid":
+                    case "Error":
+                        XFToast.ShowError();
+                        //XFToast.ShortMessage(AppTexts.Oups);
+                        TextToSpeech.Talk(AppTexts.Oups);
+                        break;
                 }
             }
         }
@@ -97,28 +104,29 @@ namespace Saferide.ViewModels
         {
             var result = await DependencyService.Get<ISpeechRecognition>().Listen();
             SpeechResult = result;
-            switch (result)
+            if (result == AppTexts.NewHole)
             {
-                case "new hole":
-                    UserDialogs.Instance.ShowLoading(AppTexts.WaitASec, null);
-                    NewIncident("hole");
-                    UserDialogs.Instance.HideLoading();
-                    break;
-                case "new obstacle":
-                    UserDialogs.Instance.ShowLoading(AppTexts.WaitASec, null);
-                    NewIncident("obstacle");
-                    UserDialogs.Instance.HideLoading();
-                    break;
-                case "new sliding zone":
-                    UserDialogs.Instance.ShowLoading(AppTexts.WaitASec, null);
-                    NewIncident("sliding zone");
-                    UserDialogs.Instance.HideLoading();
-                    break;
-                case "new danger":
-                    UserDialogs.Instance.ShowLoading(AppTexts.WaitASec, null);
-                    NewIncident("danger");
-                    UserDialogs.Instance.HideLoading();
-                    break;
+                UserDialogs.Instance.ShowLoading(AppTexts.WaitASec, null);
+                NewIncident("hole");
+                UserDialogs.Instance.HideLoading();
+            }
+            else if (result == AppTexts.NewObstacle)
+            {
+                UserDialogs.Instance.ShowLoading(AppTexts.WaitASec, null);
+                NewIncident("obstacle");
+                UserDialogs.Instance.HideLoading();
+            }
+            else if (result == AppTexts.NewSlidingZone)
+            {
+                UserDialogs.Instance.ShowLoading(AppTexts.WaitASec, null);
+                NewIncident("sliding zone");
+                UserDialogs.Instance.HideLoading();
+            }
+            else if (result == AppTexts.NewDanger)
+            {
+                UserDialogs.Instance.ShowLoading(AppTexts.WaitASec, null);
+                NewIncident("danger");
+                UserDialogs.Instance.HideLoading();
             }
         }
     }

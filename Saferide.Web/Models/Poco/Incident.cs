@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Saferide.Web.Models.Poco
 {
@@ -13,6 +14,9 @@ namespace Saferide.Web.Models.Poco
         public string Street { get; set; }
         public string UserId { get; set; }
         public int? Trust { get; set; }
+
+        [NotMapped]
+        public bool Confirmed { get; set; }
         public ApplicationUser User { get; set; }
     }
 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Saferide.GPS;
 using Saferide.Interfaces;
 using Saferide.Models;
+using Saferide.Ressources;
 using Xamarin.Forms;
 
 namespace Saferide.Helpers
@@ -16,7 +17,7 @@ namespace Saferide.Helpers
         {
             if (UserPosition.Latitude == 0 || UserPosition.Longitude == 0)
             {
-                TextToSpeech.Talk("U need to start locating first");
+                TextToSpeech.Talk(AppTexts.StartRidingFirst);
             }
             Position pos = new Position
             {

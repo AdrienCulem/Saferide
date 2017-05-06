@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Acr.UserDialogs;
@@ -7,14 +6,9 @@ using Android.App;
 using Android.Content;
 using Android.Content.PM;
 using Android.Locations;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Android.OS;
 using Android.Speech;
-using Android.Speech.Tts;
-using Java.Lang;
-using Plugin.Geolocator.Abstractions;
+using Android.Speech.Tts;   
 using Plugin.Permissions;
 using Saferide.Droid;
 using Saferide.Interfaces;
@@ -29,8 +23,8 @@ namespace Saferide.Droid
         private readonly int VOICE = 10;
         private static string _textRecognized;
         private static bool _activityResult;
-        private static TextToSpeech textToSpeech;
-        Java.Util.Locale lang;
+        private static TextToSpeech _textToSpeech;
+        private Java.Util.Locale _lang;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -40,14 +34,14 @@ namespace Saferide.Droid
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
-            Xamarin.FormsGoogleMaps.Init(this, bundle);
+            Xamarin.FormsMaps.Init(this, bundle);
             UserDialogs.Init(this);
-            textToSpeech = new TextToSpeech(Forms.Context, this, "com.google.android.tts");
+            _textToSpeech = new TextToSpeech(Forms.Context, this, "com.google.android.tts");
             var langAvailable = new List<string> { "Default" };
             var localesAvailable = Java.Util.Locale.GetAvailableLocales().ToList();
             foreach (var locale in localesAvailable)
             {
-                var res = textToSpeech.IsLanguageAvailable(locale);
+                var res = _textToSpeech.IsLanguageAvailable(locale);
                 switch (res)
                 {
                     case LanguageAvailableResult.Available:
@@ -61,10 +55,9 @@ namespace Saferide.Droid
                         break;
                 }
             }
-            langAvailable = langAvailable.OrderBy(t => t).Distinct().ToList();
-            textToSpeech.SetLanguage(lang);
-            textToSpeech.SetPitch(0.9f);
-            textToSpeech.SetSpeechRate(1);
+            _textToSpeech.SetLanguage(_lang);
+            _textToSpeech.SetPitch(0.8f);
+            _textToSpeech.SetSpeechRate(1);
             LoadApplication(new App());
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
@@ -90,17 +83,17 @@ namespace Saferide.Droid
 
         public void Talk(string textToSay)
         {
-            textToSpeech.Speak(textToSay, QueueMode.Flush, null, null);
+            _textToSpeech.Speak(textToSay, QueueMode.Flush, null, null);
         }
 
         void TextToSpeech.IOnInitListener.OnInit(OperationResult status)
         {
             // if we get an error, default to the default language
             if (status == OperationResult.Error)
-                textToSpeech.SetLanguage(Java.Util.Locale.Default);
+                _textToSpeech.SetLanguage(Java.Util.Locale.Default);
             // if the listener is ok, set the lang
             if (status == OperationResult.Success)
-                textToSpeech.SetLanguage(lang);
+                _textToSpeech.SetLanguage(_lang);
         }
 
         public async Task WaitForActivityResult()

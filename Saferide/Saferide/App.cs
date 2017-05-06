@@ -2,7 +2,9 @@
 using System;
 using System.Threading.Tasks;
 using Saferide.Data;
+using Saferide.Interfaces;
 using Saferide.Models;
+using Saferide.Ressources;
 using Xamarin.Forms;
 
 namespace Saferide
@@ -22,6 +24,12 @@ namespace Saferide
 
         protected override void OnStart()
         {
+            if (Device.OS == TargetPlatform.iOS || Device.OS == TargetPlatform.Android)
+            {
+                var ci = DependencyService.Get<ILocalize>().GetCurrentCultureInfo();
+                AppTexts.Culture = ci; // set the RESX for resource localization
+                DependencyService.Get<ILocalize>().SetLocale(ci); // set the Thread for locale-aware methods
+            }
             LoadPersistedValues();
             CheckTokenValidity();
             if (Constants.IsConnected)

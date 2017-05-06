@@ -15,7 +15,7 @@ namespace Saferide
         public static string Username;
         public static string Password;
         public static string Email;
-        public static Color SaferideBlue = Color.FromHex("#3f48cc");
+        public static Color SaferideBlue = Color.FromHex("#4682B4");
         public static DateTime TokenValidity;
         public static List<Incident> NearestIncidents = new List<Incident>();
         public static string GetTokenUrl = "https://safe-ride.azurewebsites.net/token";

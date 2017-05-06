@@ -40,5 +40,10 @@ namespace Saferide.Data
         {
             return await _restService.GetIncidents(pos);
         }
+
+        public async Task<List<Incident>> ConfirmIncident(Incident inc)
+        {
+            return await _restService.ConfirmIncident(inc);
+        }
     }
 }

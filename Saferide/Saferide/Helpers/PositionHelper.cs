@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Saferide.Models;
+using Saferide.Ressources;
 
 namespace Saferide.Helpers
 {
@@ -50,10 +51,10 @@ namespace Saferide.Helpers
         /// <returns>A string that represents the direction</returns>
         public static string ConvertHeadingToDirection(double heading)
         {
-            string[] caridnals = { "N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW", "N" };
+            string[] caridnals = { AppTexts.N, AppTexts.NNE, AppTexts.NE, AppTexts.ENE, AppTexts.E, AppTexts.ESE
+                    , AppTexts.SE, AppTexts.SSE, AppTexts.S, AppTexts.SSW, AppTexts.SW, AppTexts.WSW, AppTexts.W
+                    , AppTexts.WNW, AppTexts.NW, AppTexts.NNW, AppTexts.N };
             return caridnals[(int)Math.Round(((double)heading * 10 % 3600) / 225)];
-            //string[] caridnals = { "N", "NE", "E", "SE", "S", "SW", "W", "NW", "N" };
-            //return caridnals[(int)Math.Round(((double)heading % 360) / 45)];
         }
     }
 }

@@ -94,6 +94,34 @@ namespace Saferide.Data
             }
         }
 
+        public async Task<string> ConfirmIncident(Incident incident)
+        {
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Constants.BearerToken);
+            var uri = new Uri(String.Format(Constants.IncidentUrl + $"/{incident.IncidentId}"));
+            try
+            {
+                var json = JsonConvert.SerializeObject(incident);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = null;
+                response = await client.PutAsync(uri, content);
+                var statusCode = (int)response.StatusCode;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return "Success";
+                }
+                if (statusCode == 401)
+                {
+                    await TryReconnect();
+                }
+                return "Invalid";
+            }
+            catch
+            {
+                return "Error";
+            }
+        }
+
         public async Task<bool> IsTokenValid()
         {
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Constants.BearerToken);
@@ -154,6 +182,10 @@ namespace Saferide.Data
             return incidentsList;
         }
 
+        /// <summary>
+        /// Tries to reconnect the server by asking a new token
+        /// </summary>
+        /// <returns></returns>
         private async Task TryReconnect()
         {
             if (Constants.Username != null && Constants.Password != null)

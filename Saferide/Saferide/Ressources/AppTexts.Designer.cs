@@ -62,6 +62,15 @@ namespace Saferide.Ressources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add incident.
+        /// </summary>
+        public static string AddIncident {
+            get {
+                return ResourceManager.GetString("AddIncident", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Address : .
         /// </summary>
         public static string AddressView {
@@ -85,6 +94,15 @@ namespace Saferide.Ressources {
         public static string Cancel {
             get {
                 return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connected as : .
+        /// </summary>
+        public static string ConnectedAs {
+            get {
+                return ResourceManager.GetString("ConnectedAs", resourceCulture);
             }
         }
         
@@ -116,6 +134,15 @@ namespace Saferide.Ressources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to E.
+        /// </summary>
+        public static string E {
+            get {
+                return ResourceManager.GetString("E", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email.
         /// </summary>
         public static string Email {
@@ -125,11 +152,56 @@ namespace Saferide.Ressources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to U need to enable location first.
+        /// </summary>
+        public static string EnableLocation {
+            get {
+                return ResourceManager.GetString("EnableLocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ENE.
+        /// </summary>
+        public static string ENE {
+            get {
+                return ResourceManager.GetString("ENE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter the description here.
         /// </summary>
         public static string EnterDescription {
             get {
                 return ResourceManager.GetString("EnterDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ESE.
+        /// </summary>
+        public static string ESE {
+            get {
+                return ResourceManager.GetString("ESE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Forgot your password?.
+        /// </summary>
+        public static string ForgotPassword {
+            get {
+                return ResourceManager.GetString("ForgotPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Go.
+        /// </summary>
+        public static string Go {
+            get {
+                return ResourceManager.GetString("Go", resourceCulture);
             }
         }
         
@@ -179,6 +251,24 @@ namespace Saferide.Ressources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Something wrong happened, check your internet connection.
+        /// </summary>
+        public static string InternetError {
+            get {
+                return ResourceManager.GetString("InternetError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kilometers.
+        /// </summary>
+        public static string Kilometers {
+            get {
+                return ResourceManager.GetString("Kilometers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to km/h.
         /// </summary>
         public static string Kilometersperhour {
@@ -193,6 +283,42 @@ namespace Saferide.Ressources {
         public static string LatitudeView {
             get {
                 return ResourceManager.GetString("LatitudeView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Listen.
+        /// </summary>
+        public static string Listen {
+            get {
+                return ResourceManager.GetString("Listen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to new incident.
+        /// </summary>
+        public static string ListenNewIncident {
+            get {
+                return ResourceManager.GetString("ListenNewIncident", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to start riding.
+        /// </summary>
+        public static string ListenStartRiding {
+            get {
+                return ResourceManager.GetString("ListenStartRiding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to stop riding.
+        /// </summary>
+        public static string ListenStopRiding {
+            get {
+                return ResourceManager.GetString("ListenStopRiding", resourceCulture);
             }
         }
         
@@ -229,6 +355,96 @@ namespace Saferide.Ressources {
         public static string Map {
             get {
                 return ResourceManager.GetString("Map", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Meters.
+        /// </summary>
+        public static string Meters {
+            get {
+                return ResourceManager.GetString("Meters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to N.
+        /// </summary>
+        public static string N {
+            get {
+                return ResourceManager.GetString("N", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NE.
+        /// </summary>
+        public static string NE {
+            get {
+                return ResourceManager.GetString("NE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to danger.
+        /// </summary>
+        public static string NewDanger {
+            get {
+                return ResourceManager.GetString("NewDanger", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to hole.
+        /// </summary>
+        public static string NewHole {
+            get {
+                return ResourceManager.GetString("NewHole", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to obstacle.
+        /// </summary>
+        public static string NewObstacle {
+            get {
+                return ResourceManager.GetString("NewObstacle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to sliding zone.
+        /// </summary>
+        public static string NewSlidingZone {
+            get {
+                return ResourceManager.GetString("NewSlidingZone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NNE.
+        /// </summary>
+        public static string NNE {
+            get {
+                return ResourceManager.GetString("NNE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NNW.
+        /// </summary>
+        public static string NNW {
+            get {
+                return ResourceManager.GetString("NNW", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NW.
+        /// </summary>
+        public static string NW {
+            get {
+                return ResourceManager.GetString("NW", resourceCulture);
             }
         }
         
@@ -287,11 +503,29 @@ namespace Saferide.Ressources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to S.
+        /// </summary>
+        public static string S {
+            get {
+                return ResourceManager.GetString("S", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Saferide.
         /// </summary>
         public static string Saferide {
             get {
                 return ResourceManager.GetString("Saferide", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SE.
+        /// </summary>
+        public static string SE {
+            get {
+                return ResourceManager.GetString("SE", resourceCulture);
             }
         }
         
@@ -305,11 +539,29 @@ namespace Saferide.Ressources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There is an incident of the type {0} in {1} {2}.
+        /// </summary>
+        public static string SignalIncident {
+            get {
+                return ResourceManager.GetString("SignalIncident", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sliding Zone.
         /// </summary>
         public static string SlidingZone {
             get {
                 return ResourceManager.GetString("SlidingZone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Speak.
+        /// </summary>
+        public static string Speak {
+            get {
+                return ResourceManager.GetString("Speak", resourceCulture);
             }
         }
         
@@ -332,6 +584,24 @@ namespace Saferide.Ressources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SSE.
+        /// </summary>
+        public static string SSE {
+            get {
+                return ResourceManager.GetString("SSE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SSW.
+        /// </summary>
+        public static string SSW {
+            get {
+                return ResourceManager.GetString("SSW", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Start riding.
         /// </summary>
         public static string StartRiding {
@@ -341,11 +611,47 @@ namespace Saferide.Ressources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to U need to start riding first.
+        /// </summary>
+        public static string StartRidingFirst {
+            get {
+                return ResourceManager.GetString("StartRidingFirst", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Stop riding.
         /// </summary>
         public static string StopRiding {
             get {
                 return ResourceManager.GetString("StopRiding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NewSlidingZone.
+        /// </summary>
+        public static string String {
+            get {
+                return ResourceManager.GetString("String", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SW.
+        /// </summary>
+        public static string SW {
+            get {
+                return ResourceManager.GetString("SW", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to W.
+        /// </summary>
+        public static string W {
+            get {
+                return ResourceManager.GetString("W", resourceCulture);
             }
         }
         
@@ -368,11 +674,47 @@ namespace Saferide.Ressources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to How would you give the description?.
+        /// </summary>
+        public static string WhatOptionForIncident {
+            get {
+                return ResourceManager.GetString("WhatOptionForIncident", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WNW.
+        /// </summary>
+        public static string WNW {
+            get {
+                return ResourceManager.GetString("WNW", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Write.
+        /// </summary>
+        public static string Write {
+            get {
+                return ResourceManager.GetString("Write", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password or email is incorrect.
         /// </summary>
         public static string WrongLogins {
             get {
                 return ResourceManager.GetString("WrongLogins", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WSW.
+        /// </summary>
+        public static string WSW {
+            get {
+                return ResourceManager.GetString("WSW", resourceCulture);
             }
         }
     }

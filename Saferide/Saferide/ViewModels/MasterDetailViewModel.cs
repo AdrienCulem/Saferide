@@ -16,17 +16,27 @@ namespace Saferide.ViewModels
 
         private MasterPageItem _itemSelected;
         private string _versionNumber;
+        private string _connectedUser;
 
         public string VersionNumber
         {
-            get { return _versionNumber; }
+            get => _versionNumber;
             set
             {
-                if (_versionNumber != value)
-                {
-                    _versionNumber = value;
-                    RaisePropertyChanged();
-                }
+                if (_versionNumber == value) return;
+                _versionNumber = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public string ConnectedUser
+        {
+            get => _connectedUser;
+            set
+            {
+                if (_connectedUser == value) return;
+                _connectedUser = value;
+                RaisePropertyChanged();
             }
         }
 
@@ -34,68 +44,65 @@ namespace Saferide.ViewModels
         {
             set
             {
-                if (_itemSelected != value)
+                if (_itemSelected == value) return;
+                _itemSelected = value;
+
+                var page = ItemSelected.TargetType;
+
+                var mainpage = Application.Current.MainPage as MasterDetailPage;
+                if (mainpage == null)
                 {
-                    _itemSelected = value;
-
-                    var page = ItemSelected.TargetType;
-
-                    var mainpage = Application.Current.MainPage as MasterDetailPage;
-                    if (mainpage == null)
+                    return;
+                }
+                if (page == typeof(LoginPageView))
+                {
+                    Application.Current.MainPage = new NavigationPage(new LoginPageView());
+                }
+                //else if (page == typeof(IncidentsPageView))
+                //{
+                //    if (UserPosition.Latitude == 0 || UserPosition.Longitude == 0)
+                //    {
+                //        DependencyService.Get<ISpeechRecognition>().Talk("U need to start riding first");
+                //        XFToast.LongMessage("U need to start locating your phone first");
+                //    }
+                //    else
+                //    {
+                //        mainpage.Detail = new NavigationPage(new IncidentsPageView());
+                //    }
+                //}
+                else if (page == typeof(MapPageView))
+                {
+                    if (UserPosition.Latitude == 0 || UserPosition.Longitude == 0)
                     {
-                        return;
-                    }
-                    if (page == typeof(LoginPageView))
-                    {
-                        Application.Current.MainPage = new NavigationPage(new LoginPageView());
-                    }
-                    //else if (page == typeof(IncidentsPageView))
-                    //{
-                    //    if (UserPosition.Latitude == 0 || UserPosition.Longitude == 0)
-                    //    {
-                    //        DependencyService.Get<ISpeechRecognition>().Talk("U need to start riding first");
-                    //        XFToast.LongMessage("U need to start locating your phone first");
-                    //    }
-                    //    else
-                    //    {
-                    //        mainpage.Detail = new NavigationPage(new IncidentsPageView());
-                    //    }
-                    //}
-                    else if (page == typeof(MapPageView))
-                    {
-                        if (UserPosition.Latitude == 0 || UserPosition.Longitude == 0)
-                        {
-                            DependencyService.Get<ISpeechRecognition>().Talk("U need to start riding first");
-                            XFToast.LongMessage("U need to start riding first");
-                        }
-                        else
-                        {
-                            mainpage.Detail = new NavigationPage(new MapPageView());
-                        }
+                        DependencyService.Get<ISpeechRecognition>().Talk(AppTexts.StartRidingFirst);
+                        XFToast.LongMessage(AppTexts.StartRidingFirst);
                     }
                     else
                     {
-                        mainpage.Detail = new NavigationPage((Page)Activator.CreateInstance(page));
+                        mainpage.Detail = new NavigationPage(new MapPageView());
                     }
-                    mainpage.IsPresented = false;
-                    RaisePropertyChanged();
                 }
+                else
+                {
+                    mainpage.Detail = new NavigationPage((Page)Activator.CreateInstance(page));
+                }
+                mainpage.IsPresented = false;
+                RaisePropertyChanged();
             }
-            get { return _itemSelected; }
+            get => _itemSelected;
         }
 
 
         public MasterDetailViewModel()
         {
             VersionNumber = "Version : " + DependencyService.Get<IGetVersion>().GetVersion();
+            ConnectedUser = Constants.Username;
             MenuList = new List<MasterPageItem>();
 
-            var page1 = new MasterPageItem() { Title = AppTexts.Home, Icon = "homeIcon.png", TargetType = typeof(HomePageView) };
+            var page1 = new MasterPageItem() { Title = AppTexts.Home, Icon = "home.png", TargetType = typeof(HomePageView) };
             //var page2 = new MasterPageItem() { Title = AppTexts.Incidents, Icon = "incidentIcon.png", TargetType = typeof(IncidentsPageView) };
             var page3 = new MasterPageItem() { Title = AppTexts.Map, Icon = "map.png", TargetType = typeof(MapPageView) };
-            var page4 = new MasterPageItem() { Title = AppTexts.Logoff, Icon = "logoutIcon.png", TargetType = typeof(LoginPageView) };
-
-
+            var page4 = new MasterPageItem() { Title = AppTexts.Logoff, Icon = "logout.png", TargetType = typeof(LoginPageView) };
 
             MenuList.Add(page1);
             //MenuList.Add(page2);

@@ -6,7 +6,7 @@ using Saferide.GPS;
 using Saferide.Models;
 using Saferide.ViewModels;
 using Xamarin.Forms;
-using Xamarin.Forms.GoogleMaps;
+using Xamarin.Forms.Maps;
 using Xamarin.Forms.Xaml;
 
 namespace Saferide.Views
@@ -32,11 +32,10 @@ namespace Saferide.Views
         {
             foreach (var item in incidents)
             {
-                var point = new Xamarin.Forms.GoogleMaps.Position(item.Latitude, item.Longitude);
+                var point = new Xamarin.Forms.Maps.Position(item.Latitude, item.Longitude);
                 MyMap.Pins.Add(new Pin
                 {
                     Label = item.IncidentType,
-                     
                     Position = point,
                     Type = PinType.Generic
                 });
@@ -67,7 +66,7 @@ namespace Saferide.Views
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            var position = new Xamarin.Forms.GoogleMaps.Position(UserPosition.Latitude, UserPosition.Longitude);
+            var position = new Xamarin.Forms.Maps.Position(UserPosition.Latitude, UserPosition.Longitude);
             var zoomLevel = 16; // between 1 and 18
             var latlongdegrees = 360 / (Math.Pow(2, zoomLevel));
             MyMap.MoveToRegion(new MapSpan(position, latlongdegrees, latlongdegrees));

@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Resources;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Acr.UserDialogs;
 using MoreLinq;
 using Plugin.Geolocator;
+using Saferide.Extensions;
 using Saferide.GPS;
 using Saferide.Helpers;
 using Saferide.Interfaces;
@@ -15,7 +16,7 @@ using Saferide.Models;
 using Saferide.Ressources;
 using Saferide.Views;
 using Xamarin.Forms;
-using Xamarin.Forms.GoogleMaps;
+using Xamarin.Forms.Maps;
 using Position = Saferide.Models.Position;
 
 namespace Saferide.ViewModels
@@ -30,8 +31,7 @@ namespace Saferide.ViewModels
             await GoToNewIncident();
         });
 
-        private readonly TaskScheduler _scheduler = TaskScheduler.FromCurrentSynchronizationContext();
-        private Geocoder _geoCoder;
+        private readonly Geocoder _geoCoder;
         private string _speechResult;
         private static int _whenToUpdateIncidents;
         private string _positionStatus = string.Empty;
@@ -45,14 +45,12 @@ namespace Saferide.ViewModels
 
         public string PositionStatus
         {
-            get { return _positionStatus; }
+            get => _positionStatus;
             set
             {
-                if (_positionStatus != value)
-                {
-                    _positionStatus = value;
-                    RaisePropertyChanged();
-                }
+                if (_positionStatus == value) return;
+                _positionStatus = value;
+                RaisePropertyChanged();
             }
         }
 
@@ -62,14 +60,12 @@ namespace Saferide.ViewModels
         /// <value>The position latitude.</value>
         public string PositionLatitude
         {
-            get { return _positionLatitude; }
+            get => _positionLatitude;
             set
             {
-                if (_positionLatitude != value)
-                {
-                    _positionLatitude = value;
-                    RaisePropertyChanged();
-                }
+                if (_positionLatitude == value) return;
+                _positionLatitude = value;
+                RaisePropertyChanged();
             }
         }
 
@@ -79,14 +75,12 @@ namespace Saferide.ViewModels
         /// <value>The position longitude.</value>
         public string PositionLongitude
         {
-            get { return _positionLongitude; }
+            get => _positionLongitude;
             set
             {
-                if (_positionLongitude != value)
-                {
-                    _positionLongitude = value;
-                    RaisePropertyChanged();
-                }
+                if (_positionLongitude == value) return;
+                _positionLongitude = value;
+                RaisePropertyChanged();
             }
         }
 
@@ -95,14 +89,12 @@ namespace Saferide.ViewModels
         /// </summary>
         public string PositionHeading
         {
-            get { return _positionHeading; }
+            get => _positionHeading;
             set
             {
-                if (_positionHeading != value)
-                {
-                    _positionHeading = value;
-                    RaisePropertyChanged();
-                }
+                if (_positionHeading == value) return;
+                _positionHeading = value;
+                RaisePropertyChanged();
             }
         }
 
@@ -111,14 +103,12 @@ namespace Saferide.ViewModels
         /// </summary>
         public string PositionSpeed
         {
-            get { return _positionSpeed; }
+            get => _positionSpeed;
             set
             {
-                if (_positionSpeed != value)
-                {
-                    _positionSpeed = value;
-                    RaisePropertyChanged();
-                }
+                if (_positionSpeed == value) return;
+                _positionSpeed = value;
+                RaisePropertyChanged();
             }
         }
 
@@ -127,14 +117,12 @@ namespace Saferide.ViewModels
         /// </summary>
         public string PositionAddress
         {
-            get { return _positionAddress; }
+            get => _positionAddress;
             set
             {
-                if (_positionAddress != value)
-                {
-                    _positionAddress = value;
-                    RaisePropertyChanged();
-                }
+                if (_positionAddress == value) return;
+                _positionAddress = value;
+                RaisePropertyChanged();
             }
         }
 
@@ -143,14 +131,12 @@ namespace Saferide.ViewModels
         /// </summary>
         public string SpeechResult
         {
-            get { return _speechResult; }
+            get => _speechResult;
             set
             {
-                if (_speechResult != value)
-                {
-                    _speechResult = value;
-                    RaisePropertyChanged();
-                }
+                if (_speechResult == value) return;
+                _speechResult = value;
+                RaisePropertyChanged();
             }
         }
 
@@ -159,14 +145,12 @@ namespace Saferide.ViewModels
         /// </summary>
         public bool IsStoped
         {
-            get { return _isStoped; }
+            get => _isStoped;
             set
             {
-                if (_isStoped != value)
-                {
-                    _isStoped = value;
-                    RaisePropertyChanged();
-                }
+                if (_isStoped == value) return;
+                _isStoped = value;
+                RaisePropertyChanged();
             }
         }
 
@@ -178,18 +162,24 @@ namespace Saferide.ViewModels
             get { return _isStarted; }
             set
             {
-                if (_isStarted != value)
-                {
-                    _isStarted = value;
-                    RaisePropertyChanged();
-                }
+                if (_isStarted == value) return;
+                _isStarted = value;
+                RaisePropertyChanged();
             }
         }
 
         public HomeViewModel()
         {
-            IsStoped = true;
-            IsStarted = false;
+            if (CrossGeolocator.Current.IsListening)
+            {
+                IsStoped = false;
+                IsStarted = true;
+            }
+            else
+            {
+                IsStoped = true;
+                IsStarted = false;
+            }
             StartRiding = new Command(async () => { await GetGpsInfos(); });
             StopRiding = new Command(async () =>
             {
@@ -210,32 +200,28 @@ namespace Saferide.ViewModels
         {
             var result = await DependencyService.Get<ISpeechRecognition>().Listen();
             SpeechResult = result;
-            switch (result)
+            if (result == AppTexts.ListenNewIncident)
+                await GoToNewIncident();
+            if (result == AppTexts.ListenStartRiding)
+                await GetGpsInfos();
+            if (result == AppTexts.ListenStopRiding)
             {
-                case "new incident":
-                    await GoToNewIncident();
-                    break;
-                case "start riding":
-                    await GetGpsInfos();
-                    break;
-                case "stop riding":
-                    await CrossGeolocator.Current.StopListeningAsync();
-                    IsStoped = true;
-                    IsStarted = false;
-                    break;
+                await CrossGeolocator.Current.StopListeningAsync();
+                IsStoped = true;
+                IsStarted = false;
             }
         }
 
         /// <summary>
         /// Getting the user's gps informations and starts listening for changes
         /// </summary>
-        public async Task GetGpsInfos()
+        public async Task GetGpsInfos(bool shouldStartListening = true)
         {
             try
             {
                 if (!CrossGeolocator.Current.IsGeolocationEnabled)
                 {
-                    var textToSay = "I need you to enable the location first";
+                    var textToSay = AppTexts.EnableLocation;
                     XFToast.LongMessage(textToSay);
                     TextToSpeech.Talk(textToSay);
                     return;
@@ -255,7 +241,7 @@ namespace Saferide.ViewModels
                 XFToast.HideLoading();
                 try
                 {
-                    var revposition = new Xamarin.Forms.GoogleMaps.Position(position.Latitude, position.Longitude);
+                    var revposition = new Xamarin.Forms.Maps.Position(position.Latitude, position.Longitude);
                     var addresses = await _geoCoder.GetAddressesForPositionAsync(revposition);
                     var fullAddress = addresses.FirstOrDefault();
                     var address = Regex.Match(fullAddress, @"^[^0-9]*").Value;
@@ -309,7 +295,7 @@ namespace Saferide.ViewModels
                 PositionSpeed = Math.Round(position.Speed * 3.6) + "km/h";
                 try
                 {
-                    var revposition = new Xamarin.Forms.GoogleMaps.Position(position.Latitude, position.Longitude);
+                    var revposition = new Xamarin.Forms.Maps.Position(position.Latitude, position.Longitude);
                     var addresses = await _geoCoder.GetAddressesForPositionAsync(revposition);
                     var fullAddress = addresses.FirstOrDefault();
                     var address = Regex.Match(fullAddress, @"^[^0-9]*").Value;
@@ -323,20 +309,20 @@ namespace Saferide.ViewModels
                 if (_whenToUpdateIncidents > 5)
                 {
                     await GetIncidents();
+                    await WarnIncident();
                     _whenToUpdateIncidents = 0;
                 }
                 else
                 {
                     _whenToUpdateIncidents++;
                 }
-                WarnIncident();
             });
         }
 
         /// <summary>
         /// Warns an incident if there is one to
         /// </summary>
-        private void WarnIncident()
+        private async Task WarnIncident()
         {
             Position pos = new Position
             {
@@ -344,7 +330,7 @@ namespace Saferide.ViewModels
                 Longitude = UserPosition.Longitude,
             };
             PositionConverter pConvert = new PositionConverter(pos);
-            var result = pConvert.BoundingCoordinates(1.5);
+            var result = pConvert.BoundingCoordinates(0.7);
             List<Incident> incidentsWithinRadius;
             if (pos.Latitude == 0 || pos.Longitude == 0)
             {
@@ -394,7 +380,7 @@ namespace Saferide.ViewModels
                 }
                 //Closest incident in the direction of the user
                 //Only works if the user is moving
-                if (UserPosition.Heading != 0)
+                if (Math.Abs(UserPosition.Heading) > 0)
                 {
                     //All incidents in front of the user in the radius
                     var incidentsInDirection = incidentsWithinRadius
@@ -414,15 +400,17 @@ namespace Saferide.ViewModels
                             if (closestIncident.DistanceFromCurrentPosition < 1)
                             {
                                 distanceBetweenTheIncident = (Math.Round(closestIncident.DistanceFromCurrentPosition, 3)) * 1000;
-                                unit = "meters";
+                                unit = AppTexts.Meters;
                             }
                             else
                             {
                                 distanceBetweenTheIncident = Math.Round(closestIncident.DistanceFromCurrentPosition, 1);
-                                unit = "kilometers";
+                                unit = AppTexts.Kilometers;
                             }
-                            TextToSpeech.Talk("There is and incident of the type" + closestIncident.IncidentType
-                                              + "in" + distanceBetweenTheIncident + unit);
+                            ResourceManager rm = AppTexts.ResourceManager;
+                            string typeOfIncident = rm.GetString(closestIncident.IncidentType.ToUpperFirstLetter());
+                            TextToSpeech.Talk(String.Format(AppTexts.SignalIncident, typeOfIncident, distanceBetweenTheIncident, unit));
+                            await XFToast.
                         }
                     }
                 }
@@ -435,7 +423,7 @@ namespace Saferide.ViewModels
             {
                 if (UserPosition.Latitude == 0 || UserPosition.Longitude == 0)
                 {
-                    await GetGpsInfos();
+                    await GetGpsInfos(false);
                 }
                 var mainpage = Application.Current.MainPage as MasterDetailPage;
                 if (mainpage != null)
@@ -445,7 +433,7 @@ namespace Saferide.ViewModels
             }
             else
             {
-                var textToSay = "You need to enable location first";
+                var textToSay = AppTexts.EnableLocation;
                 XFToast.ShowCustomError(textToSay);
                 TextToSpeech.Talk(textToSay);
             }

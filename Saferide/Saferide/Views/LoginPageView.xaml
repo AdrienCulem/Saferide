@@ -39,7 +39,7 @@
                     <StackLayout.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding ForgotPasswordCommand}"></TapGestureRecognizer>
                     </StackLayout.GestureRecognizers>
-                    <Label Text="Forgot your password?"
+                    <Label Text="{x:Static ressources:AppTexts.ForgotPassword}"
                            HorizontalTextAlignment="Center"></Label>
                     <Label Text="Click here!"
                            TextColor="#3f48cc"
