@@ -82,6 +82,11 @@ namespace Saferide.Helpers
             return await UserDialogs.Instance.PromptAsync(null, title, yes, no, placeholder);
         }
 
+        public static async Task<bool> ConfirmAsync(string title, string message, string yes, string no)
+        {
+            return await UserDialogs.Instance.ConfirmAsync(message, title, yes, no);
+        }
+
         public static async Task<string> ActionSheet(string title, string no, params string[] options)
         {
             return await UserDialogs.Instance.ActionSheetAsync(title, no, null, null, options);

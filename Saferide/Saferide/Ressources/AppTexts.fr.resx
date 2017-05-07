@@ -330,4 +330,16 @@
   <data name="Write" xml:space="preserve">
     <value>Ecrite</value>
   </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Confirmer?</value>
+  </data>
+  <data name="ConfirmText" xml:space="preserve">
+    <value>Confirmez-vous la présence de cet incident?</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Non</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Oui</value>
+  </data>
 </root>

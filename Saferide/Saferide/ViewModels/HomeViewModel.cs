@@ -238,7 +238,6 @@ namespace Saferide.ViewModels
                 PositionHeading = PositionHelper.ConvertHeadingToDirection(position.Heading);
                 UserPosition.Speed = position.Speed;
                 PositionSpeed = Math.Round(position.Speed * 3.6) + "km/h";
-                XFToast.HideLoading();
                 try
                 {
                     var revposition = new Xamarin.Forms.Maps.Position(position.Latitude, position.Longitude);
@@ -252,8 +251,14 @@ namespace Saferide.ViewModels
                 {
                     Debug.WriteLine("Unable to get address: " + ex);
                 }
+                if (shouldStartListening == false)
+                {
+                    XFToast.HideLoading();
+                    return;
+                }
                 await GetIncidents();
                 await StartListening();
+                XFToast.HideLoading();
             }
             catch (Exception ex)
             {
@@ -270,7 +275,7 @@ namespace Saferide.ViewModels
             if (!CrossGeolocator.Current.IsListening)
             {
                 CrossGeolocator.Current.AllowsBackgroundUpdates = true;
-                await CrossGeolocator.Current.StartListeningAsync(3000, 10, true);
+                await CrossGeolocator.Current.StartListeningAsync(3000, 20, true);
                 IsStoped = false;
                 IsStarted = true;
             }
@@ -410,7 +415,10 @@ namespace Saferide.ViewModels
                             ResourceManager rm = AppTexts.ResourceManager;
                             string typeOfIncident = rm.GetString(closestIncident.IncidentType.ToUpperFirstLetter());
                             TextToSpeech.Talk(String.Format(AppTexts.SignalIncident, typeOfIncident, distanceBetweenTheIncident, unit));
-                            await XFToast.
+                            var isConfirmed = await XFToast.ConfirmAsync(AppTexts.Confirm, AppTexts.ConfirmText, AppTexts.Yes,
+                                AppTexts.No);
+                            closestIncident.Confirmed = isConfirmed;
+                            await App.IncidentManager.ConfirmIncident(closestIncident);
                         }
                     }
                 }

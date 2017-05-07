@@ -32,7 +32,7 @@ html, body {
 }
 
 #saferidenavbar {
-    background-color: rgba(63, 72, 204, 0.80);
+    background-color: #4682B4;
 }
 
 .white {
@@ -54,9 +54,9 @@ html, body {
 #loginpage-title {
     text-align: center;
     font-size: 5em;
-    color: #3f48cc;
+    color: #4682B4;
     font-weight: bold;
-    font-family: 'Amatic SC', cursive;
+    font-family: 'Open Sans Condensed', sans-serif;
 }
 
 .login-title {
@@ -221,7 +221,7 @@ label {
     .btn-login:hover,
     .btn-login:focus {
         color: #fff;
-        background-color: #3f48cc;
+        background-color: #4682B4;
     }
 .forgot-password {
     text-decoration: underline;
@@ -249,7 +249,7 @@ label {
     .btn-register:hover,
     .btn-register:focus {
         color: #fff;
-        background-color: #3f48cc;
+        background-color: #4682B4;
     }
 .form-group {
     text-align: center

@@ -98,6 +98,24 @@ namespace Saferide.Ressources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Confirm?.
+        /// </summary>
+        public static string Confirm {
+            get {
+                return ResourceManager.GetString("Confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you confirm that the incident was there?.
+        /// </summary>
+        public static string ConfirmText {
+            get {
+                return ResourceManager.GetString("ConfirmText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Connected as : .
         /// </summary>
         public static string ConnectedAs {
@@ -440,6 +458,15 @@ namespace Saferide.Ressources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        public static string No {
+            get {
+                return ResourceManager.GetString("No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to NW.
         /// </summary>
         public static string NW {
@@ -715,6 +742,15 @@ namespace Saferide.Ressources {
         public static string WSW {
             get {
                 return ResourceManager.GetString("WSW", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        public static string Yes {
+            get {
+                return ResourceManager.GetString("Yes", resourceCulture);
             }
         }
     }
