@@ -177,9 +177,22 @@ namespace Saferide.ViewModels
             {
                 GetGpsInfos();
             }
-            ListenMicrophone = new Command(async () =>
+            ListenMicrophone = new Command(async() =>
             {
-                await VoiceRecognition();
+                //await VoiceRecognition();
+                if (!Constants.VoiceAlreadyInit)
+                {
+                    try
+                    {
+                        await DependencyService.Get<ISpeechService>().Setup();
+                        Constants.VoiceAlreadyInit = true;
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.WriteLine(e.ToString());
+                    }
+                }
+                DependencyService.Get<ISpeechService>().StartListening();
             });
             StartRiding = new Command(async () =>
             {

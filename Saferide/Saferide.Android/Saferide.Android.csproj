@@ -27,7 +27,7 @@
     </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>false</DebugSymbols>
+    <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
@@ -225,11 +225,69 @@
     <Compile Include="Native\PlatformCulture.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\SpeechService.cs" />
+    <Compile Include="SpeechToText\Assets.cs" />
+    <Compile Include="SpeechToText\CSharp_Wrapper\Config.cs" />
+    <Compile Include="SpeechToText\CSharp_Wrapper\Decoder.cs" />
+    <Compile Include="SpeechToText\CSharp_Wrapper\Feature.cs" />
+    <Compile Include="SpeechToText\CSharp_Wrapper\FrontEnd.cs" />
+    <Compile Include="SpeechToText\CSharp_Wrapper\FsgModel.cs" />
+    <Compile Include="SpeechToText\CSharp_Wrapper\Hypothesis.cs" />
+    <Compile Include="SpeechToText\CSharp_Wrapper\Jsgf.cs" />
+    <Compile Include="SpeechToText\CSharp_Wrapper\JsgfIterator.cs" />
+    <Compile Include="SpeechToText\CSharp_Wrapper\JsgfRule.cs" />
+    <Compile Include="SpeechToText\CSharp_Wrapper\Lattice.cs" />
+    <Compile Include="SpeechToText\CSharp_Wrapper\LogMath.cs" />
+    <Compile Include="SpeechToText\CSharp_Wrapper\NBest.cs" />
+    <Compile Include="SpeechToText\CSharp_Wrapper\NBestIterator.cs" />
+    <Compile Include="SpeechToText\CSharp_Wrapper\NBestList.cs" />
+    <Compile Include="SpeechToText\CSharp_Wrapper\NGramModel.cs" />
+    <Compile Include="SpeechToText\CSharp_Wrapper\NGramModelSet.cs" />
+    <Compile Include="SpeechToText\CSharp_Wrapper\NGramModelSetIterator.cs" />
+    <Compile Include="SpeechToText\CSharp_Wrapper\PocketSphinx.cs" />
+    <Compile Include="SpeechToText\CSharp_Wrapper\PocketSphinxPINVOKE.cs" />
+    <Compile Include="SpeechToText\CSharp_Wrapper\Segment.cs" />
+    <Compile Include="SpeechToText\CSharp_Wrapper\SegmentIterator.cs" />
+    <Compile Include="SpeechToText\CSharp_Wrapper\SegmentList.cs" />
+    <Compile Include="SpeechToText\CSharp_Wrapper\SphinxBase.cs" />
+    <Compile Include="SpeechToText\CSharp_Wrapper\SphinxBasePINVOKE.cs" />
+    <Compile Include="SpeechToText\CSharp_Wrapper\SWIGTYPE_p_p_char.cs" />
+    <Compile Include="SpeechToText\CSharp_Wrapper\SWIGTYPE_p_p_p_mfcc_t.cs" />
+    <Compile Include="SpeechToText\CSharp_Wrapper\SWIGTYPE_p_void.cs" />
+    <Compile Include="SpeechToText\SpeechRecognizer.cs" />
+    <Compile Include="SpeechToText\SpeechRecognizerSetup.cs" />
+    <Compile Include="SpeechToText\SpeechResultEvent.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <AndroidAsset Include="Assets\OpenSans-CondBold.ttf" />
     <AndroidAsset Include="Assets\OpenSans-CondLight.ttf" />
+    <AndroidAsset Include="Assets\sync\choice_en.txt.md5" />
+    <AndroidAsset Include="Assets\sync\cmudict-en-us.dict" />
+    <AndroidAsset Include="Assets\sync\cmudict-en-us.dict.md5" />
+    <AndroidAsset Include="Assets\sync\end_en.txt.md5" />
+    <AndroidAsset Include="Assets\sync\start_en.txt.md5" />
+    <AndroidAsset Include="Assets\sync\up_en.txt.md5" />
+    <AndroidAsset Include="Assets\sync\en-us-ptm\feat.params" />
+    <AndroidAsset Include="Assets\sync\en-us-ptm\feat.params.md5" />
+    <AndroidAsset Include="Assets\sync\en-us-ptm\mdef" />
+    <AndroidAsset Include="Assets\sync\en-us-ptm\mdef.md5" />
+    <AndroidAsset Include="Assets\sync\en-us-ptm\means" />
+    <AndroidAsset Include="Assets\sync\en-us-ptm\means.md5" />
+    <AndroidAsset Include="Assets\sync\en-us-ptm\noisedict" />
+    <AndroidAsset Include="Assets\sync\en-us-ptm\noisedict.md5" />
+    <AndroidAsset Include="Assets\sync\en-us-ptm\README" />
+    <AndroidAsset Include="Assets\sync\en-us-ptm\README.md5" />
+    <AndroidAsset Include="Assets\sync\en-us-ptm\sendump" />
+    <AndroidAsset Include="Assets\sync\en-us-ptm\sendump.md5" />
+    <AndroidAsset Include="Assets\sync\en-us-ptm\transition_matrices" />
+    <AndroidAsset Include="Assets\sync\en-us-ptm\transition_matrices.md5" />
+    <AndroidAsset Include="Assets\sync\en-us-ptm\variances" />
+    <AndroidAsset Include="Assets\sync\en-us-ptm\variances.md5" />
+    <AndroidNativeLibrary Include="lib\arm64-v8a\libpocketsphinxwrap.so" />
+    <AndroidNativeLibrary Include="lib\armeabi-v7a\libpocketsphinxwrap.so" />
+    <AndroidNativeLibrary Include="lib\x86\libpocketsphinxwrap.so" />
+    <AndroidNativeLibrary Include="lib\x86_64\libpocketsphinxwrap.so" />
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
@@ -288,6 +346,21 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\orientation.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\sync\assets.lst" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\sync\choice_en.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\sync\end_en.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\sync\start_en.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\sync\up_en.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

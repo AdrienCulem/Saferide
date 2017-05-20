@@ -46,6 +46,7 @@
     <Compile Include="Interfaces\IGpsEnabled.cs" />
     <Compile Include="Interfaces\ILocalize.cs" />
     <Compile Include="Interfaces\ISpeechRecognition.cs" />
+    <Compile Include="Interfaces\ISpeechService.cs" />
     <Compile Include="Ressources\AppTexts.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

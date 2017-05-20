@@ -49,6 +49,7 @@ namespace Saferide
             Current.Properties["Password"] = Constants.Password;
             Current.Properties["Token"] = Constants.BearerToken;
             Current.Properties["TokenValidity"] = Constants.TokenValidity;
+            Current.Properties["MetricSystem"] = Constants.MetricSystem;
             await Current.SavePropertiesAsync();
         }
 
@@ -79,6 +80,10 @@ namespace Saferide
             if (Current.Properties.ContainsKey("TokenValidity"))
             {
                 Constants.TokenValidity = (DateTime)Current.Properties["TokenValidity"];
+            }
+            if (Current.Properties.ContainsKey("MetricSystem"))
+            {
+                Constants.MetricSystem = (string)Current.Properties["MetricSystem"];
             }
         }
 

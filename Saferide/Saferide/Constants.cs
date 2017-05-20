@@ -12,11 +12,12 @@ namespace Saferide
     public static class Constants
     {
         public static bool IsConnected;
+        public static bool VoiceAlreadyInit;
         public static string BearerToken;
         public static string Username;
         public static string Password;
         public static string Email;
-        public static string MetricSystem = AppTexts.Kilometersperhour;
+        public static string MetricSystem;
         public static Color SaferideBlue = Color.FromHex("#4682B4");
         public static DateTime TokenValidity;
         public static List<Incident> NearestIncidents = new List<Incident>();
