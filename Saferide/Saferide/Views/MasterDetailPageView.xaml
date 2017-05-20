@@ -19,21 +19,7 @@
                            TextColor="White"
                            HorizontalOptions="Center">
                     </controls:CustomFontLabel>
-                    <Label Text="{x:Static ressources:AppTexts.ConnectedAs}"
-                           FontSize="18"
-                           Margin="10,0,0,0"
-                           VerticalOptions="Center"
-                           TextColor="White">
-                    </Label>
-                    <Label Text="{Binding ConnectedUser}"
-                           FontSize="18"
-                           Margin="10,0,0,0"
-                           VerticalOptions="Center"
-                           TextColor="White">
-                    </Label>
                 </StackLayout>
-                <!--RowHeight="60"-->
-
                 <ListView
                     x:Name="navigationDrawerList"
                     SeparatorVisibility="None"
@@ -63,13 +49,32 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <Label Text="{Binding VersionNumber}"
-                       TextColor="Gray"
-                       Opacity="0.5"
-                       VerticalOptions="End"
-                       HorizontalOptions="End"
-                       HorizontalTextAlignment="End">
-                </Label>
+                <StackLayout
+                    HorizontalOptions="EndAndExpand"
+                    Orientation="Vertical"
+                    WidthRequest="300"
+                    BackgroundColor="{x:Static resources:Constants.SaferideBlue}">
+                    <StackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding LogOff}"></TapGestureRecognizer>
+                    </StackLayout.GestureRecognizers>
+                    <Label Text="{Binding ConnectedUser}"
+                           FontSize="18"
+                           VerticalOptions="Center"
+                           TextColor="White">
+                    </Label>
+                    <Label Text="{x:Static ressources:AppTexts.Logoff}"
+                           FontSize="18"
+                           VerticalOptions="Center"
+                           TextColor="White">
+                    </Label>
+                    <Label Text="{Binding VersionNumber}"
+                           TextColor="Gray"
+                           Opacity="0.5"
+                           VerticalOptions="End"
+                           HorizontalOptions="End"
+                           HorizontalTextAlignment="End">
+                    </Label>
+                </StackLayout>
             </StackLayout>
         </ContentPage>
     </MasterDetailPage.Master>

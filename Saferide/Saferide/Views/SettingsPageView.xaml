@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ressources="clr-namespace:Saferide.Ressources;assembly=Saferide"
+             x:Class="Saferide.Views.SettingsPageView">
+    <StackLayout>
+        <Label FontSize="28" Text="{x:Static ressources:AppTexts.ChooseUnitSystem}"></Label>
+        <StackLayout Orientation="Horizontal">
+            <Label FontSize="25" Text="{x:Static ressources:AppTexts.Kilometersperhour}"></Label>
+            <Switch IsToggled="{Binding MetricToggle, Mode=TwoWay}"></Switch>
+            <Label FontSize="25" Text="{x:Static ressources:AppTexts.MilesPerHour}"></Label>
+        </StackLayout>
+    </StackLayout>
+</ContentPage>

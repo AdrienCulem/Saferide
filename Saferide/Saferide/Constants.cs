@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Saferide.Models;
+using Saferide.Ressources;
 using Xamarin.Forms;
 
 namespace Saferide
@@ -15,6 +16,7 @@ namespace Saferide
         public static string Username;
         public static string Password;
         public static string Email;
+        public static string MetricSystem = AppTexts.Kilometersperhour;
         public static Color SaferideBlue = Color.FromHex("#4682B4");
         public static DateTime TokenValidity;
         public static List<Incident> NearestIncidents = new List<Incident>();
@@ -25,6 +27,17 @@ namespace Saferide
         public static string RegisterWebsiteUrl = "https://safe-ride.azurewebsites.net/Account/Register";
         public static string IsTokenValidUrl = "https://safe-ride.azurewebsites.net/api/istokenvalid";
         public static string ResetPasswordUrl = "https://safe-ride.azurewebsites.net/Account/ForgotPassword";
+
+        public static void LogOff()
+        {
+            IsConnected = false;
+            BearerToken = null;
+            Username = null;
+            Password = null;
+            Email = null;
+            TokenValidity = DateTime.Now;
+            NearestIncidents = null;
+        }
 
     }
 }

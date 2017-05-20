@@ -98,6 +98,15 @@ namespace Saferide.Ressources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Choose the unit system.
+        /// </summary>
+        public static string ChooseUnitSystem {
+            get {
+                return ResourceManager.GetString("ChooseUnitSystem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Confirm?.
         /// </summary>
         public static string Confirm {
@@ -386,6 +395,15 @@ namespace Saferide.Ressources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to M.P.H.
+        /// </summary>
+        public static string MilesPerHour {
+            get {
+                return ResourceManager.GetString("MilesPerHour", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to N.
         /// </summary>
         public static string N {
@@ -566,7 +584,7 @@ namespace Saferide.Ressources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There is an incident of the type {0} in {1} {2}.
+        ///   Looks up a localized string similar to There is an incident of the type {0} in {1} {2}. The description is {3}.
         /// </summary>
         public static string SignalIncident {
             get {
@@ -652,15 +670,6 @@ namespace Saferide.Ressources {
         public static string StopRiding {
             get {
                 return ResourceManager.GetString("StopRiding", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to NewSlidingZone.
-        /// </summary>
-        public static string String {
-            get {
-                return ResourceManager.GetString("String", resourceCulture);
             }
         }
         

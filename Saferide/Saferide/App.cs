@@ -48,7 +48,7 @@ namespace Saferide
             Current.Properties["Username"] = Constants.Username;
             Current.Properties["Password"] = Constants.Password;
             Current.Properties["Token"] = Constants.BearerToken;
-            Current.Properties["TokenValidty"] = Constants.TokenValidity;
+            Current.Properties["TokenValidity"] = Constants.TokenValidity;
             await Current.SavePropertiesAsync();
         }
 
@@ -89,7 +89,8 @@ namespace Saferide
                 var user = new LoginUser()
                 {
                     Username = Constants.Username,
-                    Password = Constants.Password
+                    Password = Constants.Password,
+                    grant_type = "password"
                 };
                 await LoginManager.Authenticate(user);
             }

@@ -268,7 +268,7 @@
     <value>Vous venez de signaler un incidant</value>
   </data>
   <data name="SignalIncident" xml:space="preserve">
-    <value>Il y a un incidant du type {0} dans {1} {2}</value>
+    <value>Il y a un incidant du type {0} dans {1} {2}. La description est {3}</value>
   </data>
   <data name="SlidingZone" xml:space="preserve">
     <value>Zone glissante</value>
@@ -286,7 +286,7 @@
     <value>SSO</value>
   </data>
   <data name="StartRiding" xml:space="preserve">
-    <value>Démarer</value>
+    <value>Commencer à rouler</value>
   </data>
   <data name="StartRidingFirst" xml:space="preserve">
     <value>Vous devez d'abord commencer la course</value>
@@ -341,5 +341,14 @@
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Oui</value>
+  </data>
+  <data name="InternetError" xml:space="preserve">
+    <value>Quelque chose ne s'est pas passé comme prévu, vérifiez votre connexion internet.</value>
+  </data>
+  <data name="MilesPerHour" xml:space="preserve">
+    <value>M.P.H</value>
+  </data>
+  <data name="ChooseUnitSystem" xml:space="preserve">
+    <value>Choisissez les unités de vitesse</value>
   </data>
 </root>

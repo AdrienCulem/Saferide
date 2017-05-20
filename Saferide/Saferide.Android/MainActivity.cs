@@ -33,31 +33,28 @@ namespace Saferide.Droid
 
             base.OnCreate(bundle);
 
-            global::Xamarin.Forms.Forms.Init(this, bundle);
+            Forms.Init(this, bundle);
             Xamarin.FormsMaps.Init(this, bundle);
             UserDialogs.Init(this);
-            _textToSpeech = new TextToSpeech(Forms.Context, this, "com.google.android.tts");
-            var langAvailable = new List<string> { "Default" };
-            var localesAvailable = Java.Util.Locale.GetAvailableLocales().ToList();
-            foreach (var locale in localesAvailable)
-            {
-                var res = _textToSpeech.IsLanguageAvailable(locale);
-                switch (res)
-                {
-                    case LanguageAvailableResult.Available:
-                        langAvailable.Add(locale.DisplayLanguage);
-                        break;
-                    case LanguageAvailableResult.CountryAvailable:
-                        langAvailable.Add(locale.DisplayLanguage);
-                        break;
-                    case LanguageAvailableResult.CountryVarAvailable:
-                        langAvailable.Add(locale.DisplayLanguage);
-                        break;
-                }
-            }
-            _textToSpeech.SetLanguage(_lang);
-            _textToSpeech.SetPitch(0.8f);
-            _textToSpeech.SetSpeechRate(1);
+            //var langAvailable = new List<string>();
+            //var localesAvailable = Java.Util.Locale.GetAvailableLocales().ToList();
+            //foreach (var locale in localesAvailable)
+            //{
+            //    var res = _textToSpeech.IsLanguageAvailable(locale);
+            //    switch (res)
+            //    {
+            //        case LanguageAvailableResult.Available:
+            //            langAvailable.Add(locale.DisplayLanguage);
+            //            break;
+            //        case LanguageAvailableResult.CountryAvailable:
+            //            langAvailable.Add(locale.DisplayLanguage);
+            //            break;
+            //        case LanguageAvailableResult.CountryVarAvailable:
+            //            langAvailable.Add(locale.DisplayLanguage);
+            //            break;
+            //    }
+            //}
+            
             LoadApplication(new App());
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
@@ -83,6 +80,13 @@ namespace Saferide.Droid
 
         public void Talk(string textToSay)
         {
+            if (_textToSpeech == null)
+            {
+                _textToSpeech = new TextToSpeech(Forms.Context, this);
+                _textToSpeech.SetLanguage(_lang);
+                _textToSpeech.SetPitch(0.8f);
+                _textToSpeech.SetSpeechRate(1);
+            }
             _textToSpeech.Speak(textToSay, QueueMode.Flush, null, null);
         }
 

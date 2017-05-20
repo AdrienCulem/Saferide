@@ -112,6 +112,7 @@ namespace Saferide.ViewModels
             }
         }
 
+
         /// <summary>
         /// The adress of the user (Current location)
         /// </summary>
@@ -125,6 +126,8 @@ namespace Saferide.ViewModels
                 RaisePropertyChanged();
             }
         }
+
+
 
         /// <summary>
         /// The result of the speech recognition
@@ -159,7 +162,7 @@ namespace Saferide.ViewModels
         /// </summary>
         public bool IsStarted
         {
-            get { return _isStarted; }
+            get => _isStarted;
             set
             {
                 if (_isStarted == value) return;
@@ -170,30 +173,21 @@ namespace Saferide.ViewModels
 
         public HomeViewModel()
         {
-            if (CrossGeolocator.Current.IsListening)
+            if (!CrossGeolocator.Current.IsListening)
             {
-                IsStoped = false;
-                IsStarted = true;
+                GetGpsInfos();
             }
-            else
-            {
-                IsStoped = true;
-                IsStarted = false;
-            }
-            StartRiding = new Command(async () => { await GetGpsInfos(); });
-            StopRiding = new Command(async () =>
-            {
-                await CrossGeolocator.Current.StopListeningAsync();
-                IsStoped = true;
-                IsStarted = false;
-            });
             ListenMicrophone = new Command(async () =>
             {
                 await VoiceRecognition();
             });
+            StartRiding = new Command(async () =>
+            {
+                await GetGpsInfos();
+            });
             _geoCoder = new Geocoder();
             PositionHeading = "N";
-            PositionSpeed = "0 km/h";
+            PositionSpeed = "0";
         }
 
         public async Task VoiceRecognition()
@@ -224,6 +218,7 @@ namespace Saferide.ViewModels
                     var textToSay = AppTexts.EnableLocation;
                     XFToast.LongMessage(textToSay);
                     TextToSpeech.Talk(textToSay);
+                    IsStoped = true;
                     return;
                 }
                 XFToast.ShowLoading();
@@ -237,7 +232,14 @@ namespace Saferide.ViewModels
                 UserPosition.Heading = position.Heading;
                 PositionHeading = PositionHelper.ConvertHeadingToDirection(position.Heading);
                 UserPosition.Speed = position.Speed;
-                PositionSpeed = Math.Round(position.Speed * 3.6) + "km/h";
+                if (Constants.MetricSystem == AppTexts.Kilometersperhour)
+                {
+                    PositionSpeed = Math.Round(position.Speed * 3.6).ToString();
+                }
+                else if (Constants.MetricSystem == AppTexts.MilesPerHour)
+                {
+                    PositionSpeed = Math.Round(position.Speed * 2.23694).ToString();
+                }
                 try
                 {
                     var revposition = new Xamarin.Forms.Maps.Position(position.Latitude, position.Longitude);
@@ -249,6 +251,7 @@ namespace Saferide.ViewModels
                 }
                 catch (Exception ex)
                 {
+                    XFToast.HideLoading();
                     Debug.WriteLine("Unable to get address: " + ex);
                 }
                 if (shouldStartListening == false)
@@ -262,6 +265,7 @@ namespace Saferide.ViewModels
             }
             catch (Exception ex)
             {
+                XFToast.HideLoading();
                 Debug.WriteLine("Unable to get location, may need to increase timeout: " + ex);
             }
         }
@@ -275,6 +279,7 @@ namespace Saferide.ViewModels
             if (!CrossGeolocator.Current.IsListening)
             {
                 CrossGeolocator.Current.AllowsBackgroundUpdates = true;
+                //Change distance
                 await CrossGeolocator.Current.StartListeningAsync(3000, 20, true);
                 IsStoped = false;
                 IsStarted = true;
@@ -297,7 +302,14 @@ namespace Saferide.ViewModels
                 UserPosition.Heading = position.Heading;
                 PositionHeading = PositionHelper.ConvertHeadingToDirection(position.Heading); ;
                 UserPosition.Speed = position.Speed;
-                PositionSpeed = Math.Round(position.Speed * 3.6) + "km/h";
+                if (Constants.MetricSystem == AppTexts.Kilometersperhour)
+                {
+                    PositionSpeed = Math.Round(position.Speed * 3.6).ToString();
+                }
+                else if (Constants.MetricSystem == AppTexts.MilesPerHour)
+                {
+                    PositionSpeed = Math.Round(position.Speed * 2.23694).ToString();
+                }
                 try
                 {
                     var revposition = new Xamarin.Forms.Maps.Position(position.Latitude, position.Longitude);
@@ -309,9 +321,10 @@ namespace Saferide.ViewModels
                 }
                 catch (Exception ex)
                 {
+                    XFToast.HideLoading();
                     Debug.WriteLine("Unable to get address: " + ex);
                 }
-                if (_whenToUpdateIncidents > 5)
+                if (_whenToUpdateIncidents > 10)
                 {
                     await GetIncidents();
                     await WarnIncident();
@@ -413,8 +426,10 @@ namespace Saferide.ViewModels
                                 unit = AppTexts.Kilometers;
                             }
                             ResourceManager rm = AppTexts.ResourceManager;
+                            if(closestIncident.Confirmed)
+                                return;
                             string typeOfIncident = rm.GetString(closestIncident.IncidentType.ToUpperFirstLetter());
-                            TextToSpeech.Talk(String.Format(AppTexts.SignalIncident, typeOfIncident, distanceBetweenTheIncident, unit));
+                            TextToSpeech.Talk(String.Format(AppTexts.SignalIncident, typeOfIncident, distanceBetweenTheIncident, unit, closestIncident.Description) );
                             var isConfirmed = await XFToast.ConfirmAsync(AppTexts.Confirm, AppTexts.ConfirmText, AppTexts.Yes,
                                 AppTexts.No);
                             closestIncident.Confirmed = isConfirmed;

@@ -295,7 +295,7 @@
     <value>SE</value>
   </data>
   <data name="SignalIncident" xml:space="preserve">
-    <value>There is an incident of the type {0} in {1} {2}</value>
+    <value>There is an incident of the type {0} in {1} {2}. The description is {3}</value>
     <comment>3 variables for the type of the incident, the distance and the metric unit</comment>
   </data>
   <data name="SSE" xml:space="preserve">
@@ -306,9 +306,6 @@
   </data>
   <data name="StartRidingFirst" xml:space="preserve">
     <value>U need to start riding first</value>
-  </data>
-  <data name="String" xml:space="preserve">
-    <value>NewSlidingZone</value>
   </data>
   <data name="SW" xml:space="preserve">
     <value>SW</value>
@@ -348,5 +345,11 @@
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Yes</value>
+  </data>
+  <data name="MilesPerHour" xml:space="preserve">
+    <value>M.P.H</value>
+  </data>
+  <data name="ChooseUnitSystem" xml:space="preserve">
+    <value>Choose the unit system</value>
   </data>
 </root>

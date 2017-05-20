@@ -220,7 +220,6 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\API\Auth\ApplicationOAuthProvider.cs" />
     <Compile Include="Controllers\API\BaseApiController.cs" />
-    <Compile Include="Controllers\API\ConfirmIncidentController.cs" />
     <Compile Include="Controllers\API\GetIncidentsController.cs" />
     <Compile Include="Controllers\API\IncidentsController.cs" />
     <Compile Include="Controllers\API\IsTokenValidController.cs" />

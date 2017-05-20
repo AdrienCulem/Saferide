@@ -2,6 +2,7 @@
 using Saferide.Views;
 using System;
 using System.Collections.Generic;
+using System.Windows.Input;
 using Saferide.GPS;
 using Saferide.Helpers;
 using Saferide.Interfaces;
@@ -13,7 +14,11 @@ namespace Saferide.ViewModels
     public class MasterDetailViewModel : BaseViewModel
     {
         public List<MasterPageItem> MenuList { get; set; }
-
+        public ICommand LogOff => new Command(() =>
+        {
+            Constants.LogOff();
+            Application.Current.MainPage = new NavigationPage(new LoginPageView());
+        });
         private MasterPageItem _itemSelected;
         private string _versionNumber;
         private string _connectedUser;
@@ -54,23 +59,7 @@ namespace Saferide.ViewModels
                 {
                     return;
                 }
-                if (page == typeof(LoginPageView))
-                {
-                    Application.Current.MainPage = new NavigationPage(new LoginPageView());
-                }
-                //else if (page == typeof(IncidentsPageView))
-                //{
-                //    if (UserPosition.Latitude == 0 || UserPosition.Longitude == 0)
-                //    {
-                //        DependencyService.Get<ISpeechRecognition>().Talk("U need to start riding first");
-                //        XFToast.LongMessage("U need to start locating your phone first");
-                //    }
-                //    else
-                //    {
-                //        mainpage.Detail = new NavigationPage(new IncidentsPageView());
-                //    }
-                //}
-                else if (page == typeof(MapPageView))
+                if (page == typeof(MapPageView))
                 {
                     if (UserPosition.Latitude == 0 || UserPosition.Longitude == 0)
                     {
@@ -92,7 +81,6 @@ namespace Saferide.ViewModels
             get => _itemSelected;
         }
 
-
         public MasterDetailViewModel()
         {
             VersionNumber = "Version : " + DependencyService.Get<IGetVersion>().GetVersion();
@@ -100,15 +88,16 @@ namespace Saferide.ViewModels
             MenuList = new List<MasterPageItem>();
 
             var page1 = new MasterPageItem() { Title = AppTexts.Home, Icon = "home.png", TargetType = typeof(HomePageView) };
-            //var page2 = new MasterPageItem() { Title = AppTexts.Incidents, Icon = "incidentIcon.png", TargetType = typeof(IncidentsPageView) };
             var page3 = new MasterPageItem() { Title = AppTexts.Map, Icon = "map.png", TargetType = typeof(MapPageView) };
-            var page4 = new MasterPageItem() { Title = AppTexts.Logoff, Icon = "logout.png", TargetType = typeof(LoginPageView) };
+            //var page4 = new MasterPageItem() { Title = AppTexts.Logoff, Icon = "logout.png", TargetType = typeof(LoginPageView) };
+            var page5 = new MasterPageItem() { Title = "Settings", Icon = "logout.png", TargetType = typeof(SettingsPageView) };
+
 
             MenuList.Add(page1);
             //MenuList.Add(page2);
             MenuList.Add(page3);
-            MenuList.Add(page4);
-
+            //MenuList.Add(page4);
+            MenuList.Add(page5);
         }
     }
 }

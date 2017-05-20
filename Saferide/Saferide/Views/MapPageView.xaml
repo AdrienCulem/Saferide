@@ -4,8 +4,8 @@
              x:Class="Saferide.Views.MapPageView"
              xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
              xmlns:saferide="clr-namespace:Saferide;assembly=Saferide"
-             xmlns:Ressources="clr-namespace:Saferide.Ressources;assembly=Saferide"
-             Title="Map">
+             xmlns:ressources="clr-namespace:Saferide.Ressources;assembly=Saferide"
+             Title="{x:Static ressources:AppTexts.Map}">
   <AbsoluteLayout>
     <Entry 
       Text="Mons, Belgium"
@@ -15,7 +15,7 @@
     <Button
       AbsoluteLayout.LayoutBounds="1,0,.18,.1" 
       AbsoluteLayout.LayoutFlags="All"
-      Text="{x:Static Ressources:AppTexts.Go}"
+      Text="{x:Static ressources:AppTexts.Go}"
       BackgroundColor="{x:Static saferide:Constants.SaferideBlue}"
       x:Name="ButtonGoTo" 
       Clicked="OnGoToClicked"/>

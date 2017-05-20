@@ -16,12 +16,11 @@ namespace Saferide.Data
     {
         HttpClient client;
 
-        private Token token;
+        private Token _token;
 
         public RestService()
         {
-            client = new HttpClient();
-            client.MaxResponseContentBufferSize = 256000;
+            client = new HttpClient {MaxResponseContentBufferSize = 256000};
         }
         /// <summary>
         /// Authenticate the user on the sever
@@ -47,17 +46,14 @@ namespace Saferide.Data
                 if (response.IsSuccessStatusCode)
                 {
                     var answer = await response.Content.ReadAsStringAsync();
-                    token = JsonConvert.DeserializeObject<Token>(answer);
-                    Constants.BearerToken = token.access_token;
-                    var tokenValidtyInSeconds = token.expires_in;
+                    _token = JsonConvert.DeserializeObject<Token>(answer);
+                    Constants.BearerToken = _token.access_token;
+                    var tokenValidtyInSeconds = _token.expires_in;
                     Constants.TokenValidity = DateTime.UtcNow.AddSeconds(tokenValidtyInSeconds);
                     Constants.IsConnected = true;
                     return "Success";
                 }
-                if (statusCode == 401)
-                {
-                    await TryReconnect();
-                }
+                await TryReconnect();
                 return "Invalid";
             }
             catch (Exception)
@@ -65,7 +61,7 @@ namespace Saferide.Data
                 return "Error";
             }
         }
-        
+
         public async Task<String> NewIncident(Incident incident)
         {
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Constants.BearerToken);
@@ -175,7 +171,7 @@ namespace Saferide.Data
                     await TryReconnect();
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Debug.WriteLine(e.ToString());
             }
