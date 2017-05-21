@@ -5,7 +5,13 @@
              xmlns:ressources="clr-namespace:Saferide.Ressources"
              xmlns:saferide="clr-namespace:Saferide;assembly=Saferide"
              xmlns:controls="clr-namespace:Saferide.Controls;assembly=Saferide"
+             xmlns:converters="clr-namespace:Saferide.Converters;assembly=Saferide"
              Title="{x:Static ressources:AppTexts.Home}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:IsListenningConverter x:Key="IsListenningConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ScrollView>
         <StackLayout Padding="5">
             <ActivityIndicator Color="{x:Static saferide:Constants.SaferideBlue}" 
@@ -63,11 +69,12 @@
             <AbsoluteLayout
                 HeightRequest="160">
                 <Button Text="{x:Static ressources:AppTexts.Listen}"
+                        x:Name="ButtonListen"
                         Command="{Binding ListenMicrophone}"
                         AbsoluteLayout.LayoutBounds=".05, .5, .45, 1"
                         AbsoluteLayout.LayoutFlags="All"
                         Clicked="ButtonClicked"
-                        BackgroundColor="{x:Static saferide:Constants.SaferideBlue}"
+                        BackgroundColor="{Binding IsListening, Converter={StaticResource IsListenningConverter}}"
                         TextColor="White"
                         BorderRadius="3" />
                 <Button Text="{x:Static ressources:AppTexts.AddIncident}"

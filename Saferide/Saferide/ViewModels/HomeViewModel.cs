@@ -42,6 +42,7 @@ namespace Saferide.ViewModels
         private string _positionSpeed;
         private bool _isStoped;
         private bool _isStarted;
+        private bool _isListenning;
 
         public string PositionStatus
         {
@@ -171,6 +172,20 @@ namespace Saferide.ViewModels
             }
         }
 
+        /// <summary>
+        /// Used to display the right button
+        /// </summary>
+        public bool IsListenning
+        {
+            get => _isListenning;
+            set
+            {
+                if (_isListenning == value) return;
+                _isListenning = value;
+                RaisePropertyChanged();
+            }
+        }
+
         public HomeViewModel()
         {
             if (!CrossGeolocator.Current.IsListening)
@@ -193,6 +208,7 @@ namespace Saferide.ViewModels
                     }
                 }
                 DependencyService.Get<ISpeechService>().StartListening();
+                IsListenning = true;
             });
             StartRiding = new Command(async () =>
             {
