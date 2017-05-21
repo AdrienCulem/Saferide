@@ -13,7 +13,7 @@ using Decoder = PocketSphinx.Decoder;
 [assembly: Dependency(typeof(SpeechService))] // Communication PCL -> specific plateform
 namespace Saferide.Droid.Services
 {
-    public class SpeechService : ISpeechService
+    public class SpeechService : ISpeechService, ISpeechRecognized
     {
         private SpeechRecognizer _recognizer;
 
@@ -23,7 +23,7 @@ namespace Saferide.Droid.Services
         private static string KWS_SEARCH = "wakeup";
         private static string KWS_SEARCH_FILE = "wakeupList";
 
-        private string KEYPHRASE = "test";
+        private string KEYPHRASE = "new incident";
 
         private static File assetsDir;
 
@@ -37,7 +37,7 @@ namespace Saferide.Droid.Services
             KEYPHRASE = keyPhrase;
         }
 
-        public void StartListening()
+        public void StartListening(string mode)
         {
             string rec = Android.Content.PM.PackageManager.FeatureMicrophone;
             if (rec != "android.hardware.microphone")
@@ -52,23 +52,14 @@ namespace Saferide.Droid.Services
             else
             {
                 n = 0;
-                //MainPage.ViewModel.Hypothesis = String.Empty;
-                //MainPage.ViewModel.IsStartEnabled = false;
-                //MainPage.ViewModel.IsStopEnabled = true;
-
-                //if (MainPage.ViewModel.IsKeyphraseMode == true)
-                //{
-                //    switchSearch(KWS_SEARCH, KEYPHRASE);
-                //}
-                //else if (MainPage.ViewModel.IsKeywordsMode == true)
-                //{
-                //    _recognizer.AddKeywordSearch(KWS_SEARCH_FILE, new File(assetsDir, "up_en.txt"));
-
-                //    _recognizer.StartListening(KWS_SEARCH_FILE);
-                //}
-
-                //MainPage.ViewModel.IsListening = true;
-                switchSearch(KWS_SEARCH, KEYPHRASE);
+                if(mode == "keyphrase")
+                {
+                    switchSearch(KWS_SEARCH, KEYPHRASE);
+                }else if (mode == "keyword")
+                {
+                    _recognizer.AddKeywordSearch(KWS_SEARCH_FILE, new File(assetsDir, "up_en.txt"));
+                    _recognizer.StartListening(KWS_SEARCH_FILE);
+                }
             }
         }
 
@@ -131,16 +122,8 @@ namespace Saferide.Droid.Services
             {
                 lastHypo = e.Hypothesis.Hypstr.Substring(0, e.Hypothesis.Hypstr.Count() - n); // get the last word detected (the first one in Hypstr)
                 n = e.Hypothesis.Hypstr.Count();
-
-                //if (MainPage.ViewModel.IsKeyphraseMode == true)
-                //{
-                //    MainPage.ViewModel.Hypothesis = lastHypo;
-                //}
-                //else if (MainPage.ViewModel.IsKeywordsMode == true)
-                //{
-                //    MainPage.ViewModel.Hypothesis = lastHypo;
-                //    System.Diagnostics.Debug.WriteLine($"\nYou said: {lastHypo}");
-                //}
+                //Still to be worked on
+                MessagingCenter.Send<ISpeechRecognized, string>(this, "Recognized", lastHypo);
             }
         }
 

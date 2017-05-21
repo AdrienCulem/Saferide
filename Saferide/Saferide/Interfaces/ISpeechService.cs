@@ -8,7 +8,7 @@ namespace Saferide.Interfaces
 {
     public interface ISpeechService
     {
-        void StartListening();
+        void StartListening(string mode);
         Task StopListening();
         Task Setup();
         void ChangeKeyPhrase(string keyPhrase);

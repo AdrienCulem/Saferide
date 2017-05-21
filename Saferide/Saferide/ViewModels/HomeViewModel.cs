@@ -207,7 +207,7 @@ namespace Saferide.ViewModels
                         Debug.WriteLine(e.ToString());
                     }
                 }
-                DependencyService.Get<ISpeechService>().StartListening();
+                DependencyService.Get<ISpeechService>().StartListening("keyphrase");
                 IsListenning = true;
             });
             StartRiding = new Command(async () =>

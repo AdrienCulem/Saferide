@@ -7,7 +7,9 @@ using Android.Media;
 using Android.Util;
 using Java.Lang;
 using PocketSphinx;
+using Saferide.Interfaces;
 using SphinxBase;
+using Xamarin.Forms;
 using Config = SphinxBase.Config;
 using String = System.String;
 using Thread = System.Threading.Thread;
@@ -214,6 +216,7 @@ namespace Saferide.Droid.SpeechToText
         private void OnResult(Hypothesis hypothesis, bool finalResult)
         {
             Result?.Invoke(this, new SpeechResultEvent(hypothesis, finalResult));
+            MessagingCenter.Send<ISpeechRecognition, string>(this ,"Recognized", hypothesis.Hypstr);
         }
 
         protected virtual void OnInSpeechChange(bool e)

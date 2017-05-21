@@ -74,7 +74,7 @@
                         AbsoluteLayout.LayoutBounds=".05, .5, .45, 1"
                         AbsoluteLayout.LayoutFlags="All"
                         Clicked="ButtonClicked"
-                        BackgroundColor="{Binding IsListening, Converter={StaticResource IsListenningConverter}}"
+                        BackgroundColor="{Binding IsListenning, Converter={StaticResource IsListenningConverter}}"
                         TextColor="White"
                         BorderRadius="3" />
                 <Button Text="{x:Static ressources:AppTexts.AddIncident}"
