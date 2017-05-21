@@ -24,7 +24,7 @@ namespace Saferide
 
         protected override void OnStart()
         {
-            if (Device.OS == TargetPlatform.iOS || Device.OS == TargetPlatform.Android)
+            if (Device.RuntimePlatform == "ios" || Device.RuntimePlatform == "Android")
             {
                 var ci = DependencyService.Get<ILocalize>().GetCurrentCultureInfo();
                 AppTexts.Culture = ci; // set the RESX for resource localization

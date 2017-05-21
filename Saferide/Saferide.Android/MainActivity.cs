@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Acr.UserDialogs;
+using Android;
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
@@ -148,6 +149,35 @@ namespace Saferide.Droid
             var version =
                 Forms.Context.PackageManager.GetPackageInfo(Forms.Context.ApplicationContext.PackageName, 0).VersionName;
             return version;
+        }
+
+        public void AskPermissions()
+        {
+            if ((int)Build.VERSION.SdkInt >= 23)
+            {
+                GetPermissionAsync();
+            }
+        }
+
+        public void GetPermissionAsync()
+        {
+            string[] PermissionsLocation =
+            {
+                Manifest.Permission.WriteExternalStorage,
+                Manifest.Permission.ReadExternalStorage,
+                Manifest.Permission.Camera
+            };
+            var activity = (Activity)Forms.Context;
+            var view = activity.FindViewById(Android.Resource.Id.Content);
+            //const string permission = Manifest.Permission.WriteExternalStorage;
+            foreach (var item in PermissionsLocation)
+            {
+                if (Forms.Context.CheckSelfPermission(item) != Permission.Granted)
+                {
+                    activity.RequestPermissions(PermissionsLocation, 0);
+
+                }
+            }
         }
     }
 }
