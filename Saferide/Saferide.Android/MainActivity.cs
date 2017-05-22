@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Acr.UserDialogs;
@@ -19,7 +20,7 @@ using Xamarin.Forms;
 namespace Saferide.Droid
 {
     [Activity(Label = "Saferide", Icon = "@drawable/ic_launcher", ScreenOrientation = ScreenOrientation.Portrait,  Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
-    public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity, ISpeechRecognition, TextToSpeech.IOnInitListener, IGpsEnabled, IGetVersion
+    public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity, ISpeechRecognition, TextToSpeech.IOnInitListener, IGpsEnabled, IGetVersion, IAskPermissions
     {
         private readonly int VOICE = 10;
         private static string _textRecognized;
@@ -166,7 +167,9 @@ namespace Saferide.Droid
             {
                 Manifest.Permission.WriteExternalStorage,
                 Manifest.Permission.ReadExternalStorage,
-                Manifest.Permission.Camera
+                Manifest.Permission.RecordAudio,
+                Manifest.Permission.Bluetooth,
+                Manifest.Permission.BluetoothAdmin
             };
             var activity = (Activity)Forms.Context;
             var view = activity.FindViewById(Android.Resource.Id.Content);

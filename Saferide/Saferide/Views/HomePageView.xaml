@@ -86,7 +86,7 @@
                         TextColor="White"
                         BorderRadius="3" />
             </AbsoluteLayout>
-            <Label Text="{Binding SpeechResult, Mode=TwoWay}"></Label>
+            <!--<Label Text="{Binding SpeechResult, Mode=TwoWay}"></Label>
             <StackLayout Orientation="Horizontal">
                 <Label Text="{Binding PositionStatus}" FontSize="Medium" FontAttributes="Bold" />
             </StackLayout>
@@ -101,7 +101,7 @@
             <StackLayout Orientation="Horizontal">
                 <Label Text="{x:Static ressources:AppTexts.AddressView}" FontSize="Medium" FontAttributes="Bold" />
                 <Label Text="{Binding PositionAddress}" LineBreakMode="WordWrap" FontSize="Medium" FontAttributes="Bold" />
-            </StackLayout>
+            </StackLayout>-->
         </StackLayout>
     </ScrollView>
 </ContentPage>

@@ -11,6 +11,8 @@
   <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
   <uses-permission android:name="android.permission.RECORD_AUDIO" />
+  <uses-permission android:name="android.permission.BLUETOOTH" />
+  <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 	<application android:label="Saferide" android:icon="@drawable/ic_launcher">
 		<!--<meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyDJfd3A6JJio6mJa5YrHtyomjpojmLB4BY" />
 		<meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyDJfd3A6JJio6mJa5YrHtyomjpojmLB4BY" />-->

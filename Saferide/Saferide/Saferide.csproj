@@ -43,6 +43,7 @@
     <Compile Include="Helpers\PositionHelper.cs" />
     <Compile Include="Extensions\StringHelper.cs" />
     <Compile Include="Helpers\TextToSpeech.cs" />
+    <Compile Include="Interfaces\IAskPermissions.cs" />
     <Compile Include="Interfaces\IGetVersion.cs" />
     <Compile Include="Interfaces\IGpsEnabled.cs" />
     <Compile Include="Interfaces\ILocalize.cs" />

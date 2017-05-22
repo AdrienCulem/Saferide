@@ -42,7 +42,7 @@ namespace Saferide.ViewModels
         private string _positionSpeed;
         private bool _isStoped;
         private bool _isStarted;
-        private bool _isListenning;
+        private static bool _isListenning;
 
         public string PositionStatus
         {
@@ -194,21 +194,26 @@ namespace Saferide.ViewModels
             }
             ListenMicrophone = new Command(async() =>
             {
+                if(Device.RuntimePlatform == "Android")
+                    DependencyService.Get<IAskPermissions>().AskPermissions();
                 //await VoiceRecognition();
-                if (!Constants.VoiceAlreadyInit)
+                if(!Constants.VoiceAlreadyInit)
                 {
                     try
                     {
                         await DependencyService.Get<ISpeechService>().Setup();
-                        Constants.VoiceAlreadyInit = true;
+                        DependencyService.Get<ISpeechService>().StartListening("keyphrase");
+                        IsListenning = true;
                     }
                     catch (Exception e)
                     {
                         Debug.WriteLine(e.ToString());
                     }
+                }else
+                {
+                    await DependencyService.Get<ISpeechService>().StopListening();
+                    IsListenning = false;
                 }
-                DependencyService.Get<ISpeechService>().StartListening("keyphrase");
-                IsListenning = true;
             });
             StartRiding = new Command(async () =>
             {
@@ -217,6 +222,13 @@ namespace Saferide.ViewModels
             _geoCoder = new Geocoder();
             PositionHeading = "N";
             PositionSpeed = "0";
+            MessagingCenter.Subscribe<ISpeechRecognized, string>(this, "Recognized", async(sender, arg) =>
+            {
+                if (arg == "new incident")
+                {
+                    await GoToNewIncident();
+                }
+            });
         }
 
         public async Task VoiceRecognition()

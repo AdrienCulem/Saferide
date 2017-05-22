@@ -30,7 +30,10 @@ namespace Saferide.Extensions
                 var choices = seg.Split('|');
                 return choices;
             }
-            return null;
+            return new []
+            {
+                str
+            };
         }
     }
 }

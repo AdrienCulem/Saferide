@@ -63,7 +63,7 @@ namespace Saferide.Droid.SpeechToText
             _decoder.SetSearch(searchName);
 
             _interruption = new CancellationTokenSource();
-            
+
             _recognizerThread = Task.Run(() =>
              {
                  try
@@ -216,7 +216,6 @@ namespace Saferide.Droid.SpeechToText
         private void OnResult(Hypothesis hypothesis, bool finalResult)
         {
             Result?.Invoke(this, new SpeechResultEvent(hypothesis, finalResult));
-            MessagingCenter.Send<ISpeechRecognition, string>(this ,"Recognized", hypothesis.Hypstr);
         }
 
         protected virtual void OnInSpeechChange(bool e)
