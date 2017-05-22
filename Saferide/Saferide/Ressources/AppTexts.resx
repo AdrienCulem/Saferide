@@ -352,4 +352,7 @@
   <data name="ChooseUnitSystem" xml:space="preserve">
     <value>Choose the unit system</value>
   </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
 </root>

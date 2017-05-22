@@ -90,7 +90,7 @@ namespace Saferide.ViewModels
             var page1 = new MasterPageItem() { Title = AppTexts.Home, Icon = "home.png", TargetType = typeof(HomePageView) };
             var page3 = new MasterPageItem() { Title = AppTexts.Map, Icon = "map.png", TargetType = typeof(MapPageView) };
             //var page4 = new MasterPageItem() { Title = AppTexts.Logoff, Icon = "logout.png", TargetType = typeof(LoginPageView) };
-            var page5 = new MasterPageItem() { Title = "Settings", Icon = "logout.png", TargetType = typeof(SettingsPageView) };
+            var page5 = new MasterPageItem() { Title = AppTexts.Settings, Icon = "logout.png", TargetType = typeof(SettingsPageView) };
 
 
             MenuList.Add(page1);

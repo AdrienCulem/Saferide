@@ -351,4 +351,7 @@
   <data name="ChooseUnitSystem" xml:space="preserve">
     <value>Choisissez les unités de vitesse</value>
   </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Options</value>
+  </data>
 </root>
