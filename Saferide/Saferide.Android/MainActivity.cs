@@ -64,6 +64,7 @@ namespace Saferide.Droid
 
         public async Task<string> Listen()
         {
+            _textRecognized = "";
             var voiceIntent = new Intent(RecognizerIntent.ActionRecognizeSpeech);
             voiceIntent.PutExtra(RecognizerIntent.ExtraLanguageModel, RecognizerIntent.LanguageModelFreeForm);
             voiceIntent.PutExtra(RecognizerIntent.ExtraPrompt, "Speak now");

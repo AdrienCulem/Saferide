@@ -187,7 +187,7 @@
     <value>Ecouter</value>
   </data>
   <data name="ListenNewIncident" xml:space="preserve">
-    <value>nouvelle incident</value>
+    <value>[nouvelle incident|nouvel incident]</value>
   </data>
   <data name="ListenStartRiding" xml:space="preserve">
     <value>commencer</value>
@@ -351,7 +351,16 @@
   <data name="ChooseUnitSystem" xml:space="preserve">
     <value>Choisissez les unités de vitesse</value>
   </data>
+  <data name="AvailableCommands" xml:space="preserve">
+    <value>Pour utiliser la reconnaissance vocale, cliquez sur le bouton écouter et ensuite prononcez le texte du bouton sur lequel vous voulez cliquer.</value>
+  </data>
+  <data name="Help" xml:space="preserve">
+    <value>Aide</value>
+  </data>
   <data name="Settings" xml:space="preserve">
     <value>Options</value>
+  </data>
+  <data name="SomeInfos" xml:space="preserve">
+    <value>Voici quelque informations à propos de l'application.</value>
   </data>
 </root>

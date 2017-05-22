@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace Saferide.Extensions
 {
@@ -18,6 +16,21 @@ namespace Saferide.Extensions
             letters[0] = char.ToUpper(letters[0]);
             // return the array made of the new char array
             return new string(letters);
+        }
+
+
+        public static string[] Spintax(this string str)
+        {
+            if (str == null) throw new ArgumentNullException(nameof(str));
+            string pattern = @"\[[^\[\]]*\]";
+            Match m = Regex.Match(str, pattern);
+            while (m.Success)
+            {
+                string seg = str.Substring(m.Index + 1, m.Length - 2);
+                var choices = seg.Split('|');
+                return choices;
+            }
+            return null;
         }
     }
 }

@@ -352,7 +352,16 @@
   <data name="ChooseUnitSystem" xml:space="preserve">
     <value>Choose the unit system</value>
   </data>
+  <data name="AvailableCommands" xml:space="preserve">
+    <value>To use the vocal recognition just press the listen button then say the texts that is displayed on the screen to click on that button.</value>
+  </data>
+  <data name="Help" xml:space="preserve">
+    <value>Help</value>
+  </data>
   <data name="Settings" xml:space="preserve">
     <value>Settings</value>
+  </data>
+  <data name="SomeInfos" xml:space="preserve">
+    <value>Here are some informations about the app</value>
   </data>
 </root>
