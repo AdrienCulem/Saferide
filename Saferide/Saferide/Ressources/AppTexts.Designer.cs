@@ -80,6 +80,15 @@ namespace Saferide.Ressources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to To use the vocal recognition just press the listen button then say the texts that is displayed on the screen to click on that button..
+        /// </summary>
+        public static string AvailableCommands {
+            get {
+                return ResourceManager.GetString("AvailableCommands", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Both email and password needs to be completed.
         /// </summary>
         public static string BothFields {
@@ -247,6 +256,15 @@ namespace Saferide.Ressources {
         public static string HeadingView {
             get {
                 return ResourceManager.GetString("HeadingView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Help.
+        /// </summary>
+        public static string Help {
+            get {
+                return ResourceManager.GetString("Help", resourceCulture);
             }
         }
         
@@ -584,6 +602,15 @@ namespace Saferide.Ressources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        public static string Settings {
+            get {
+                return ResourceManager.GetString("Settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There is an incident of the type {0} in {1} {2}. The description is {3}.
         /// </summary>
         public static string SignalIncident {
@@ -598,6 +625,15 @@ namespace Saferide.Ressources {
         public static string SlidingZone {
             get {
                 return ResourceManager.GetString("SlidingZone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Here are some informations about the app.
+        /// </summary>
+        public static string SomeInfos {
+            get {
+                return ResourceManager.GetString("SomeInfos", resourceCulture);
             }
         }
         

@@ -223,7 +223,8 @@ namespace Saferide.ViewModels
         {
             var result = await DependencyService.Get<ISpeechRecognition>().Listen();
             SpeechResult = result;
-            if (result == AppTexts.ListenNewIncident)
+            var listenNewIncidentResults = AppTexts.ListenNewIncident.Spintax();
+            if (listenNewIncidentResults.Contains(result))
                 await GoToNewIncident();
             if (result == AppTexts.ListenStartRiding)
                 await GetGpsInfos();

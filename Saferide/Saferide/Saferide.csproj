@@ -82,6 +82,9 @@
     <Compile Include="Views\GenericWebPageView.xaml.cs">
       <DependentUpon>GenericWebPageView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\HelpPageView.xaml.cs">
+      <DependentUpon>HelpPageView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\HomePageView.xaml.cs">
       <DependentUpon>HomePageView.xaml</DependentUpon>
     </Compile>
@@ -214,6 +217,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\SettingsPageView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\HelpPageView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
