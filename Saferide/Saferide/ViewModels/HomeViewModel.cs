@@ -384,6 +384,8 @@ namespace Saferide.ViewModels
         /// </summary>
         private async Task WarnIncident()
         {
+            if (Constants.IsBeingAskedToConfirm)
+                return;
             Position pos = new Position
             {
                 Latitude = UserPosition.Latitude,
@@ -472,9 +474,11 @@ namespace Saferide.ViewModels
                                 return;
                             string typeOfIncident = rm.GetString(closestIncident.IncidentType.ToUpperFirstLetter());
                             TextToSpeech.Talk(String.Format(AppTexts.SignalIncident, typeOfIncident, distanceBetweenTheIncident, unit, closestIncident.Description) );
+                            Constants.IsBeingAskedToConfirm = true;
                             var isConfirmed = await XFToast.ConfirmAsync(AppTexts.Confirm, AppTexts.ConfirmText, AppTexts.Yes,
                                 AppTexts.No);
                             closestIncident.Confirmed = isConfirmed;
+                            Constants.IsBeingAskedToConfirm = false;
                             await App.IncidentManager.ConfirmIncident(closestIncident);
                         }
                     }
