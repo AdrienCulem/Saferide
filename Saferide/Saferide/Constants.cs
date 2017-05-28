@@ -12,6 +12,7 @@ namespace Saferide
     public static class Constants
     {
         public static bool IsConnected;
+        public static bool IsBeingAskedToConfirm;
         public static string BearerToken;
         public static string Username;
         public static string Password;
