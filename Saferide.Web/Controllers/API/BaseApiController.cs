@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 using Microsoft.AspNet.Identity.Owin;
-using CyberHelp.MVC.Repository;
+using Saferide.Web.Repository;
 
 namespace Saferide.Web.Controllers.Api
 {

@@ -17,10 +17,10 @@ namespace Saferide.Web.Repository
             return await Context.Incidents.Include(n => n.User).FirstOrDefaultAsync(n => n.UserId == id);
         }
 
-        public async Task<Incident> GetByIdAsync(int id)
-        {
-            return await Context.Incidents
-                .FirstOrDefaultAsync(f => f.IncidentId == id);
-        }
+        //public async Task<Incident> GetByIdAsync(int id)
+        //{
+        //    return await Context.Incidents
+        //        .FirstOrDefaultAsync(f => f.IncidentId == id);
+        //}
     }
 }

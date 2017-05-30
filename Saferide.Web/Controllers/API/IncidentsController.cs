@@ -3,7 +3,6 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
-using CyberHelp.MVC.Repository;
 using Microsoft.AspNet.Identity;
 using Saferide.Web.Controllers.Api;
 using Saferide.Web.Models;
@@ -38,8 +37,8 @@ namespace Saferide.Web.Controllers.API
             {
                 return BadRequest(ModelState);
             }
-            var savedIncident = await UnitOfWork.Incidents.GetByIdAsync(incident.IncidentId);
-            savedIncident.Trust = incident.Confirmed ? savedIncident.Trust++ : savedIncident.Trust--;
+            var savedIncident = await UnitOfWork.Incidents.GetById(id);
+            savedIncident.Trust = incident.Confirmed ? savedIncident.Trust+1 : savedIncident.Trust-1;
             if (savedIncident.Trust == 0)
             {
                 await UnitOfWork.Incidents.Delete(savedIncident);

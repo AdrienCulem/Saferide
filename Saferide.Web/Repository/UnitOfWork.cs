@@ -3,9 +3,8 @@ using Microsoft.Owin;
 using System;
 using System.Threading.Tasks;
 using Saferide.Web.Models;
-using Saferide.Web.Repository;
 
-namespace CyberHelp.MVC.Repository
+namespace Saferide.Web.Repository
 {
     public class UnitOfWork : IDisposable
     {

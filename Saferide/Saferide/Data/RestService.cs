@@ -99,7 +99,7 @@ namespace Saferide.Data
                 var json = JsonConvert.SerializeObject(incident);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
                 HttpResponseMessage response = null;
-                response = await client.PutAsync(uri, content);
+                response = await client.PostAsync(uri, content);
                 var statusCode = (int)response.StatusCode;
 
                 if (response.IsSuccessStatusCode)

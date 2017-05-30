@@ -192,6 +192,9 @@ namespace Saferide.ViewModels
 
         public async Task VoiceRecognition()
         {
+
+            await DependencyService.Get<ISpeechRecognition>().Listen();
+
             var result = await DependencyService.Get<ISpeechRecognition>().Listen();
             SpeechResult = result;
             var listenNewIncidentResults = AppTexts.ListenNewIncident.Spintax();

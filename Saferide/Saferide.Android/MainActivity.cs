@@ -14,7 +14,6 @@ using Saferide.Droid;
 using Saferide.Interfaces;
 using Xamarin.Forms;
 [assembly: Xamarin.Forms.Dependency(typeof(MainActivity))]
-
 namespace Saferide.Droid
 {
     [Activity(Label = "Saferide", Icon = "@drawable/ic_launcher", ScreenOrientation = ScreenOrientation.Portrait,  Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
