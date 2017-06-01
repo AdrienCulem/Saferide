@@ -512,6 +512,15 @@ namespace Saferide.Ressources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to no.
+        /// </summary>
+        public static string NoListen {
+            get {
+                return ResourceManager.GetString("NoListen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to NW.
         /// </summary>
         public static string NW {
@@ -814,6 +823,15 @@ namespace Saferide.Ressources {
         public static string Yes {
             get {
                 return ResourceManager.GetString("Yes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to yes.
+        /// </summary>
+        public static string YesListen {
+            get {
+                return ResourceManager.GetString("YesListen", resourceCulture);
             }
         }
     }

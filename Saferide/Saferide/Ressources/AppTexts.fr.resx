@@ -369,4 +369,10 @@
   <data name="SpeakNow" xml:space="preserve">
     <value>Parlez maintenant</value>
   </data>
+  <data name="NoListen" xml:space="preserve">
+    <value>non</value>
+  </data>
+  <data name="YesListen" xml:space="preserve">
+    <value>oui</value>
+  </data>
 </root>

@@ -453,9 +453,22 @@ namespace Saferide.ViewModels
                                     distanceBetweenTheIncident, unit, closestIncident.Description));
                                 Constants.IsBeingAskedToConfirm = true;
                                 //Prompts the user to confirm the incident
-                                var isConfirmed = await XFToast.ConfirmAsync(AppTexts.Confirm, AppTexts.ConfirmText,
-                                    AppTexts.Yes,
-                                    AppTexts.No);
+                                var resultOfConfirmation = await DependencyService.Get<ISpeechRecognition>().Listen();
+                                bool isConfirmed;
+                                if (resultOfConfirmation == AppTexts.YesListen)
+                                {
+                                    isConfirmed = true;
+                                }
+                                else if (resultOfConfirmation == AppTexts.NoListen)
+                                {
+                                    isConfirmed = false;
+                                }
+                                else
+                                {
+                                    isConfirmed = await XFToast.ConfirmAsync(AppTexts.Confirm, AppTexts.ConfirmText,
+                                        AppTexts.Yes,
+                                        AppTexts.No);
+                                }
                                 //Setting the incident to confirmed
                                 closestIncident.Confirmed = isConfirmed;
                                 Constants.IsBeingAskedToConfirm = false;
