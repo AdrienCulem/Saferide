@@ -9,9 +9,9 @@
     <StackLayout>
         <Grid HorizontalOptions="Center">
             <Grid.RowDefinitions>
-                <RowDefinition Height="120" />
-                <RowDefinition Height="120" />
-                <RowDefinition Height="120" />
+                <RowDefinition Height="140" />
+                <RowDefinition Height="140" />
+                <RowDefinition Height="140" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -47,7 +47,7 @@
                     Grid.Column="1"  
                     Command="{Binding IncidentButton}"
                     CommandParameter="danger"  />
-            <Button Text="{x:Static ressources:AppTexts.Listen}"
+            <Button Image="microphone.png"
                     Command="{Binding ListenMicrophone}"
                     Clicked="ButtonClicked"
                     BackgroundColor="{x:Static saferide:Constants.SaferideBlue}"

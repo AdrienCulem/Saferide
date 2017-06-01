@@ -66,7 +66,7 @@ namespace Saferide.Web
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(14),
 
                 // In production mode set AllowInsecureHttp = false
-                AllowInsecureHttp = true
+                AllowInsecureHttp = false
             };
 
             OAuthBearerOptions = new OAuthBearerAuthenticationOptions();

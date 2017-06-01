@@ -116,6 +116,15 @@ namespace Saferide.Ressources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Click here.
+        /// </summary>
+        public static string ClickHere {
+            get {
+                return ResourceManager.GetString("ClickHere", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Confirm?.
         /// </summary>
         public static string Confirm {
@@ -643,6 +652,15 @@ namespace Saferide.Ressources {
         public static string Speak {
             get {
                 return ResourceManager.GetString("Speak", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Speak now.
+        /// </summary>
+        public static string SpeakNow {
+            get {
+                return ResourceManager.GetString("SpeakNow", resourceCulture);
             }
         }
         

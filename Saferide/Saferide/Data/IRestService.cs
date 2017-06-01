@@ -10,8 +10,6 @@ namespace Saferide.Data
         Task<String> Authenticate(LoginUser user);
         Task<String> NewIncident(Incident incident);
         Task<String> ConfirmIncident(Incident incident);
-        Task<bool> IsTokenValid();
         Task<List<Incident>> GetIncidents(Position pos);
-
     }
 }

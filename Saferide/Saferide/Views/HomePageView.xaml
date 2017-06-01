@@ -45,7 +45,7 @@
             </AbsoluteLayout>
             <controls:CustomFontLabel FontSize="35" 
                            HorizontalTextAlignment="Center" 
-                           Text="{x:Static saferide:Constants.MetricSystem}">
+                           Text="{Binding MetricSystemToShow}">
             </controls:CustomFontLabel>
             <AbsoluteLayout
                 HeightRequest="160"
@@ -62,17 +62,19 @@
             </AbsoluteLayout>
             <AbsoluteLayout
                 HeightRequest="160">
-                <Button Text="{x:Static ressources:AppTexts.Listen}"
+                <Button
                         Command="{Binding ListenMicrophone}"
                         AbsoluteLayout.LayoutBounds=".05, .5, .45, 1"
                         AbsoluteLayout.LayoutFlags="All"
                         Clicked="ButtonClicked"
+                        Image="microphone.png"
                         BackgroundColor="{x:Static saferide:Constants.SaferideBlue}"
                         TextColor="White"
                         BorderRadius="3" />
-                <Button Text="{x:Static ressources:AppTexts.AddIncident}"
+                <Button
                         Command="{Binding IncidentButton}"
                         Clicked="ButtonClicked"
+                        Image="newIncident.png"
                         AbsoluteLayout.LayoutBounds=".95, .5, .45, 1"
                         AbsoluteLayout.LayoutFlags="All"
                         BackgroundColor="{x:Static saferide:Constants.SaferideBlue}"
@@ -80,7 +82,7 @@
                         BorderRadius="3" />
             </AbsoluteLayout>
             <Label Text="{Binding SpeechResult, Mode=TwoWay}"></Label>
-            <StackLayout Orientation="Horizontal">
+            <!--<StackLayout Orientation="Horizontal">
                 <Label Text="{Binding PositionStatus}" FontSize="Medium" FontAttributes="Bold" />
             </StackLayout>
             <StackLayout Orientation="Horizontal">
@@ -94,7 +96,7 @@
             <StackLayout Orientation="Horizontal">
                 <Label Text="{x:Static ressources:AppTexts.AddressView}" FontSize="Medium" FontAttributes="Bold" />
                 <Label Text="{Binding PositionAddress}" LineBreakMode="WordWrap" FontSize="Medium" FontAttributes="Bold" />
-            </StackLayout>
+            </StackLayout>-->
         </StackLayout>
     </ScrollView>
 </ContentPage>

@@ -42,6 +42,7 @@ namespace Saferide.ViewModels
         private string _positionSpeed;
         private bool _isStoped;
         private bool _isStarted;
+        private string _metricSystemToShow;
 
         public string PositionStatus
         {
@@ -127,6 +128,19 @@ namespace Saferide.ViewModels
             }
         }
 
+        /// <summary>
+        /// The speed sytem to display on the screen
+        /// </summary>
+        public string MetricSystemToShow
+        {
+            get => _metricSystemToShow;
+            set
+            {
+                if (_metricSystemToShow == value) return;
+                _metricSystemToShow = value;
+                RaisePropertyChanged();
+            }
+        }
 
 
         /// <summary>
@@ -188,13 +202,14 @@ namespace Saferide.ViewModels
             _geoCoder = new Geocoder();
             PositionHeading = "N";
             PositionSpeed = "0";
+            MetricSystemToShow = Constants.MetricSystem.ToString();
         }
-
+        /// <summary>
+        /// Starts the voice recognition
+        /// </summary>
+        /// <returns></returns>
         public async Task VoiceRecognition()
         {
-
-            await DependencyService.Get<ISpeechRecognition>().Listen();
-
             var result = await DependencyService.Get<ISpeechRecognition>().Listen();
             SpeechResult = result;
             var listenNewIncidentResults = AppTexts.ListenNewIncident.Spintax();
@@ -226,7 +241,7 @@ namespace Saferide.ViewModels
                     return;
                 }
                 XFToast.ShowLoading();
-                var position = await CrossGeolocator.Current.GetPositionAsync(15000);
+                var position = await CrossGeolocator.Current.GetPositionAsync(15000, null, true);
                 if (position == null)
                     return;
                 UserPosition.Latitude = position.Latitude;
@@ -236,11 +251,11 @@ namespace Saferide.ViewModels
                 UserPosition.Heading = position.Heading;
                 PositionHeading = PositionHelper.ConvertHeadingToDirection(position.Heading);
                 UserPosition.Speed = position.Speed;
-                if (Constants.MetricSystem == AppTexts.Kilometersperhour)
+                if (Constants.MetricSystem == Constants.MetricSystems.Kmh)
                 {
                     PositionSpeed = Math.Round(position.Speed * 3.6).ToString();
                 }
-                else if (Constants.MetricSystem == AppTexts.MilesPerHour)
+                else if (Constants.MetricSystem == Constants.MetricSystems.Mph)
                 {
                     PositionSpeed = Math.Round(position.Speed * 2.23694).ToString();
                 }
@@ -306,11 +321,11 @@ namespace Saferide.ViewModels
                 UserPosition.Heading = position.Heading;
                 PositionHeading = PositionHelper.ConvertHeadingToDirection(position.Heading); ;
                 UserPosition.Speed = position.Speed;
-                if (Constants.MetricSystem == AppTexts.Kilometersperhour)
+                if (Constants.MetricSystem == Constants.MetricSystems.Kmh)
                 {
                     PositionSpeed = Math.Round(position.Speed * 3.6).ToString();
                 }
-                else if (Constants.MetricSystem == AppTexts.MilesPerHour)
+                else if (Constants.MetricSystem == Constants.MetricSystems.Mph)
                 {
                     PositionSpeed = Math.Round(position.Speed * 2.23694).ToString();
                 }
@@ -328,7 +343,7 @@ namespace Saferide.ViewModels
                     XFToast.HideLoading();
                     Debug.WriteLine("Unable to get address: " + ex);
                 }
-                if (_whenToUpdateIncidents > 10)
+                if (_whenToUpdateIncidents > 20)
                 {
                     await GetIncidents();
                     await WarnIncident();
@@ -336,6 +351,7 @@ namespace Saferide.ViewModels
                 }
                 else
                 {
+                    await WarnIncident();
                     _whenToUpdateIncidents++;
                 }
             });
@@ -354,7 +370,7 @@ namespace Saferide.ViewModels
                 Longitude = UserPosition.Longitude,
             };
             PositionConverter pConvert = new PositionConverter(pos);
-            var result = pConvert.BoundingCoordinates(0.7);
+            var result = pConvert.BoundingCoordinates(1.5);
             List<Incident> incidentsWithinRadius;
             if (pos.Latitude == 0 || pos.Longitude == 0)
             {
@@ -404,9 +420,9 @@ namespace Saferide.ViewModels
                 }
                 //Closest incident in the direction of the user
                 //Only works if the user is moving
-                if (Math.Abs(UserPosition.Heading) > 0)
+                if (Math.Abs(UserPosition.Speed) > 0)
                 {
-                    //All incidents in front of the user in the radius
+                    //All incidents in front of the user in a certain radius
                     var incidentsInDirection = incidentsWithinRadius
                         .Where(a => a.DirectionFromCurrentPosition > UserPosition.Heading - 45 &&
                                     a.DirectionFromCurrentPosition < UserPosition.Heading + 45)
@@ -421,33 +437,38 @@ namespace Saferide.ViewModels
                         {
                             double distanceBetweenTheIncident;
                             string unit;
-                            if (closestIncident.DistanceFromCurrentPosition < 1)
+                            if (closestIncident.DistanceFromCurrentPosition < 0.4)
                             {
-                                distanceBetweenTheIncident = (Math.Round(closestIncident.DistanceFromCurrentPosition, 3)) * 1000;
+                                distanceBetweenTheIncident =
+                                    (Math.Round(closestIncident.DistanceFromCurrentPosition, 3)) * 1000;
                                 unit = AppTexts.Meters;
+                                ResourceManager rm = AppTexts.ResourceManager;
+                                //Don't signal an already confirmed incident
+                                if (closestIncident.Confirmed)
+                                    return;
+                                string typeOfIncident = rm.GetString(closestIncident.IncidentType.ToUpperFirstLetter());
+                                TextToSpeech.Talk(String.Format(AppTexts.SignalIncident, typeOfIncident,
+                                    distanceBetweenTheIncident, unit, closestIncident.Description));
+                                Constants.IsBeingAskedToConfirm = true;
+                                //Prompts the user to confirm the incident
+                                var isConfirmed = await XFToast.ConfirmAsync(AppTexts.Confirm, AppTexts.ConfirmText,
+                                    AppTexts.Yes,
+                                    AppTexts.No);
+                                //Setting the incident to confirmed
+                                closestIncident.Confirmed = isConfirmed;
+                                Constants.IsBeingAskedToConfirm = false;
+                                //Sending the confirmation to the API
+                                await App.IncidentManager.ConfirmIncident(closestIncident);
                             }
-                            else
-                            {
-                                distanceBetweenTheIncident = Math.Round(closestIncident.DistanceFromCurrentPosition, 1);
-                                unit = AppTexts.Kilometers;
-                            }
-                            ResourceManager rm = AppTexts.ResourceManager;
-                            if(closestIncident.Confirmed)
-                                return;
-                            string typeOfIncident = rm.GetString(closestIncident.IncidentType.ToUpperFirstLetter());
-                            TextToSpeech.Talk(String.Format(AppTexts.SignalIncident, typeOfIncident, distanceBetweenTheIncident, unit, closestIncident.Description) );
-                            Constants.IsBeingAskedToConfirm = true;
-                            var isConfirmed = await XFToast.ConfirmAsync(AppTexts.Confirm, AppTexts.ConfirmText, AppTexts.Yes,
-                                AppTexts.No);
-                            closestIncident.Confirmed = isConfirmed;
-                            Constants.IsBeingAskedToConfirm = false;
-                            await App.IncidentManager.ConfirmIncident(closestIncident);
                         }
                     }
                 }
             }
         }
-
+        /// <summary>
+        /// Redirection to the page used to signal a new incident
+        /// </summary>
+        /// <returns></returns>
         public async Task GoToNewIncident()
         {
             if (DependencyService.Get<IGpsEnabled>().IsGpsEnabled())
@@ -471,6 +492,10 @@ namespace Saferide.ViewModels
 
         }
 
+        /// <summary>
+        /// Getting the incidents from the API
+        /// </summary>
+        /// <returns></returns>
         private async Task GetIncidents()
         {
             await GetIncident.GetIncidents();

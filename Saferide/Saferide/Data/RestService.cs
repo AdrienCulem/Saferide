@@ -20,7 +20,7 @@ namespace Saferide.Data
 
         public RestService()
         {
-            client = new HttpClient {MaxResponseContentBufferSize = 256000};
+            client = new HttpClient { MaxResponseContentBufferSize = 256000 };
         }
         /// <summary>
         /// Authenticate the user on the sever
@@ -118,48 +118,16 @@ namespace Saferide.Data
             }
         }
 
-        public async Task<bool> IsTokenValid()
-        {
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Constants.BearerToken);
-            var uri = new Uri(String.Format(Constants.IsTokenValidUrl));
-            try
-            {
-                var response = await client.GetAsync(uri);
-                var statusCode = (int)response.StatusCode;
-                if (response.IsSuccessStatusCode)
-                {
-                    var result = await response.Content.ReadAsStringAsync();
-                    try
-                    {
-                        return Convert.ToBoolean(result);
-                    }
-                    catch (Exception e)
-                    {
-                        Debug.WriteLine(e.ToString());
-                    }
-                }
-                if (statusCode == 401)
-                {
-                    await TryReconnect();
-                }
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine(e.ToString());
-            }
-            return false;
-        }
-
         public async Task<List<Incident>> GetIncidents(Position pos)
         {
             List<Incident> incidentsList = new List<Incident>();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Constants.BearerToken);
-            var uri = new Uri(String.Format(Constants.GetIncidentsUrl));
+            var uri = new Uri(String.Format(Constants.GetIncidentsUrl + $"/{pos.Longitude}/{pos.Latitude}"));
             try
             {
-                var json = JsonConvert.SerializeObject(pos);
-                var content = new StringContent(json, Encoding.UTF8, "application/json");
-                var response = await client.PostAsync(uri, content);
+                //var json = JsonConvert.SerializeObject(pos);
+                //var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await client.GetAsync(uri);
                 var statusCode = (int)response.StatusCode;
                 if (response.IsSuccessStatusCode)
                 {

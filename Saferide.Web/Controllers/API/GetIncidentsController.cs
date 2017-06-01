@@ -13,21 +13,21 @@ using Saferide.Web.Models.Poco;
 
 namespace Saferide.Web.Controllers.API
 {
+    [Authorize]
     public class GetIncidentsController : ApiController
     {
         private ApplicationDbContext _dbContext = new ApplicationDbContext();
 
         [ResponseType(typeof(Incident))]
-        public async Task<List<Incident>> PostGetIncidents(Position pos)
+        [Route("api/incidents/{longi}/{lat}")]
+        public async Task<List<Incident>> GetIncidents(double longi, double lat)
         {
+            Position pos = new Position();
+            pos.Latitude = lat;
+            pos.Longitude = longi;
             PositionConverter pConvert = new PositionConverter(pos);
             var result = pConvert.BoundingCoordinates(10);
             List<Incident> incidentsWithinRadius;
-
-            if (pos == null)
-            {
-                return null;
-            }
 
             var minLat = result[0].Latitude;
             var minLong = result[0].Longitude;
