@@ -49,6 +49,7 @@ namespace Saferide.ViewModels
         {
             set
             {
+                DependencyService.Get<IAskPermissions>().AskPermissions();
                 if (_itemSelected == value) return;
                 _itemSelected = value;
 

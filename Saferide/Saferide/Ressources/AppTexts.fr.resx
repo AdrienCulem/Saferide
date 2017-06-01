@@ -352,7 +352,7 @@
     <value>Choisissez les unités de vitesse</value>
   </data>
   <data name="AvailableCommands" xml:space="preserve">
-    <value>Pour utiliser la reconnaissance vocale, cliquez sur le bouton écouter et ensuite prononcez le texte du bouton sur lequel vous voulez cliquer.</value>
+    <value>Pour utiliser la reconnaissance vocale, cliquez sur le bouton écouter et ensuite prononcez le texte du bouton sur lequel vous voulez cliquer. Par exemple, dîtes "Nouvel Incident" sur l'écran d'accueil pour signaler un nouvel incident</value>
   </data>
   <data name="Help" xml:space="preserve">
     <value>Aide</value>
@@ -361,7 +361,7 @@
     <value>Options</value>
   </data>
   <data name="SomeInfos" xml:space="preserve">
-    <value>Voici quelque informations à propos de l'application.</value>
+    <value>Voici quelques informations à propos de l'application.</value>
   </data>
   <data name="ClickHere" xml:space="preserve">
     <value>Cliquez-ici</value>

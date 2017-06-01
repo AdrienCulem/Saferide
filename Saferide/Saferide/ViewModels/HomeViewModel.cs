@@ -187,6 +187,7 @@ namespace Saferide.ViewModels
 
         public HomeViewModel()
         {
+            DependencyService.Get<IAskPermissions>().AskPermissions();
             if (!CrossGeolocator.Current.IsListening)
             {
                 GetGpsInfos();
@@ -230,9 +231,10 @@ namespace Saferide.ViewModels
         /// </summary>
         public async Task GetGpsInfos(bool shouldStartListening = true)
         {
+            DependencyService.Get<IAskPermissions>().AskPermissions();
             try
             {
-                if (!CrossGeolocator.Current.IsGeolocationEnabled)
+                if (!DependencyService.Get<IGpsEnabled>().IsGpsEnabled())
                 {
                     var textToSay = AppTexts.EnableLocation;
                     XFToast.LongMessage(textToSay);

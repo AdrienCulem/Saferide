@@ -24,7 +24,6 @@ namespace Saferide
         public static string GetTokenUrl = "https://safe-ride.azurewebsites.net/token";
         public static string IncidentUrl = "https://safe-ride.azurewebsites.net/api/incidents";
         public static string RegisterUrl = "https://safe-ride.azurewebsites.net/api/register";
-        public static string GetIncidentsUrl = "https://safe-ride.azurewebsites.net/api/getincidents";
         public static string RegisterWebsiteUrl = "https://safe-ride.azurewebsites.net/Account/Register";
         public static string ResetPasswordUrl = "https://safe-ride.azurewebsites.net/Account/ForgotPassword";
 

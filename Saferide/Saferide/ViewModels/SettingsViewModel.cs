@@ -12,14 +12,14 @@ namespace Saferide.ViewModels
             {
                 if (_metricToggle == value) return;
                 _metricToggle = value;
-                Constants.MetricSystem = _metricToggle ? Constants.MetricSystems.Kmh : Constants.MetricSystems.Mph;
+                Constants.MetricSystem = _metricToggle ? Constants.MetricSystems.Mph : Constants.MetricSystems.Kmh;
                 RaisePropertyChanged();
             }
         }
 
         public SettingsViewModel()
         {
-            if (Constants.MetricSystem == Constants.MetricSystems.Kmh)
+            if (Constants.MetricSystem == Constants.MetricSystems.Mph)
             {
                 MetricToggle = true;
             }

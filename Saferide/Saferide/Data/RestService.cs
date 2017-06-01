@@ -122,7 +122,9 @@ namespace Saferide.Data
         {
             List<Incident> incidentsList = new List<Incident>();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", Constants.BearerToken);
-            var uri = new Uri(String.Format(Constants.GetIncidentsUrl + $"/{pos.Longitude}/{pos.Latitude}"));
+            var stringPosLong = pos.Longitude.ToString().Replace(".", ",");
+            var stringPosLat = pos.Latitude.ToString().Replace(".", ",");
+            var uri = new Uri(String.Format(Constants.IncidentUrl + $"/{stringPosLong}/{stringPosLat}"));
             try
             {
                 //var json = JsonConvert.SerializeObject(pos);

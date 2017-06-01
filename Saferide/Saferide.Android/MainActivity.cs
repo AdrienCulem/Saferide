@@ -156,7 +156,10 @@ namespace Saferide.Droid
                 Manifest.Permission.ReadExternalStorage,
                 Manifest.Permission.RecordAudio,
                 Manifest.Permission.Bluetooth,
-                Manifest.Permission.BluetoothAdmin
+                Manifest.Permission.BluetoothAdmin,
+                Manifest.Permission.AccessFineLocation,
+                Manifest.Permission.AccessCoarseLocation,
+                Manifest.Permission.AccessMockLocation
             };
             var activity = (Activity)Forms.Context;
             var view = activity.FindViewById(Android.Resource.Id.Content);
