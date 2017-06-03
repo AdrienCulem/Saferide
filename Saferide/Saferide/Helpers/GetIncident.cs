@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Saferide.GPS;
-using Saferide.Interfaces;
 using Saferide.Models;
 using Saferide.Ressources;
-using Xamarin.Forms;
 
 namespace Saferide.Helpers
 {

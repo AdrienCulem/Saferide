@@ -295,7 +295,7 @@ namespace Saferide.ViewModels
         /// Starts listening for changes
         /// </summary>
         /// <returns></returns>
-        async Task StartListening()
+        public async Task StartListening()
         {
             if (!CrossGeolocator.Current.IsListening)
             {
@@ -452,6 +452,7 @@ namespace Saferide.ViewModels
                                 TextToSpeech.Talk(String.Format(AppTexts.SignalIncident, typeOfIncident,
                                     distanceBetweenTheIncident, unit, closestIncident.Description));
                                 Constants.IsBeingAskedToConfirm = true;
+                                await Task.Delay(5000);
                                 //Prompts the user to confirm the incident
                                 var resultOfConfirmation = await DependencyService.Get<ISpeechRecognition>().Listen();
                                 bool isConfirmed;
@@ -513,7 +514,16 @@ namespace Saferide.ViewModels
         /// <returns></returns>
         private async Task GetIncidents()
         {
-            await GetIncident.GetIncidents();
+            if (UserPosition.Latitude == 0 || UserPosition.Longitude == 0)
+            {
+                TextToSpeech.Talk(AppTexts.StartRidingFirst);
+            }
+            Position pos = new Position
+            {
+                Latitude = UserPosition.Latitude,
+                Longitude = UserPosition.Longitude,
+            };
+            Constants.NearestIncidents = await App.IncidentManager.GetIncidents(pos);
         }
     }
 }

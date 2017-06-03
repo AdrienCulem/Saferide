@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Saferide.Helpers.GetIncident">
+    <Position X="7.25" Y="4.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Helpers\GetIncident.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Saferide.Helpers.XFToast">
+    <Position X="4.25" Y="1" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAACAAAACAAATAABEAQgAAAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>Helpers\XFToast.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Saferide.Helpers.PositionConverter">
+    <Position X="1.25" Y="3.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAACAAQCAAAAgAKAAECAAAAgAAEAAAAAABAA=</HashCode>
+      <FileName>Helpers\PositionConverter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Saferide.Helpers.PositionHelper">
+    <Position X="1.25" Y="1" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABQEAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>Helpers\PositionHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Saferide.Helpers.TextToSpeech">
+    <Position X="7.25" Y="5.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>Helpers\TextToSpeech.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Saferide.GPS.UserPosition">
+    <Position X="7.25" Y="1" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAAAAAAAIAAABAAAAAAACAAAAACAAAAA=</HashCode>
+      <FileName>GPS\UserPosition.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Saferide.Extensions.StringHelper">
+    <Position X="7.25" Y="3" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAg=</HashCode>
+      <FileName>Extensions\StringHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Saferide.Extensions.TranslateExtension">
+    <Position X="4.25" Y="4.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAEgAAAAAAAAAAAAAAAAAAAAAAACAAAAAA=</HashCode>
+      <FileName>Extensions\TranslateExtension.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Saferide.Constants">
+    <Position X="9.5" Y="1" Width="2.5" />
+    <NestedTypes>
+      <Enum Name="Saferide.Constants.MetricSystems" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Constants.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAABAABCGIAAABAAQBAoAAAAAgAAAACAIAQAAQAAAA=</HashCode>
+      <FileName>Constants.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

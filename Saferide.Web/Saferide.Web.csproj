@@ -305,6 +305,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="ConnectionStrings.config" />
+    <Content Include="ClassDiagram1.cd" />
     <None Include="Properties\PublishProfiles\safe-ride - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\safe-ride - Web Deploy.pubxml" />
     <Content Include="login-background-min.jpeg" />

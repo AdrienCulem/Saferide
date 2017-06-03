@@ -29,6 +29,7 @@ namespace Saferide
             {
                 var ci = DependencyService.Get<ILocalize>().GetCurrentCultureInfo();
                 AppTexts.Culture = ci; // set the RESX for resource localization
+                Constants.MetricSystem = ci.Name.Contains("en") ? Constants.MetricSystems.Mph : Constants.MetricSystems.Kmh;
                 DependencyService.Get<ILocalize>().SetLocale(ci); // set the Thread for locale-aware methods
             }
             LoadPersistedValues();

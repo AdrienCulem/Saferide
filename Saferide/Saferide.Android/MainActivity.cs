@@ -43,7 +43,7 @@ namespace Saferide.Droid
             Forms.Init(this, bundle);
             Xamarin.FormsMaps.Init(this, bundle);
             UserDialogs.Init(this);
-            SetupBluetooth();
+            //SetupBluetooth();
             LoadApplication(new App());
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
@@ -188,22 +188,22 @@ namespace Saferide.Droid
 
         public async Task<String> Listen()
         {
-            if (profileListener.btHeadset == null || !btAdapt.IsEnabled) return await startVoice();
-            foreach (var device in pairedDevices)
-            {
-                try
-                {
-                    if (profileListener.btHeadset.StartVoiceRecognition(device))
-                    {
-                        break;
-                    }
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.ToString());
-                }
+            //if (profileListener.btHeadset == null || !btAdapt.IsEnabled) return await startVoice();
+            //foreach (var device in pairedDevices)
+            //{
+            //    try
+            //    {
+            //        if (profileListener.btHeadset.StartVoiceRecognition(device))
+            //        {
+            //            break;
+            //        }
+            //    }
+            //    catch (Exception e)
+            //    {
+            //        Console.WriteLine(e.ToString());
+            //    }
 
-            }
+            //}
             return await startVoice();
         }
     }

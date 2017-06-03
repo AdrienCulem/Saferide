@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Saferide.Interfaces;
+﻿using Saferide.Interfaces;
 using Xamarin.Forms;
 
 namespace Saferide.Helpers

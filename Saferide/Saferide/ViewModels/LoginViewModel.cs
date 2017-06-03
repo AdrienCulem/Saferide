@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Saferide.Helpers;
 using Saferide.Models;
 using Saferide.Views;
@@ -13,7 +14,7 @@ namespace Saferide.ViewModels
         private string _username;
         private string _password;
 
-        public ICommand LoginClickedCommand => new Command(VerifyLogs);
+        public ICommand LoginClickedCommand => new Command(async() => await VerifyLogs());
         public ICommand RegisterClickedCommand => new Command(() =>
         {
             Application.Current.MainPage = new NavigationPage(new GenericWebPageView(Constants.RegisterWebsiteUrl));
@@ -53,7 +54,7 @@ namespace Saferide.ViewModels
                 return _password;
             }
         }
-        public async void VerifyLogs()
+        public async Task VerifyLogs()
         {
             var user = new LoginUser()
             {

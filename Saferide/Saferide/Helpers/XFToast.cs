@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Acr.UserDialogs;
-using Saferide.Interfaces;
 using Saferide.Ressources;
-using Xamarin.Forms;
 
 namespace Saferide.Helpers
 {

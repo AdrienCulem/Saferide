@@ -70,12 +70,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\HomeViewModel.cs" />
-    <Compile Include="ViewModels\IncidentsViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MapViewModel.cs" />
     <Compile Include="ViewModels\MasterDetailViewModel.cs" />
     <Compile Include="ViewModels\NewIncidentViewModel.cs" />
-    <Compile Include="ViewModels\RegisterViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="Views\GenericWebPageView.xaml.cs">
       <DependentUpon>GenericWebPageView.xaml</DependentUpon>
@@ -85,9 +83,6 @@
     </Compile>
     <Compile Include="Views\HomePageView.xaml.cs">
       <DependentUpon>HomePageView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\IncidentsPageView.xaml.cs">
-      <DependentUpon>IncidentsPageView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\LoginPageView.xaml.cs">
       <DependentUpon>LoginPageView.xaml</DependentUpon>
@@ -167,6 +162,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="HelpersDiagram.cd" />
+    <None Include="InterfacesDiagram.cd" />
+    <None Include="ModelsDiagram.cd" />
+    <None Include="RestServicesDiagram.cd" />
+    <None Include="ViewModelsDiagram.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -186,12 +186,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\MasterDetailPageView.xaml">
       <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Views\IncidentsPageView.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
