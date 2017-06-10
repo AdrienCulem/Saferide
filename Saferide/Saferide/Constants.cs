@@ -13,6 +13,7 @@ namespace Saferide
     {
         public static bool IsConnected;
         public static bool IsBeingAskedToConfirm;
+        public static bool VoiceAlreadyInit;
         public static string BearerToken;
         public static string Username;
         public static string Password;

@@ -209,8 +209,6 @@ namespace Saferide.ViewModels
             }
             ListenMicrophone = new Command(async() =>
             {
-                if(Device.RuntimePlatform == "Android")
-                    DependencyService.Get<IAskPermissions>().AskPermissions();
                 //await VoiceRecognition();
                 if(!Constants.VoiceAlreadyInit)
                 {

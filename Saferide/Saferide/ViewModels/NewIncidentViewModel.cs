@@ -44,9 +44,33 @@ namespace Saferide.ViewModels
         {
             IncidentButton = new Command<string>(NewIncident);
             _geoCoder = new Geocoder();
-            ListenMicrophone = new Command(async () =>
+            DependencyService.Get<ISpeechService>().StartListening("keyword");
+            MessagingCenter.Subscribe<ISpeechRecognized, string>(this, "Recognized", (sender, arg) =>
             {
-                await VoiceRecognition();
+                if (arg == AppTexts.NewHole)
+                {
+                    UserDialogs.Instance.ShowLoading(AppTexts.WaitASec, null);
+                    NewIncident("hole");
+                    UserDialogs.Instance.HideLoading();
+                }
+                else if (arg == AppTexts.NewObstacle)
+                {
+                    UserDialogs.Instance.ShowLoading(AppTexts.WaitASec, null);
+                    NewIncident("obstacle");
+                    UserDialogs.Instance.HideLoading();
+                }
+                else if (arg == AppTexts.NewSlidingZone)
+                {
+                    UserDialogs.Instance.ShowLoading(AppTexts.WaitASec, null);
+                    NewIncident("sliding zone");
+                    UserDialogs.Instance.HideLoading();
+                }
+                else if (arg == AppTexts.NewDanger)
+                {
+                    UserDialogs.Instance.ShowLoading(AppTexts.WaitASec, null);
+                    NewIncident("danger");
+                    UserDialogs.Instance.HideLoading();
+                }
             });
         }
 
@@ -93,36 +117,6 @@ namespace Saferide.ViewModels
                         TextToSpeech.Talk(AppTexts.Oups);
                         break;
                 }
-            }
-        }
-
-        public async Task VoiceRecognition()
-        {
-            var result = await DependencyService.Get<ISpeechRecognition>().Listen();
-            SpeechResult = result;
-            if (result == AppTexts.NewHole)
-            {
-                UserDialogs.Instance.ShowLoading(AppTexts.WaitASec, null);
-                NewIncident("hole");
-                UserDialogs.Instance.HideLoading();
-            }
-            else if (result == AppTexts.NewObstacle)
-            {
-                UserDialogs.Instance.ShowLoading(AppTexts.WaitASec, null);
-                NewIncident("obstacle");
-                UserDialogs.Instance.HideLoading();
-            }
-            else if (result == AppTexts.NewSlidingZone)
-            {
-                UserDialogs.Instance.ShowLoading(AppTexts.WaitASec, null);
-                NewIncident("sliding zone");
-                UserDialogs.Instance.HideLoading();
-            }
-            else if (result == AppTexts.NewDanger)
-            {
-                UserDialogs.Instance.ShowLoading(AppTexts.WaitASec, null);
-                NewIncident("danger");
-                UserDialogs.Instance.HideLoading();
             }
         }
     }

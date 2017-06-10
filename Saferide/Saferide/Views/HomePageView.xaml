@@ -8,9 +8,7 @@
              xmlns:converters="clr-namespace:Saferide.Converters;assembly=Saferide"
              Title="{x:Static ressources:AppTexts.Home}">
     <ContentPage.Resources>
-        <ResourceDictionary>
-            <converters:IsListenningConverter x:Key="IsListenningConverter" />
-        </ResourceDictionary>
+        <converters:IsListenningConverter x:Key="IsListenningConverter" />
     </ContentPage.Resources>
     <ScrollView>
         <StackLayout Padding="5">
@@ -34,75 +32,60 @@
                                           HorizontalTextAlignment="Center">
                 </controls:CustomFontLabel>
             </AbsoluteLayout>
-
             <AbsoluteLayout 
                 Margin="30, 0, 30, 0"
                 HeightRequest="60"
                 BackgroundColor="Accent">
                 <controls:CustomFontLabel Text="{Binding PositionSpeed}" 
-                                              FontSize="45"
-                                              TextColor="White"
-                                              FontAttributes="Bold"
-                                              AbsoluteLayout.LayoutFlags="All"
-                                              AbsoluteLayout.LayoutBounds=".5, .5, 1, 1"
-                                              VerticalTextAlignment="Center"
-                                              HorizontalTextAlignment="Center">
+                                          FontSize="45"
+                                          TextColor="White"
+                                          FontAttributes="Bold"
+                                          AbsoluteLayout.LayoutFlags="All"
+                                          AbsoluteLayout.LayoutBounds=".5, .5, 1, 1"
+                                          VerticalTextAlignment="Center"
+                                          HorizontalTextAlignment="Center">
                 </controls:CustomFontLabel>
             </AbsoluteLayout>
             <controls:CustomFontLabel FontSize="35" 
-                           HorizontalTextAlignment="Center" 
-                           Text="{Binding MetricSystemToShow}">
+                                      HorizontalTextAlignment="Center" 
+                                      Text="{Binding MetricSystemToShow}">
             </controls:CustomFontLabel>
             <AbsoluteLayout
                 HeightRequest="160"
                 IsVisible="{Binding IsStoped}">
                 <Button Text="{x:Static ressources:AppTexts.StartRiding}"
-                    Clicked="ButtonClicked"
-                    Command="{Binding StartRiding}"
-                    IsVisible="{Binding IsStoped}"
-                    BackgroundColor="#46B482"
-                    TextColor="White"
-                    AbsoluteLayout.LayoutBounds=".5, .5, .5, 1"
-                    AbsoluteLayout.LayoutFlags="All"
-                    BorderRadius="3" />
+                        Clicked="ButtonClicked"
+                        Command="{Binding StartRiding}"
+                        IsVisible="{Binding IsStoped}"
+                        BackgroundColor="#46B482"
+                        TextColor="White"
+                        AbsoluteLayout.LayoutBounds=".5, .5, .5, 1"
+                        AbsoluteLayout.LayoutFlags="All"
+                        BorderRadius="3" />
             </AbsoluteLayout>
             <AbsoluteLayout
                 HeightRequest="160">
-                <Button Text="{x:Static ressources:AppTexts.Listen}"
-                        x:Name="ButtonListen"
+                <Button x:Name="ButtonListen"
                         Command="{Binding ListenMicrophone}"
                         AbsoluteLayout.LayoutBounds=".05, .5, .45, 1"
                         AbsoluteLayout.LayoutFlags="All"
                         Clicked="ButtonClicked"
+                        Image="microphone.png"
                         BackgroundColor="{Binding IsListenning, Converter={StaticResource IsListenningConverter}}"
                         TextColor="White"
                         BorderRadius="3" />
                 <Button
-                        Command="{Binding IncidentButton}"
-                        Clicked="ButtonClicked"
-                        Image="newIncident.png"
-                        AbsoluteLayout.LayoutBounds=".95, .5, .45, 1"
-                        AbsoluteLayout.LayoutFlags="All"
-                        BackgroundColor="{x:Static saferide:Constants.SaferideBlue}"
-                        TextColor="White"
-                        BorderRadius="3" />
+                    Command="{Binding IncidentButton}"
+                    Clicked="ButtonClicked"
+                    Image="newIncident.png"
+                    AbsoluteLayout.LayoutBounds=".95, .5, .45, 1"
+                    AbsoluteLayout.LayoutFlags="All"
+                    BackgroundColor="{x:Static saferide:Constants.SaferideBlue}"
+                    TextColor="White"
+                    BorderRadius="3" />
             </AbsoluteLayout>
             <Label Text="{Binding SpeechResult, Mode=TwoWay}"></Label>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="{Binding PositionStatus}" FontSize="Medium" FontAttributes="Bold" />
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="{x:Static ressources:AppTexts.LatitudeView}" FontSize="Medium" FontAttributes="Bold" />
-                <Label Text="{Binding PositionLatitude}" FontSize="Medium" FontAttributes="Bold" />
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="{x:Static ressources:AppTexts.LongitudeView}" FontSize="Medium" FontAttributes="Bold" />
-                <Label Text="{Binding PositionLongitude}" FontSize="Medium" FontAttributes="Bold" />
-            </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Text="{x:Static ressources:AppTexts.AddressView}" FontSize="Medium" FontAttributes="Bold" />
-                <Label Text="{Binding PositionAddress}" LineBreakMode="WordWrap" FontSize="Medium" FontAttributes="Bold" />
-            </StackLayout>-->
         </StackLayout>
     </ScrollView>
 </ContentPage>
+            

@@ -43,10 +43,5 @@ namespace Saferide.Views
                 await Heading.RotateTo(0 - UserPosition.Heading, 200, Easing.SinIn);
             }
         }
-
-        private async void IsListenning()
-        {
-            ButtonListen.BackgroundColor = Color.FromHex("#46B482");
-        }
     }
 }
