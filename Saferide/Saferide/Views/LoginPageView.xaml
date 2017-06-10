@@ -41,7 +41,7 @@
                     </StackLayout.GestureRecognizers>
                     <Label Text="{x:Static ressources:AppTexts.ForgotPassword}"
                            HorizontalTextAlignment="Center"></Label>
-                    <Label Text="Click here!"
+                    <Label Text="{x:Static ressources:AppTexts.ClickHere}"
                            TextColor="#3f48cc"
                            HorizontalTextAlignment="Center">
                     </Label>

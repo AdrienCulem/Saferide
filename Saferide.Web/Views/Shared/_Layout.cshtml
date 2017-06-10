@@ -20,37 +20,29 @@
     </script>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/js");
+    @Scripts.Render("~/bundles/js")
 </head>
 <body>
-    <nav id="saferidenavbar" class="navbar navbar-fixed-top " role="navigation">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="white navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="white-background sr-only">Toggle navigation</span>
-                    <span class="white-background icon-bar"></span>
-                    <span class="white-background icon-bar"></span>
-                    <span class="white-background icon-bar"></span>
-                </button>
-                @Html.ActionLink("Saferide", "Index", "Home", null, new{@class="navbar-brand white"})
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                @*<ul class="nav navbar-nav">
-                    <li>
-                        <a href="#">A propos</a>
-                    </li>
-                    <li>
-                        <a href="#">Contact</a>
-                    </li>
-                </ul>*@
-                @Html.Partial("_LoginPartial")
-            </div>
-            <!-- /.navbar-collapse -->
+<nav id="saferidenavbar" class="navbar navbar-fixed-top" role="navigation">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="white navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="white-background sr-only">Toggle navigation</span>
+                <span class="white-background icon-bar"></span>
+                <span class="white-background icon-bar"></span>
+                <span class="white-background icon-bar"></span>
+            </button>
+            @Html.ActionLink("Saferide", "Index", "Home", null, new {@class = "navbar-brand white"})
         </div>
-        <!-- /.container -->
-    </nav>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            @Html.Partial("_LoginPartial")
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
 @RenderBody()
 @RenderSection("scripts", required: false)
 <script>
@@ -66,24 +58,24 @@
             })();
         }
 
-        [].slice.call( document.querySelectorAll( 'input.input__field' ) ).forEach( function( inputEl ) {
+        [].slice.call(document.querySelectorAll('input.input__field')).forEach(function(inputEl) {
             // in case the input is already filled..
-            if( inputEl.value.trim() !== '' ) {
-                classie.add( inputEl.parentNode, 'input--filled' );
+            if (inputEl.value.trim() !== '') {
+                classie.add(inputEl.parentNode, 'input--filled');
             }
 
             // events:
-            inputEl.addEventListener( 'focus', onInputFocus );
-            inputEl.addEventListener( 'blur', onInputBlur );
-        } );
+            inputEl.addEventListener('focus', onInputFocus);
+            inputEl.addEventListener('blur', onInputBlur);
+        });
 
-        function onInputFocus( ev ) {
-            classie.add( ev.target.parentNode, 'input--filled' );
+        function onInputFocus(ev) {
+            classie.add(ev.target.parentNode, 'input--filled');
         }
 
-        function onInputBlur( ev ) {
-            if( ev.target.value.trim() === '' ) {
-                classie.remove( ev.target.parentNode, 'input--filled' );
+        function onInputBlur(ev) {
+            if (ev.target.value.trim() === '') {
+                classie.remove(ev.target.parentNode, 'input--filled');
             }
         }
     })();

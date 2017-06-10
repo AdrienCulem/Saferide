@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,8 +24,16 @@ namespace Saferide.Views
         private async void ButtonClicked(object sender, EventArgs e)
         {
             var element = (Button)sender;
-            await element.ScaleTo(1.2, 100, Easing.BounceIn);
-            await element.ScaleTo(1, 100, Easing.SinIn);
+            try
+            {
+                await element.ScaleTo(1.2, 100, Easing.BounceIn);
+                await element.ScaleTo(1, 100, Easing.SinIn);
+            }
+            catch (Exception p)
+            {
+                Debug.WriteLine(p.ToString());
+            }
+           
         }
 
         private async void Heading_OnPropertyChanged(object sender, PropertyChangedEventArgs e)

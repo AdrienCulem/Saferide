@@ -37,6 +37,7 @@ namespace Saferide.Views
                 {
                     Label = item.IncidentType,
                     Position = point,
+
                     Type = PinType.Generic
                 });
             }

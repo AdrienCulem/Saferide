@@ -364,4 +364,16 @@
   <data name="SomeInfos" xml:space="preserve">
     <value>Here are some informations about the app</value>
   </data>
+  <data name="ClickHere" xml:space="preserve">
+    <value>Click here</value>
+  </data>
+  <data name="SpeakNow" xml:space="preserve">
+    <value>Speak now</value>
+  </data>
+  <data name="NoListen" xml:space="preserve">
+    <value>no</value>
+  </data>
+  <data name="YesListen" xml:space="preserve">
+    <value>yes</value>
+  </data>
 </root>

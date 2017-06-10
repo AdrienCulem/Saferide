@@ -18,7 +18,7 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort>44325</IISExpressSSLPort>
+    <IISExpressSSLPort>44339</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -220,10 +220,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\API\Auth\ApplicationOAuthProvider.cs" />
     <Compile Include="Controllers\API\BaseApiController.cs" />
-    <Compile Include="Controllers\API\GetIncidentsController.cs" />
     <Compile Include="Controllers\API\IncidentsController.cs" />
-    <Compile Include="Controllers\API\IsTokenValidController.cs" />
-    <Compile Include="Controllers\API\RegisterController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -308,6 +305,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="ConnectionStrings.config" />
+    <Content Include="ClassDiagram1.cd" />
     <None Include="Properties\PublishProfiles\safe-ride - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\safe-ride - Web Deploy.pubxml" />
     <Content Include="login-background-min.jpeg" />

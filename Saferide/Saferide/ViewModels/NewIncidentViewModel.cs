@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Acr.UserDialogs;
-using Plugin.Geolocator;
 using Saferide.GPS;
 using Saferide.Helpers;
 using Saferide.Interfaces;

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Saferide.Helpers;
 using Saferide.Models;
@@ -9,15 +10,13 @@ namespace Saferide.ViewModels
     public class MapViewModel : BaseViewModel
     {
         public List<Incident> ListContent { get; set; }
-        public ICommand RefreshCommand { get; set; }
 
         public MapViewModel()
         {
             GetIncidents();
-            RefreshCommand = new Command(GetIncidents);
         }
 
-        private async void GetIncidents()
+        private async Task GetIncidents()
         {
             await GetIncident.GetIncidents();
             ListContent = Constants.NearestIncidents;

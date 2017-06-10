@@ -24,10 +24,12 @@ namespace Saferide
 
         protected override void OnStart()
         {
+
             if (Device.RuntimePlatform == "ios" || Device.RuntimePlatform == "Android")
             {
                 var ci = DependencyService.Get<ILocalize>().GetCurrentCultureInfo();
                 AppTexts.Culture = ci; // set the RESX for resource localization
+                Constants.MetricSystem = ci.Name.Contains("en") ? Constants.MetricSystems.Mph : Constants.MetricSystems.Kmh;
                 DependencyService.Get<ILocalize>().SetLocale(ci); // set the Thread for locale-aware methods
             }
             LoadPersistedValues();
@@ -49,7 +51,7 @@ namespace Saferide
             Current.Properties["Password"] = Constants.Password;
             Current.Properties["Token"] = Constants.BearerToken;
             Current.Properties["TokenValidity"] = Constants.TokenValidity;
-            Current.Properties["MetricSystem"] = Constants.MetricSystem;
+            Current.Properties["MetricSystem"] = Constants.MetricSystem.ToString();
             await Current.SavePropertiesAsync();
         }
 
@@ -83,7 +85,8 @@ namespace Saferide
             }
             if (Current.Properties.ContainsKey("MetricSystem"))
             {
-                Constants.MetricSystem = (string)Current.Properties["MetricSystem"];
+                var a = (string)Current.Properties["MetricSystem"];
+                Constants.MetricSystem = a == "Mph" ? Constants.MetricSystems.Mph : Constants.MetricSystems.Kmh;
             }
         }
 

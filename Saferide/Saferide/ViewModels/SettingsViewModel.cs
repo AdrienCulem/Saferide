@@ -12,14 +12,14 @@ namespace Saferide.ViewModels
             {
                 if (_metricToggle == value) return;
                 _metricToggle = value;
-                Constants.MetricSystem = _metricToggle ? AppTexts.MilesPerHour : AppTexts.Kilometersperhour;
+                Constants.MetricSystem = _metricToggle ? Constants.MetricSystems.Mph : Constants.MetricSystems.Kmh;
                 RaisePropertyChanged();
             }
         }
 
         public SettingsViewModel()
         {
-            if (Constants.MetricSystem == AppTexts.MilesPerHour)
+            if (Constants.MetricSystem == Constants.MetricSystems.Mph)
             {
                 MetricToggle = true;
             }

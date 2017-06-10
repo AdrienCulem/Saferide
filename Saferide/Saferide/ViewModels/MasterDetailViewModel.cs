@@ -49,6 +49,7 @@ namespace Saferide.ViewModels
         {
             set
             {
+                DependencyService.Get<IAskPermissions>().AskPermissions();
                 if (_itemSelected == value) return;
                 _itemSelected = value;
 
@@ -89,9 +90,8 @@ namespace Saferide.ViewModels
 
             var page1 = new MasterPageItem() { Title = AppTexts.Home, Icon = "home.png", TargetType = typeof(HomePageView) };
             var page2 = new MasterPageItem() { Title = AppTexts.Map, Icon = "map.png", TargetType = typeof(MapPageView) };
-            //var page4 = new MasterPageItem() { Title = AppTexts.Logoff, Icon = "logout.png", TargetType = typeof(LoginPageView) };
-            var page3 = new MasterPageItem() { Title = AppTexts.Help, Icon = "logout.png", TargetType = typeof(HelpPageView) };
-            var page4 = new MasterPageItem() { Title = AppTexts.Settings, Icon = "logout.png", TargetType = typeof(SettingsPageView) };
+            var page3 = new MasterPageItem() { Title = AppTexts.Help, Icon = "help.png", TargetType = typeof(HelpPageView) };
+            var page4 = new MasterPageItem() { Title = AppTexts.Settings, Icon = "settings.png", TargetType = typeof(SettingsPageView) };
 
 
             MenuList.Add(page1);

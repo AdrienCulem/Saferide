@@ -49,31 +49,41 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
+                <Label Text="{Binding VersionNumber}"
+                       TextColor="Gray"
+                       Opacity="0.5"
+                       VerticalOptions="End"
+                       HorizontalOptions="End"
+                       HorizontalTextAlignment="End">
+                </Label>
                 <StackLayout
                     HorizontalOptions="EndAndExpand"
-                    Orientation="Vertical"
+                    Orientation="Horizontal"
                     WidthRequest="300"
                     BackgroundColor="{x:Static resources:Constants.SaferideBlue}">
                     <StackLayout.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding LogOff}"></TapGestureRecognizer>
                     </StackLayout.GestureRecognizers>
-                    <Label Text="{Binding ConnectedUser}"
-                           FontSize="18"
-                           VerticalOptions="Center"
-                           TextColor="White">
-                    </Label>
-                    <Label Text="{x:Static ressources:AppTexts.Logoff}"
-                           FontSize="18"
-                           VerticalOptions="Center"
-                           TextColor="White">
-                    </Label>
-                    <Label Text="{Binding VersionNumber}"
-                           TextColor="Gray"
-                           Opacity="0.5"
-                           VerticalOptions="End"
-                           HorizontalOptions="End"
-                           HorizontalTextAlignment="End">
-                    </Label>
+                    <Image Source="account.png"
+                           WidthRequest="40"
+                           HeightRequest="40"
+                           Margin="5,0,0,0"
+                           VerticalOptions="CenterAndExpand"
+                           HorizontalOptions="Start"/>
+                    <StackLayout
+                        Orientation="Vertical"
+                        HorizontalOptions="Start">
+                        <Label Text="{Binding ConnectedUser}"
+                               FontSize="18"
+                               VerticalOptions="Center"
+                               TextColor="White">
+                        </Label>
+                        <Label Text="{x:Static ressources:AppTexts.Logoff}"
+                               FontSize="18"
+                               VerticalOptions="Center"
+                               TextColor="White">
+                        </Label>
+                    </StackLayout>
                 </StackLayout>
             </StackLayout>
         </ContentPage>

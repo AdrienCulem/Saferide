@@ -2,7 +2,6 @@
 @{
     ViewBag.Title = "Home Page";
 }
-
 <div id="map_populate">
 </div>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&key=AIzaSyAyzSsHSecQ8cMLqQb4rACLe2OMjV4wwLQ" type="text/javascript"></script>
@@ -19,25 +18,25 @@
     @foreach (var item in Model)
     {
         <text>
-    markerLatLng = new google.maps.LatLng(@(item.Latitude), @(item.Longitude));
-    title = '@(item.IncidentType)';
-    var contentString@(item.IncidentId) = "<h3>@(item.IncidentType)</h3><b>@(item.Description)</b>";
-    var marker@(item.IncidentId) = new google.maps.Marker({
-        position: markerLatLng,
-        title: title,
-        map: map,
-        draggable: false
-    });
-    (function(marker@(item.IncidentId)) {
-        google.maps.event.addListener(marker@(item.IncidentId),
-            'click',
-            function() {
-                var infoWindow@(item.IncidentId) = new google.maps.InfoWindow({
-                    content: contentString@(item.IncidentId)
-                });
-                infoWindow@(item.IncidentId).open(map, marker@(item.IncidentId));
+            markerLatLng = new google.maps.LatLng(@(item.Latitude), @(item.Longitude));
+            title = '@(item.IncidentType)';
+            var contentString@(item.IncidentId) = "<h3>@(item.IncidentType)</h3><b>@(item.Description)</b>";
+            var marker@(item.IncidentId) = new google.maps.Marker({
+                position: markerLatLng,
+                title: title,
+                map: map,
+                draggable: false
             });
-    })(marker@(item.IncidentId));
+            (function(marker@(item.IncidentId)) {
+                google.maps.event.addListener(marker@(item.IncidentId),
+                'click',
+                function() {
+                    var infoWindow@(item.IncidentId) = new google.maps.InfoWindow({
+                        content: contentString@(item.IncidentId)
+                    });
+                    infoWindow@(item.IncidentId).open(map, marker@(item.IncidentId));
+                });
+            })(marker@(item.IncidentId));
         </text>
     }
 </script>

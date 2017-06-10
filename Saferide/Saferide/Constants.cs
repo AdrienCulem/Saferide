@@ -13,21 +13,18 @@ namespace Saferide
     {
         public static bool IsConnected;
         public static bool IsBeingAskedToConfirm;
-        public static bool VoiceAlreadyInit;
         public static string BearerToken;
         public static string Username;
         public static string Password;
         public static string Email;
-        public static string MetricSystem;
+        public static MetricSystems MetricSystem;
         public static Color SaferideBlue = Color.FromHex("#4682B4");
         public static DateTime TokenValidity;
         public static List<Incident> NearestIncidents = new List<Incident>();
         public static string GetTokenUrl = "https://safe-ride.azurewebsites.net/token";
         public static string IncidentUrl = "https://safe-ride.azurewebsites.net/api/incidents";
         public static string RegisterUrl = "https://safe-ride.azurewebsites.net/api/register";
-        public static string GetIncidentsUrl = "https://safe-ride.azurewebsites.net/api/getincidents";
         public static string RegisterWebsiteUrl = "https://safe-ride.azurewebsites.net/Account/Register";
-        public static string IsTokenValidUrl = "https://safe-ride.azurewebsites.net/api/istokenvalid";
         public static string ResetPasswordUrl = "https://safe-ride.azurewebsites.net/Account/ForgotPassword";
 
         public static void LogOff()
@@ -39,6 +36,12 @@ namespace Saferide
             Email = null;
             TokenValidity = DateTime.Now;
             NearestIncidents = null;
+        }
+
+        public enum MetricSystems
+        {
+            Kmh,
+            Mph
         }
 
     }
