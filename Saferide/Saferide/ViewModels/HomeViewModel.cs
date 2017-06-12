@@ -237,6 +237,7 @@ namespace Saferide.ViewModels
             PositionSpeed = "0";
             MessagingCenter.Subscribe<ISpeechRecognized, string>(this, "Recognized", async(sender, arg) =>
             {
+                MessagingCenter.Unsubscribe<ISpeechRecognized, string>(this, "Recognized");
                 if (arg == "new incident")
                 {
                     await GoToNewIncident();
@@ -492,22 +493,22 @@ namespace Saferide.ViewModels
                                 Constants.IsBeingAskedToConfirm = true;
                                 await Task.Delay(5000);
                                 //Prompts the user to confirm the incident
-                                var resultOfConfirmation = await DependencyService.Get<ISpeechRecognition>().Listen();
+                                //var resultOfConfirmation = await DependencyService.Get<ISpeechRecognition>().Listen();
                                 bool isConfirmed;
-                                if (resultOfConfirmation == AppTexts.YesListen)
-                                {
-                                    isConfirmed = true;
-                                }
-                                else if (resultOfConfirmation == AppTexts.NoListen)
-                                {
-                                    isConfirmed = false;
-                                }
-                                else
-                                {
+                                //if (resultOfConfirmation == AppTexts.YesListen)
+                                //{
+                                //    isConfirmed = true;
+                                //}
+                                //else if (resultOfConfirmation == AppTexts.NoListen)
+                                //{
+                                //    isConfirmed = false;
+                                //}
+                                //else
+                                //{
                                     isConfirmed = await XFToast.ConfirmAsync(AppTexts.Confirm, AppTexts.ConfirmText,
                                         AppTexts.Yes,
                                         AppTexts.No);
-                                }
+                                //}
                                 //Setting the incident to confirmed
                                 closestIncident.Confirmed = isConfirmed;
                                 Constants.IsBeingAskedToConfirm = false;

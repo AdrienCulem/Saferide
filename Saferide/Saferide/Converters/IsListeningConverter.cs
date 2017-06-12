@@ -4,7 +4,7 @@ using Xamarin.Forms;
 
 namespace Saferide.Converters
 {
-    public class IsListenningConverter : IValueConverter
+    public class IsListeningConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

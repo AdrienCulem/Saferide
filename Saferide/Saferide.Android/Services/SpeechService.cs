@@ -23,8 +23,8 @@ namespace Saferide.Droid.Services
         private int n;
         private string lastHypo = "";
 
-        private static string KWS_SEARCH = "wakeup";
-        private static string KWS_SEARCH_FILE = "wakeupList";
+        private static string KWS_SEARCH = "newIncident";
+        private static string KWS_SEARCH_FILE = "NewIncidentList";
 
         private string KEYPHRASE = "new incident";
 
@@ -82,7 +82,7 @@ namespace Saferide.Droid.Services
             _recognizer = new SpeechRecognizerSetup(config)
                 .SetAcousticModel(new File(assetsDir, "en-us-ptm"))
                 .SetDictionary(new File(assetsDir, "cmudict-en-us.dict"))
-                //.setKeywordThreshold(float.Parse("1e-10"))
+                .setKeywordThreshold(float.Parse("1e-20"))
                 //.SetRawLogDir(assetsDir) // To disable logging of raw audio comment out this call (takes a lot of space on the device)
                 .GetRecognizer();
 
@@ -114,6 +114,7 @@ namespace Saferide.Droid.Services
                 lastHypo = e.Hypothesis.Hypstr.Substring(0, e.Hypothesis.Hypstr.Count() - n); // get the last word detected (the first one in Hypstr)
                 n = e.Hypothesis.Hypstr.Count();
                 MessagingCenter.Send<ISpeechRecognized, string>(this, "Recognized", lastHypo);
+                lastHypo = null;
             }
         }
 

@@ -23,7 +23,7 @@ using Xamarin.Forms;
 namespace Saferide.Droid
 {
     [Activity(Label = "Saferide", Icon = "@drawable/ic_launcher", ScreenOrientation = ScreenOrientation.Portrait,  Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
-    public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity, TextToSpeech.IOnInitListener, IGpsEnabled, IGetVersion, IAskPermissions
+    public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity, TextToSpeech.IOnInitListener, IGpsEnabled, IGetVersion, IAskPermissions, ISpeechRecognition
     {
         private readonly int VOICE = 10;
         private static string _textRecognized;
@@ -65,6 +65,28 @@ namespace Saferide.Droid
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
         {
             PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+
+        public async Task<string> Listen()
+        {
+            return await startVoice();
+        }
+
+        public async Task<string> startVoice()
+        {
+            _textRecognized = "";
+            var voiceIntent = new Intent(RecognizerIntent.ActionRecognizeSpeech);
+            voiceIntent.PutExtra(RecognizerIntent.ExtraLanguageModel, RecognizerIntent.LanguageModelFreeForm);
+            voiceIntent.PutExtra(RecognizerIntent.ExtraPrompt, AppTexts.SpeakNow);
+            voiceIntent.PutExtra(RecognizerIntent.ExtraSpeechInputCompleteSilenceLengthMillis, 1500);
+            voiceIntent.PutExtra(RecognizerIntent.ExtraSpeechInputPossiblyCompleteSilenceLengthMillis, 1500);
+            voiceIntent.PutExtra(RecognizerIntent.ExtraSpeechInputMinimumLengthMillis, 15000);
+            voiceIntent.PutExtra(RecognizerIntent.ExtraMaxResults, 1);
+            voiceIntent.PutExtra(RecognizerIntent.ExtraLanguage, Java.Util.Locale.Default);
+            ((Activity)Forms.Context).StartActivityForResult(voiceIntent, VOICE);
+            _activityResult = false;
+            await WaitForActivityResult();
+            return _textRecognized;
         }
 
         public void Talk(string textToSay)

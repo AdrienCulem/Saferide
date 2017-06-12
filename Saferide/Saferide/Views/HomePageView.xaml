@@ -8,7 +8,9 @@
              xmlns:converters="clr-namespace:Saferide.Converters;assembly=Saferide"
              Title="{x:Static ressources:AppTexts.Home}">
     <ContentPage.Resources>
-        <converters:IsListenningConverter x:Key="IsListenningConverter" />
+        <ResourceDictionary>
+            <converters:IsListeningConverter x:Key="IsListeningConverter" />
+        </ResourceDictionary>
     </ContentPage.Resources>
     <ScrollView>
         <StackLayout Padding="5">
@@ -32,6 +34,7 @@
                                           HorizontalTextAlignment="Center">
                 </controls:CustomFontLabel>
             </AbsoluteLayout>
+
             <AbsoluteLayout 
                 Margin="30, 0, 30, 0"
                 HeightRequest="60"
@@ -65,15 +68,15 @@
             </AbsoluteLayout>
             <AbsoluteLayout
                 HeightRequest="160">
-                <Button x:Name="ButtonListen"
-                        Command="{Binding ListenMicrophone}"
-                        AbsoluteLayout.LayoutBounds=".05, .5, .45, 1"
-                        AbsoluteLayout.LayoutFlags="All"
-                        Clicked="ButtonClicked"
-                        Image="microphone.png"
-                        BackgroundColor="{Binding IsListenning, Converter={StaticResource IsListenningConverter}}"
-                        TextColor="White"
-                        BorderRadius="3" />
+                <Button
+                    Command="{Binding ListenMicrophone}"
+                    AbsoluteLayout.LayoutBounds=".05, .5, .45, 1"
+                    AbsoluteLayout.LayoutFlags="All"
+                    Clicked="ButtonClicked"
+                    Image="microphone.png"
+                    BackgroundColor="{Binding IsListenning, Converter={StaticResource IsListeningConverter}}"
+                    TextColor="White"
+                    BorderRadius="3" />
                 <Button
                     Command="{Binding IncidentButton}"
                     Clicked="ButtonClicked"
@@ -88,4 +91,5 @@
         </StackLayout>
     </ScrollView>
 </ContentPage>
+            
             

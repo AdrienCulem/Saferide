@@ -4,8 +4,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:saferide="clr-namespace:Saferide;assembly=Saferide"
              xmlns:ressources="clr-namespace:Saferide.Ressources;assembly=Saferide"
+             xmlns:converters="clr-namespace:Saferide.Converters;assembly=Saferide"
              x:Class="Saferide.Views.NewIncidentPageView"
              Title="{x:Static ressources:AppTexts.AddIncident}">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:IsListeningConverter x:Key="IsListeningConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <StackLayout>
         <Grid HorizontalOptions="Center">
             <Grid.RowDefinitions>
@@ -50,7 +56,7 @@
             <Button Image="microphone.png"
                     Command="{Binding ListenMicrophone}"
                     Clicked="ButtonClicked"
-                    BackgroundColor="{x:Static saferide:Constants.SaferideBlue}"
+                    BackgroundColor="{Binding IsListenning, Converter={StaticResource IsListeningConverter}}"
                     Grid.Row="2"
                     Grid.Column="0"  
                     TextColor="White"/>

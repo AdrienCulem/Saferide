@@ -24,27 +24,35 @@ namespace Saferide.ViewModels
         /// </summary>
         public string SpeechResult
         {
-            get { return _speechResult; }
+            get => _speechResult;
             set
             {
-                if (_speechResult != value)
-                {
-                    _speechResult = value;
-                    RaisePropertyChanged();
-                }
+                if (_speechResult == value) return;
+                _speechResult = value;
+                RaisePropertyChanged();
             }
         }
 
+        /// <summary>
+        /// Used to display the right button
+        /// </summary>
+        public bool IsListenning
+        {
+            get => _isListenning;
+            set
+            {
+                if (_isListenning == value) return;
+                _isListenning = value;
+                RaisePropertyChanged();
+            }
+        }
 
-        private readonly TaskScheduler _scheduler = TaskScheduler.FromCurrentSynchronizationContext();
-        private Geocoder _geoCoder;
         private string _speechResult;
+        private bool _isListenning;
 
         public NewIncidentViewModel()
         {
             IncidentButton = new Command<string>(NewIncident);
-            _geoCoder = new Geocoder();
-            DependencyService.Get<ISpeechService>().StartListening("keyword");
             MessagingCenter.Subscribe<ISpeechRecognized, string>(this, "Recognized", (sender, arg) =>
             {
                 if (arg == AppTexts.NewHole)
@@ -71,6 +79,12 @@ namespace Saferide.ViewModels
                     NewIncident("danger");
                     UserDialogs.Instance.HideLoading();
                 }
+            });
+
+            ListenMicrophone = new Command(async() =>
+            {
+                await DependencyService.Get<ISpeechService>().Setup();
+                DependencyService.Get<ISpeechService>().StartListening("keyword");
             });
         }
 
