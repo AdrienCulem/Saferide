@@ -350,7 +350,7 @@ namespace Saferide.Ressources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to new incident.
+        ///   Looks up a localized string similar to [new incident].
         /// </summary>
         public static string ListenNewIncident {
             get {

@@ -250,7 +250,7 @@
     <value>Listen</value>
   </data>
   <data name="ListenNewIncident" xml:space="preserve">
-    <value>new incident</value>
+    <value>[new incident]</value>
   </data>
   <data name="ListenStartRiding" xml:space="preserve">
     <value>start riding</value>
