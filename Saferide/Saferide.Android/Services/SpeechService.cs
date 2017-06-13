@@ -85,7 +85,7 @@ namespace Saferide.Droid.Services
             _recognizer = new SpeechRecognizerSetup(config)
                 .SetAcousticModel(new File(assetsDir, "en-us-ptm"))
                 .SetDictionary(new File(assetsDir, "cmudict-en-us.dict"))
-                .setKeywordThreshold(float.Parse("1e-20"))
+                .setKeywordThreshold(float.Parse("1e-30"))
                 //.SetRawLogDir(assetsDir) // To disable logging of raw audio comment out this call (takes a lot of space on the device)
                 .GetRecognizer();
 

@@ -130,7 +130,9 @@ namespace Saferide.ViewModels
                     IsListenning = false;
                     promptResult = await DependencyService.Get<ISpeechRecognition>().Listen();
                 }
-                if(promptResult == String.Empty)return;
+                DependencyService.Get<ISpeechService>().StartListening("keyword");
+                IsListenning = true;
+                if (promptResult == String.Empty)return;
                 XFToast.ShowLoading();
                 Incident incident = new Incident
                 {
