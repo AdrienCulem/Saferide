@@ -226,7 +226,6 @@ namespace Saferide.ViewModels
                 
             });
             DependencyService.Get<ISpeechService>().Setup();
-            TextToSpeech.Talk(AppTexts.GoToNewIncident);
         }
 
         public async void OnStartListening()
@@ -311,6 +310,7 @@ namespace Saferide.ViewModels
             catch (Exception ex)
             {
                 XFToast.HideLoading();
+                await GetGpsInfos(shouldStartListening);
                 Debug.WriteLine("Unable to get location, may need to increase timeout: " + ex);
             }
         }
