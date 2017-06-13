@@ -52,20 +52,23 @@ namespace Saferide.Droid.Services
                 if (mode == "keyphrase")
                 {
                     SwitchSearch(KWS_SEARCH, KEYPHRASE);
+                    Constants.KeyphraseOn = true;
                 }
                 else if (mode == "keyword")
                 {
                     _recognizer.AddKeywordSearch(KWS_SEARCH_FILE, new File(assetsDir, "up_en.txt"));
                     _recognizer.StartListening(KWS_SEARCH_FILE);
+                    Constants.KeywordOn = true;
+
                 }
-                Constants.VoiceAlreadyInit = true;
             }
         }
 
         public async Task StopListening()
         {
             await _recognizer.Stop();
-            Constants.VoiceAlreadyInit = false;
+            Constants.KeywordOn = false;
+            Constants.KeyphraseOn = false;
         }
 
         public async Task Setup()
@@ -121,6 +124,7 @@ namespace Saferide.Droid.Services
                 {
                     MessagingCenter.Send<ISpeechRecognized, string>(this, "Incident", lastHypo);
                 }
+                lastHypo = null;
             }
         }
 

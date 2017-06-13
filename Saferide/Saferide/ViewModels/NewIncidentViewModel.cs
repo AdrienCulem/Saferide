@@ -84,16 +84,16 @@ namespace Saferide.ViewModels
                     UserDialogs.Instance.HideLoading();
                 }
             });
-
             ListenMicrophone = new Command(OnStartListening);
         }
 
         public async void OnStartListening()
         {
-            if (!Constants.VoiceAlreadyInit)
+            if (!Constants.KeywordOn)
             {
                 try
                 {
+                    await DependencyService.Get<ISpeechService>().StopListening();
                     DependencyService.Get<ISpeechService>().StartListening("keyword");
                     IsListenning = true;
                 }

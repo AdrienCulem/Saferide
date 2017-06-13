@@ -203,7 +203,6 @@ namespace Saferide.ViewModels
 
         public HomeViewModel()
         {
-            DependencyService.Get<IAskPermissions>().AskPermissions();
             if (!CrossGeolocator.Current.IsListening)
             {
                 GetGpsInfos();
@@ -225,15 +224,24 @@ namespace Saferide.ViewModels
                 });
                 
             });
-            DependencyService.Get<ISpeechService>().Setup();
+            SetUpandListen();
+            DependencyService.Get<IAskPermissions>().AskPermissions();
+        }
+
+        private async void SetUpandListen()
+        {
+            await DependencyService.Get<ISpeechService>().Setup();
+            DependencyService.Get<ISpeechService>().StartListening("keyphrase");
+            IsListenning = true;
         }
 
         public async void OnStartListening()
         {
-            if (!Constants.VoiceAlreadyInit)
+            if (!Constants.KeyphraseOn)
             {
                 try
                 {
+                    await DependencyService.Get<ISpeechService>().StopListening();
                     DependencyService.Get<ISpeechService>().StartListening("keyphrase");
                     IsListenning = true;
                 }
