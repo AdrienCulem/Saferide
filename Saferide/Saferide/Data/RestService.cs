@@ -53,7 +53,6 @@ namespace Saferide.Data
                     Constants.IsConnected = true;
                     return "Success";
                 }
-                await TryReconnect();
                 return "Invalid";
             }
             catch (Exception)
