@@ -82,7 +82,7 @@ namespace Saferide.Droid.Services
             _recognizer = new SpeechRecognizerSetup(config)
                 .SetAcousticModel(new File(assetsDir, "en-us-ptm"))
                 .SetDictionary(new File(assetsDir, "cmudict-en-us.dict"))
-                .setKeywordThreshold(float.Parse("1e-20"))
+                .setKeywordThreshold(float.Parse("1e-40"))
                 //.SetRawLogDir(assetsDir) // To disable logging of raw audio comment out this call (takes a lot of space on the device)
                 .GetRecognizer();
 
@@ -113,7 +113,14 @@ namespace Saferide.Droid.Services
             {
                 lastHypo = e.Hypothesis.Hypstr.Substring(0, e.Hypothesis.Hypstr.Count() - n); // get the last word detected (the first one in Hypstr)
                 n = e.Hypothesis.Hypstr.Count();
-                MessagingCenter.Send<ISpeechRecognized, string>(this, "Recognized", lastHypo);
+                if (lastHypo == "new incident")
+                {
+                    MessagingCenter.Send<ISpeechRecognized>(this, "NewIncident");
+                }
+                else
+                {
+                    MessagingCenter.Send<ISpeechRecognized, string>(this, "Incident", lastHypo);
+                }
             }
         }
 

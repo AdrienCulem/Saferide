@@ -44,6 +44,7 @@ namespace Saferide.ViewModels
         private bool _isStarted;
         private string _metricSystemToShow;
         private static bool _isListenning;
+        private static string _sphinxResult;
 
         public string PositionStatus
         {
@@ -215,14 +216,17 @@ namespace Saferide.ViewModels
             _geoCoder = new Geocoder();
             PositionHeading = "N";
             PositionSpeed = "0";
-            MessagingCenter.Subscribe<ISpeechRecognized, string>(this, "Recognized", async(sender, arg) =>
+            MessagingCenter.Unsubscribe<ISpeechRecognized>(this, "NewIncident");
+            MessagingCenter.Subscribe<ISpeechRecognized>(this, "NewIncident", sender =>
             {
-                if (arg == "new incident")
+                Device.BeginInvokeOnMainThread(async () =>
                 {
                     await GoToNewIncident();
-                }
+                });
+                
             });
             DependencyService.Get<ISpeechService>().Setup();
+            TextToSpeech.Talk(AppTexts.GoToNewIncident);
         }
 
         public async void OnStartListening()
@@ -243,26 +247,6 @@ namespace Saferide.ViewModels
             {
                 await DependencyService.Get<ISpeechService>().StopListening();
                 IsListenning = false;
-            }
-        }
-        /// <summary>
-        /// Starts the voice recognition
-        /// </summary>
-        /// <returns></returns>
-        public async Task VoiceRecognition()
-        {
-            var result = await DependencyService.Get<ISpeechRecognition>().Listen();
-            SpeechResult = result;
-            var listenNewIncidentResults = AppTexts.ListenNewIncident.Spintax();
-            if (listenNewIncidentResults.Contains(result))
-                await GoToNewIncident();
-            if (result == AppTexts.ListenStartRiding)
-                await GetGpsInfos();
-            if (result == AppTexts.ListenStopRiding)
-            {
-                await CrossGeolocator.Current.StopListeningAsync();
-                IsStoped = true;
-                IsStarted = false;
             }
         }
 

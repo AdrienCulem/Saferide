@@ -242,11 +242,38 @@ namespace Saferide.Ressources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Describe the incident please..
+        /// </summary>
+        public static string GiveADescription {
+            get {
+                return ResourceManager.GetString("GiveADescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Which type of incident would you like to report?.
+        /// </summary>
+        public static string GiveANewIncident {
+            get {
+                return ResourceManager.GetString("GiveANewIncident", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Go.
         /// </summary>
         public static string Go {
             get {
                 return ResourceManager.GetString("Go", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Just say new incident to start reporting an incident.
+        /// </summary>
+        public static string GoToNewIncident {
+            get {
+                return ResourceManager.GetString("GoToNewIncident", resourceCulture);
             }
         }
         

@@ -376,4 +376,13 @@
   <data name="YesListen" xml:space="preserve">
     <value>yes</value>
   </data>
+  <data name="GiveADescription" xml:space="preserve">
+    <value>Describe the incident please.</value>
+  </data>
+  <data name="GiveANewIncident" xml:space="preserve">
+    <value>Which type of incident would you like to report?</value>
+  </data>
+  <data name="GoToNewIncident" xml:space="preserve">
+    <value>Just say new incident to start reporting an incident</value>
+  </data>
 </root>

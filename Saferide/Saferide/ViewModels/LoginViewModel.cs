@@ -14,45 +14,43 @@ namespace Saferide.ViewModels
         private string _username;
         private string _password;
 
-        public ICommand LoginClickedCommand => new Command(async() => await VerifyLogs());
-        public ICommand RegisterClickedCommand => new Command(() =>
-        {
-            Application.Current.MainPage = new NavigationPage(new GenericWebPageView(Constants.RegisterWebsiteUrl));
-        });
-        public ICommand ForgotPasswordCommand => new Command(() =>
-        {
-            Application.Current.MainPage = new NavigationPage(new GenericWebPageView(Constants.ResetPasswordUrl));
-        });
+        public ICommand LoginClickedCommand { get; set; }
+
+        public ICommand RegisterClickedCommand { get; set; }
+        public ICommand ForgotPasswordCommand { get; set; }
         public string Username
         {
             set
             {
-                if (_username != value)
-                {
-                    _username = value;
-                    RaisePropertyChanged();
-                }
+                if (_username == value) return;
+                _username = value;
+                RaisePropertyChanged();
             }
-            get
-            {
-                return _username;
-            }
+            get => _username;
         }
 
         public string Password
         {
             set
             {
-                if (_password != value)
-                {
-                    _password = value;
-                    RaisePropertyChanged();
-                }
+                if (_password == value) return;
+                _password = value;
+                RaisePropertyChanged();
             }
-            get
+            get => _password;
+        }
+
+        public LoginViewModel()
+        {
+            LoginClickedCommand = new Command(async() => await VerifyLogs());
+            RegisterClickedCommand = new Command(() =>
             {
-                return _password;
-            }
+                Application.Current.MainPage = new NavigationPage(new GenericWebPageView(Constants.RegisterWebsiteUrl));
+            });
+            ForgotPasswordCommand = new Command(() =>
+            {
+                Application.Current.MainPage = new NavigationPage(new GenericWebPageView(Constants.ResetPasswordUrl));
+            });
         }
         public async Task VerifyLogs()
         {

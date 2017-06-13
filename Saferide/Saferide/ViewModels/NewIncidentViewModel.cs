@@ -53,8 +53,11 @@ namespace Saferide.ViewModels
 
         public NewIncidentViewModel()
         {
+            TextToSpeech.Talk(AppTexts.GiveANewIncident);
+            OnStartListening();
             IncidentButton = new Command<string>(NewIncident);
-            MessagingCenter.Subscribe<ISpeechRecognized, string>(this, "Recognized", (sender, arg) =>
+            MessagingCenter.Unsubscribe<ISpeechRecognized, string>(this, "Incident");
+            MessagingCenter.Subscribe<ISpeechRecognized, string>(this, "Incident", (sender, arg) =>
             {
                 if (arg == AppTexts.NewHole)
                 {
@@ -111,8 +114,9 @@ namespace Saferide.ViewModels
             if (UserPosition.Latitude != 0 && UserPosition.Longitude != 0)
             {
                 String result;
-                var actionResult = await XFToast.ActionSheet(AppTexts.WhatOptionForIncident, AppTexts.Cancel, AppTexts.Write, AppTexts.Speak);
+                //var actionResult = await XFToast.ActionSheet(AppTexts.WhatOptionForIncident, AppTexts.Cancel, AppTexts.Write, AppTexts.Speak);
                 var promptResult = String.Empty;
+                var actionResult = AppTexts.Speak;
                 if (actionResult == AppTexts.Write)
                 {
                     var tempResult = await XFToast.PromptAsync(AppTexts.Description, AppTexts.Done, AppTexts.Cancel,
@@ -122,6 +126,8 @@ namespace Saferide.ViewModels
                 }
                 else if(actionResult == AppTexts.Speak)
                 {
+                    await DependencyService.Get<ISpeechService>().StopListening();
+                    IsListenning = false;
                     promptResult = await DependencyService.Get<ISpeechRecognition>().Listen();
                 }
                 if(promptResult == String.Empty)return;
