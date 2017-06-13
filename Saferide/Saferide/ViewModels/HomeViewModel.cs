@@ -287,6 +287,7 @@ namespace Saferide.ViewModels
             catch (Exception ex)
             {
                 XFToast.HideLoading();
+                IsStoped = true;
                 Debug.WriteLine("Unable to get location, may need to increase timeout: " + ex);
             }
         }
