@@ -80,7 +80,7 @@ namespace Saferide.Ressources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to To use the vocal recognition just press the listen button then say the texts that is displayed on the screen to click on that button..
+        ///   Looks up a localized string similar to To start reporting a new incident just say New incident or press the attention icon.
         /// </summary>
         public static string AvailableCommands {
             get {
