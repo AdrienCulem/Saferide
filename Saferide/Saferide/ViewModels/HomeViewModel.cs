@@ -207,27 +207,7 @@ namespace Saferide.ViewModels
             {
                 GetGpsInfos();
             }
-            ListenMicrophone = new Command(async() =>
-            {
-                //await VoiceRecognition();
-                if(!Constants.VoiceAlreadyInit)
-                {
-                    try
-                    {
-                        await DependencyService.Get<ISpeechService>().Setup();
-                        DependencyService.Get<ISpeechService>().StartListening("keyphrase");
-                        IsListenning = true;
-                    }
-                    catch (Exception e)
-                    {
-                        Debug.WriteLine(e.ToString());
-                    }
-                }else
-                {
-                    await DependencyService.Get<ISpeechService>().StopListening();
-                    IsListenning = false;
-                }
-            });
+            ListenMicrophone = new Command(OnStartListening);
             StartRiding = new Command(async () =>
             {
                 await GetGpsInfos();
@@ -237,12 +217,33 @@ namespace Saferide.ViewModels
             PositionSpeed = "0";
             MessagingCenter.Subscribe<ISpeechRecognized, string>(this, "Recognized", async(sender, arg) =>
             {
-                MessagingCenter.Unsubscribe<ISpeechRecognized, string>(this, "Recognized");
                 if (arg == "new incident")
                 {
                     await GoToNewIncident();
                 }
             });
+            DependencyService.Get<ISpeechService>().Setup();
+        }
+
+        public async void OnStartListening()
+        {
+            if (!Constants.VoiceAlreadyInit)
+            {
+                try
+                {
+                    DependencyService.Get<ISpeechService>().StartListening("keyphrase");
+                    IsListenning = true;
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e.ToString());
+                }
+            }
+            else
+            {
+                await DependencyService.Get<ISpeechService>().StopListening();
+                IsListenning = false;
+            }
         }
         /// <summary>
         /// Starts the voice recognition

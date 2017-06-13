@@ -1,4 +1,4 @@
-﻿hole /1e-0/
-sliding zone /1e-0/
-obstacle /1e-0/
-danger /1e-0/
+﻿hole/1e-0/
+sliding zone/1e-0/
+obstacle/1e-0/
+danger/1e-0/

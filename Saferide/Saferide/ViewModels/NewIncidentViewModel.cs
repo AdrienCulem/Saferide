@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Acr.UserDialogs;
@@ -81,11 +82,28 @@ namespace Saferide.ViewModels
                 }
             });
 
-            ListenMicrophone = new Command(async() =>
+            ListenMicrophone = new Command(OnStartListening);
+        }
+
+        public async void OnStartListening()
+        {
+            if (!Constants.VoiceAlreadyInit)
             {
-                await DependencyService.Get<ISpeechService>().Setup();
-                DependencyService.Get<ISpeechService>().StartListening("keyword");
-            });
+                try
+                {
+                    DependencyService.Get<ISpeechService>().StartListening("keyword");
+                    IsListenning = true;
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e.ToString());
+                }
+            }
+            else
+            {
+                await DependencyService.Get<ISpeechService>().StopListening();
+                IsListenning = false;
+            }
         }
 
         public async void NewIncident(string key)

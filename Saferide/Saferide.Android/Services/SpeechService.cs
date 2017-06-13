@@ -114,7 +114,6 @@ namespace Saferide.Droid.Services
                 lastHypo = e.Hypothesis.Hypstr.Substring(0, e.Hypothesis.Hypstr.Count() - n); // get the last word detected (the first one in Hypstr)
                 n = e.Hypothesis.Hypstr.Count();
                 MessagingCenter.Send<ISpeechRecognized, string>(this, "Recognized", lastHypo);
-                lastHypo = null;
             }
         }
 
