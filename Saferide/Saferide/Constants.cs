@@ -15,6 +15,7 @@ namespace Saferide
         public static bool IsBeingAskedToConfirm;
         public static bool KeywordOn;
         public static bool KeyphraseOn;
+        public static bool Listening;
         public static string BearerToken;
         public static string Username;
         public static string Password;

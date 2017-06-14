@@ -207,7 +207,10 @@ namespace Saferide.ViewModels
             {
                 GetGpsInfos();
             }
-            ListenMicrophone = new Command(OnStartListening);
+            ListenMicrophone = new Command(() =>
+            {
+                OnStartListening();
+            });
             StartRiding = new Command(async () =>
             {
                 await GetGpsInfos();
@@ -234,15 +237,23 @@ namespace Saferide.ViewModels
             await DependencyService.Get<ISpeechService>().Setup();
             DependencyService.Get<ISpeechService>().StartListening("keyphrase");
             IsListenning = true;
+            MessagingCenter.Unsubscribe<HomePageView>(this, "Init");
+            MessagingCenter.Subscribe<HomePageView>(this, "Init", sender =>
+            {
+                OnStartListening(false);
+            });
         }
 
-        public async void OnStartListening()
+        public async void OnStartListening(bool shouldStop = true)
         {
             if (!Constants.KeyphraseOn)
             {
                 try
                 {
-                    await DependencyService.Get<ISpeechService>().StopListening();
+                    if (Constants.Listening)
+                    {
+                        await DependencyService.Get<ISpeechService>().StopListening();
+                    }
                     DependencyService.Get<ISpeechService>().StartListening("keyphrase");
                     IsListenning = true;
                 }
@@ -251,7 +262,7 @@ namespace Saferide.ViewModels
                     Debug.WriteLine(e.ToString());
                 }
             }
-            else
+            else if(shouldStop)
             {
                 await DependencyService.Get<ISpeechService>().StopListening();
                 IsListenning = false;

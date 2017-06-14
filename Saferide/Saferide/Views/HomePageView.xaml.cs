@@ -43,5 +43,11 @@ namespace Saferide.Views
                 await Heading.RotateTo(0 - UserPosition.Heading, 200, Easing.SinIn);
             }
         }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            MessagingCenter.Send(this, "Init");
+        }
     }
 }

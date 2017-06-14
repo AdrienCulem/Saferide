@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Acr.UserDialogs;
 using Saferide.GPS;
@@ -8,8 +7,8 @@ using Saferide.Helpers;
 using Saferide.Interfaces;
 using Saferide.Models;
 using Saferide.Ressources;
+using Saferide.Views;
 using Xamarin.Forms;
-using Xamarin.Forms.Maps;
 
 namespace Saferide.ViewModels
 {
@@ -50,15 +49,20 @@ namespace Saferide.ViewModels
 
         private string _speechResult;
         private bool _isListenning;
+        private bool _askedAIncident;
 
         public NewIncidentViewModel()
         {
             TextToSpeech.Talk(AppTexts.GiveANewIncident);
-            OnStartListening();
             IncidentButton = new Command<string>(NewIncident);
+            ListenMicrophone = new Command(() =>
+            {
+                OnStartListening();
+            });
             MessagingCenter.Unsubscribe<ISpeechRecognized, string>(this, "Incident");
             MessagingCenter.Subscribe<ISpeechRecognized, string>(this, "Incident", (sender, arg) =>
             {
+                _askedAIncident = true;
                 if (arg == AppTexts.NewHole)
                 {
                     UserDialogs.Instance.ShowLoading(AppTexts.WaitASec, null);
@@ -84,16 +88,19 @@ namespace Saferide.ViewModels
                     UserDialogs.Instance.HideLoading();
                 }
             });
-            ListenMicrophone = new Command(OnStartListening);
+            OnStartListening();
         }
 
-        public async void OnStartListening()
+        public async void OnStartListening(bool shouldStop = true)
         {
             if (!Constants.KeywordOn)
             {
                 try
                 {
-                    await DependencyService.Get<ISpeechService>().StopListening();
+                    if (Constants.Listening)
+                    {
+                        await DependencyService.Get<ISpeechService>().StopListening();
+                    }
                     DependencyService.Get<ISpeechService>().StartListening("keyword");
                     IsListenning = true;
                 }
@@ -102,7 +109,7 @@ namespace Saferide.ViewModels
                     Debug.WriteLine(e.ToString());
                 }
             }
-            else
+            else if(shouldStop)
             {
                 await DependencyService.Get<ISpeechService>().StopListening();
                 IsListenning = false;

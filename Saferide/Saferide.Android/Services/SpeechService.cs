@@ -59,8 +59,8 @@ namespace Saferide.Droid.Services
                     _recognizer.AddKeywordSearch(KWS_SEARCH_FILE, new File(assetsDir, "up_en.txt"));
                     _recognizer.StartListening(KWS_SEARCH_FILE);
                     Constants.KeywordOn = true;
-
                 }
+                Constants.Listening = true;
             }
         }
 
@@ -69,6 +69,7 @@ namespace Saferide.Droid.Services
             await _recognizer.Stop();
             Constants.KeywordOn = false;
             Constants.KeyphraseOn = false;
+            Constants.Listening = false;
         }
 
         public async Task Setup()
