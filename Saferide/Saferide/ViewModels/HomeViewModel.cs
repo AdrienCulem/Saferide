@@ -215,6 +215,7 @@ namespace Saferide.ViewModels
             _geoCoder = new Geocoder();
             PositionHeading = "N";
             PositionSpeed = "0";
+            MetricSystemToShow = Constants.MetricSystem.ToString();
             MessagingCenter.Unsubscribe<ISpeechRecognized>(this, "NewIncident");
             MessagingCenter.Subscribe<ISpeechRecognized>(this, "NewIncident", sender =>
             {
