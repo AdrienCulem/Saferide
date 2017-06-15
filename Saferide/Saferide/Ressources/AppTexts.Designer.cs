@@ -640,9 +640,9 @@ namespace Saferide.Ressources {
         /// <summary>
         ///   Looks up a localized string similar to Sliding Zone.
         /// </summary>
-        public static string SlidingZone {
+        public static string Slidingzone {
             get {
-                return ResourceManager.GetString("SlidingZone", resourceCulture);
+                return ResourceManager.GetString("Slidingzone", resourceCulture);
             }
         }
         

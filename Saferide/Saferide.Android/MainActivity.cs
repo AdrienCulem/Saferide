@@ -43,6 +43,7 @@ namespace Saferide.Droid
             Forms.Init(this, bundle);
             Xamarin.FormsMaps.Init(this, bundle);
             UserDialogs.Init(this);
+            Talk("Welcome");
             //SetupBluetooth();
             LoadApplication(new App());
         }
@@ -51,7 +52,7 @@ namespace Saferide.Droid
             PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
 
-        public async Task<string> startVoice()
+        public async Task<string> StartVoice()
         {
             _textRecognized = "";
             var voiceIntent = new Intent(RecognizerIntent.ActionRecognizeSpeech);
@@ -77,7 +78,7 @@ namespace Saferide.Droid
                 _textToSpeech.SetPitch(0.8f);
                 _textToSpeech.SetSpeechRate(1);
             }
-            _textToSpeech.Speak(textToSay, QueueMode.Flush, null, null);
+            _textToSpeech.Speak(textToSay, QueueMode.Add, null, null);
         }
 
         void TextToSpeech.IOnInitListener.OnInit(OperationResult status)
@@ -204,7 +205,7 @@ namespace Saferide.Droid
             //    }
 
             //}
-            return await startVoice();
+            return await StartVoice();
         }
     }
 }

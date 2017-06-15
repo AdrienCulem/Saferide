@@ -43,6 +43,7 @@ namespace Saferide.ViewModels
         private bool _isStoped;
         private bool _isStarted;
         private string _metricSystemToShow;
+        private List<Incident> _incidentWithinRadius; 
 
         public string PositionStatus
         {
@@ -187,6 +188,7 @@ namespace Saferide.ViewModels
 
         public HomeViewModel()
         {
+            _incidentWithinRadius = new List<Incident>();
             DependencyService.Get<IAskPermissions>().AskPermissions();
             if (!CrossGeolocator.Current.IsListening)
             {
@@ -302,7 +304,7 @@ namespace Saferide.ViewModels
             {
                 CrossGeolocator.Current.AllowsBackgroundUpdates = true;
                 //Change distance
-                await CrossGeolocator.Current.StartListeningAsync(3000, 20, true);
+                await CrossGeolocator.Current.StartListeningAsync(3000, 50, true);
                 IsStoped = false;
                 IsStarted = true;
             }
@@ -346,7 +348,7 @@ namespace Saferide.ViewModels
                     XFToast.HideLoading();
                     Debug.WriteLine("Unable to get address: " + ex);
                 }
-                if (_whenToUpdateIncidents > 20)
+                if (_whenToUpdateIncidents > 100)
                 {
                     await GetIncidents();
                     await WarnIncident();
@@ -367,14 +369,13 @@ namespace Saferide.ViewModels
         {
             if (Constants.IsBeingAskedToConfirm)
                 return;
-            Position pos = new Position
+            var pos = new Position
             {
                 Latitude = UserPosition.Latitude,
                 Longitude = UserPosition.Longitude,
             };
-            PositionConverter pConvert = new PositionConverter(pos);
+            var pConvert = new PositionConverter(pos);
             var result = pConvert.BoundingCoordinates(1.5);
-            List<Incident> incidentsWithinRadius;
             if (pos.Latitude == 0 || pos.Longitude == 0)
             {
                 return;
@@ -386,7 +387,7 @@ namespace Saferide.ViewModels
             var maxLong = result[1].Longitude;
             if (result[0].Longitude <= result[1].Longitude)
             {
-                incidentsWithinRadius = Constants.NearestIncidents.Where(
+                _incidentWithinRadius = Constants.NearestIncidents.Where(
                     i => (i.Latitude >= minLat) &&
                          (i.Latitude <= maxLat) &&
                          (i.Longitude >= minLong) &&
@@ -394,15 +395,15 @@ namespace Saferide.ViewModels
             }
             else
             {
-                incidentsWithinRadius = Constants.NearestIncidents.Where(
+                _incidentWithinRadius = Constants.NearestIncidents.Where(
                     i => (i.Latitude >= minLat) &&
                          (i.Latitude <= maxLat) &&
                          (i.Longitude >= minLong) ||
                          (i.Longitude <= maxLong)).ToList();
             }
-            if (incidentsWithinRadius.Count != 0)
+            if (_incidentWithinRadius.Count != 0)
             {
-                foreach (var item in incidentsWithinRadius)
+                foreach (var item in _incidentWithinRadius)
                 {
                     //Current position
                     var sCoord = new Position()
@@ -426,7 +427,7 @@ namespace Saferide.ViewModels
                 if (Math.Abs(UserPosition.Speed) > 0)
                 {
                     //All incidents in front of the user in a certain radius
-                    var incidentsInDirection = incidentsWithinRadius
+                    var incidentsInDirection = _incidentWithinRadius
                         .Where(a => a.DirectionFromCurrentPosition > UserPosition.Heading - 45 &&
                                     a.DirectionFromCurrentPosition < UserPosition.Heading + 45)
                         .ToList();
@@ -438,22 +439,21 @@ namespace Saferide.ViewModels
                         //If the incident is in the same street
                         if (closestIncident.Street == UserPosition.Address)
                         {
-                            double distanceBetweenTheIncident;
-                            string unit;
                             if (closestIncident.DistanceFromCurrentPosition < 0.4)
                             {
-                                distanceBetweenTheIncident =
-                                    (Math.Round(closestIncident.DistanceFromCurrentPosition, 3)) * 1000;
-                                unit = AppTexts.Meters;
+                                var distanceBetweenTheIncident = (Math.Round(closestIncident.DistanceFromCurrentPosition, 3)) * 1000;
+                                var unit = AppTexts.Meters;
                                 ResourceManager rm = AppTexts.ResourceManager;
                                 //Don't signal an already confirmed incident
-                                if (closestIncident.Confirmed)
+                                if (closestIncident.HasBeenSignaled)
                                     return;
-                                string typeOfIncident = rm.GetString(closestIncident.IncidentType.ToUpperFirstLetter());
+                                var typeOfIncident = rm.GetString(closestIncident.IncidentType.ToUpperFirstLetter().Replace(" ", ""));
                                 TextToSpeech.Talk(String.Format(AppTexts.SignalIncident, typeOfIncident,
                                     distanceBetweenTheIncident, unit, closestIncident.Description));
                                 Constants.IsBeingAskedToConfirm = true;
-                                await Task.Delay(5000);
+                                await Task.Delay(6000);
+                                TextToSpeech.Talk(AppTexts.ConfirmText);
+                                await Task.Delay(4000);
                                 //Prompts the user to confirm the incident
                                 var resultOfConfirmation = await DependencyService.Get<ISpeechRecognition>().Listen();
                                 bool isConfirmed;
@@ -473,6 +473,7 @@ namespace Saferide.ViewModels
                                 }
                                 //Setting the incident to confirmed
                                 closestIncident.Confirmed = isConfirmed;
+                                closestIncident.HasBeenSignaled = true;
                                 Constants.IsBeingAskedToConfirm = false;
                                 //Sending the confirmation to the API
                                 await App.IncidentManager.ConfirmIncident(closestIncident);

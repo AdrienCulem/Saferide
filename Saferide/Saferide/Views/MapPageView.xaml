@@ -16,6 +16,7 @@
       AbsoluteLayout.LayoutBounds="1,0,.18,.1" 
       AbsoluteLayout.LayoutFlags="All"
       Text="{x:Static ressources:AppTexts.Go}"
+      TextColor="White"
       BackgroundColor="{x:Static saferide:Constants.SaferideBlue}"
       x:Name="ButtonGoTo" 
       Clicked="OnGoToClicked"/>

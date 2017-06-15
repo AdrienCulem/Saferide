@@ -10,6 +10,7 @@
         public string UserId { get; set; }
         public string Street { get; set; }
         public bool Confirmed { get; set; }
+        public bool HasBeenSignaled { get; set; }
         public double DistanceFromCurrentPosition { get; set; }
         public double DirectionFromCurrentPosition { get; set; }
     }

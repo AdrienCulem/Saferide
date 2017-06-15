@@ -2,14 +2,17 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:ressources="clr-namespace:Saferide.Ressources;assembly=Saferide"
+             xmlns:controls="clr-namespace:Saferide.Controls;assembly=Saferide"
              x:Class="Saferide.Views.SettingsPageView"
              Title="{x:Static ressources:AppTexts.Settings}">
-    <StackLayout>
-        <Label FontSize="28" Text="{x:Static ressources:AppTexts.ChooseUnitSystem}"></Label>
-        <StackLayout Orientation="Horizontal">
-            <Label FontSize="25" Text="{x:Static ressources:AppTexts.Kilometersperhour}"></Label>
+    <StackLayout
+        Margin="10,10,10,10">
+        <controls:CustomFontBoldLabel FontSize="25" Text="{x:Static ressources:AppTexts.ChooseUnitSystem}"></controls:CustomFontBoldLabel>
+        <StackLayout 
+            Orientation="Horizontal">
+            <controls:CustomFontBoldLabel FontSize="22" Text="{x:Static ressources:AppTexts.Kilometersperhour}"></controls:CustomFontBoldLabel>
             <Switch IsToggled="{Binding MetricToggle, Mode=TwoWay}"></Switch>
-            <Label FontSize="25" Text="{x:Static ressources:AppTexts.MilesPerHour}"></Label>
+            <controls:CustomFontBoldLabel FontSize="22" Text="{x:Static ressources:AppTexts.MilesPerHour}"></controls:CustomFontBoldLabel>
         </StackLayout>
     </StackLayout>
 </ContentPage>

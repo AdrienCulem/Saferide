@@ -35,7 +35,7 @@
                     CommandParameter="obstacle"  />
             <Button TextColor="White" BackgroundColor="{x:Static saferide:Constants.SaferideBlue}"
                     Clicked="ButtonClicked"
-                    Text="{x:Static ressources:AppTexts.SlidingZone}"
+                    Text="{x:Static ressources:AppTexts.Slidingzone}"
                     Grid.Row="1" 
                     Grid.Column="0" 
                     Command="{Binding IncidentButton}"

@@ -72,10 +72,12 @@ namespace Saferide.Web.Controllers.API
                 Debug.WriteLine(e.ToString());
                 return null;
             }
-            Position pos = new Position();
-            pos.Latitude = doublePosLat;
-            pos.Longitude = doublePosLong;
-            PositionConverter pConvert = new PositionConverter(pos);
+            var pos = new Position
+            {
+                Latitude = doublePosLat,
+                Longitude = doublePosLong
+            };
+            var pConvert = new PositionConverter(pos);
             var result = pConvert.BoundingCoordinates(10);
             List<Incident> incidentsWithinRadius;
 

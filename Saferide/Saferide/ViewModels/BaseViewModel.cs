@@ -15,7 +15,7 @@ namespace Saferide.ViewModels
 
         public bool IsBusy
         {
-            get { return _isBusy; }
+            get => _isBusy;
             set
             {
                 if (_isBusy != value)

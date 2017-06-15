@@ -186,7 +186,7 @@
   <data name="SendAnIncident" xml:space="preserve">
     <value>You just sinagled and incident!</value>
   </data>
-  <data name="SlidingZone" xml:space="preserve">
+  <data name="Slidingzone" xml:space="preserve">
     <value>Sliding Zone</value>
   </data>
   <data name="SpeedView" xml:space="preserve">

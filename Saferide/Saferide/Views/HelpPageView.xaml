@@ -2,14 +2,28 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:resources="clr-namespace:Saferide.Ressources;assembly=Saferide"
+             xmlns:controls="clr-namespace:Saferide.Controls;assembly=Saferide"
              x:Class="Saferide.Views.HelpPageView"
              Title="{x:Static resources:AppTexts.Help}">
     <ScrollView>
-    <StackLayout>
-        <Label FontSize="25"
-               Text="{x:Static resources:AppTexts.SomeInfos}"></Label>
-        <Label FontSize="22"
-               Text="{x:Static resources:AppTexts.AvailableCommands}"></Label>
+    <StackLayout 
+        Margin="10, 10, 10, 10">
+        <StackLayout
+            HorizontalOptions="CenterAndExpand">
+            <controls:CustomFontBoldLabel 
+                FontSize="40"
+                FontAttributes="Bold"
+                Text="{x:Static resources:AppTexts.Saferide}">
+            </controls:CustomFontBoldLabel>
+            </StackLayout>
+        <controls:CustomFontBoldLabel 
+            FontSize="25"
+            FontAttributes="Bold"
+               Text="{x:Static resources:AppTexts.SomeInfos}"></controls:CustomFontBoldLabel>
+            <controls:CustomFontBoldLabel 
+            FontSize="22"
+            FontAttributes="Bold"
+            Text="{x:Static resources:AppTexts.AvailableCommands}"></controls:CustomFontBoldLabel>
         </StackLayout>
     </ScrollView>
 </ContentPage>
