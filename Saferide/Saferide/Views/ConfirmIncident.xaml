@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:saferide="clr-namespace:Saferide;assembly=Saferide"
+             xmlns:ressources="clr-namespace:Saferide.Ressources;assembly=Saferide"
+             x:Class="Saferide.Views.ConfirmIncident"
+             Title="Confirmation">
+    <StackLayout>
+        <Grid HorizontalOptions="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="400" />
+                <RowDefinition Height="400" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Button TextColor="White" 
+                    BackgroundColor="#46B482"
+                    Text="{x:Static ressources:AppTexts.Yes}"
+                    Grid.Row="0"
+                    Grid.Column="0" 
+                    Command="{Binding Confirm}"
+                    CommandParameter="yes"  />
+            <Button TextColor="White" 
+                    BackgroundColor="#B45050"
+                    Text="{x:Static ressources:AppTexts.No}"
+                    Grid.Row="1" 
+                    Grid.Column="0"  
+                    Command="{Binding Confirm}"
+                    CommandParameter="no"  />
+        </Grid>
+        <Label Text="{Binding SpeechResult, Mode=TwoWay}"></Label>
+    </StackLayout>
+</ContentPage>

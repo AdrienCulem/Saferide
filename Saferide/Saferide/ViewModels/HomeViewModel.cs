@@ -188,12 +188,12 @@ namespace Saferide.ViewModels
 
         public HomeViewModel()
         {
-            _incidentWithinRadius = new List<Incident>();
-            DependencyService.Get<IAskPermissions>().AskPermissions();
             if (!CrossGeolocator.Current.IsListening)
             {
                 GetGpsInfos();
             }
+            _incidentWithinRadius = new List<Incident>();
+            DependencyService.Get<IAskPermissions>().AskPermissions();
             ListenMicrophone = new Command(async () =>
             {
                 await VoiceRecognition();
@@ -206,6 +206,7 @@ namespace Saferide.ViewModels
             PositionHeading = "N";
             PositionSpeed = "0";
             MetricSystemToShow = Constants.MetricSystem.ToString();
+
         }
         /// <summary>
         /// Starts the voice recognition
@@ -285,6 +286,14 @@ namespace Saferide.ViewModels
                 await GetIncidents();
                 await StartListening();
                 XFToast.HideLoading();
+                MessagingCenter.Unsubscribe<HomePageView>(this, "OnAppearing");
+                MessagingCenter.Subscribe<HomePageView>(this, "OnAppearing", async sender =>
+                {
+                    if (!CrossGeolocator.Current.IsListening)
+                    {
+                        await GetGpsInfos();
+                    }
+                });
             }
             catch (Exception ex)
             {
@@ -439,7 +448,7 @@ namespace Saferide.ViewModels
                         //If the incident is in the same street
                         if (closestIncident.Street == UserPosition.Address)
                         {
-                            if (closestIncident.DistanceFromCurrentPosition < 0.4)
+                            if (closestIncident.DistanceFromCurrentPosition < 0.8)
                             {
                                 var distanceBetweenTheIncident = (Math.Round(closestIncident.DistanceFromCurrentPosition, 3)) * 1000;
                                 var unit = AppTexts.Meters;
@@ -456,27 +465,38 @@ namespace Saferide.ViewModels
                                 await Task.Delay(4000);
                                 //Prompts the user to confirm the incident
                                 var resultOfConfirmation = await DependencyService.Get<ISpeechRecognition>().Listen();
-                                bool isConfirmed;
                                 if (resultOfConfirmation == AppTexts.YesListen)
                                 {
-                                    isConfirmed = true;
+                                    closestIncident.Confirmed = true;
+                                    Constants.NearestIncidents
+                                        .FirstOrDefault(a => a.IncidentId == closestIncident.IncidentId).Confirmed = closestIncident.Confirmed;
+                                    await App.IncidentManager.ConfirmIncident(closestIncident);
                                 }
                                 else if (resultOfConfirmation == AppTexts.NoListen)
                                 {
-                                    isConfirmed = false;
+                                    closestIncident.Confirmed = false;
+                                    Constants.NearestIncidents
+                                        .FirstOrDefault(a => a.IncidentId == closestIncident.IncidentId).Confirmed = closestIncident.Confirmed;
+                                    await App.IncidentManager.ConfirmIncident(closestIncident);
                                 }
                                 else
                                 {
-                                    isConfirmed = await XFToast.ConfirmAsync(AppTexts.Confirm, AppTexts.ConfirmText,
-                                        AppTexts.Yes,
-                                        AppTexts.No);
+                                    //isConfirmed = await XFToast.ConfirmAsync(AppTexts.Confirm, AppTexts.ConfirmText,
+                                    //    AppTexts.Yes,
+                                    //    AppTexts.No);
+                                    var mainpage = Application.Current.MainPage as MasterDetailPage;
+                                    if (mainpage != null)
+                                    {
+                                        await mainpage.Detail.Navigation.PushModalAsync(new ConfirmIncident(closestIncident));
+                                    }
                                 }
                                 //Setting the incident to confirmed
-                                closestIncident.Confirmed = isConfirmed;
                                 closestIncident.HasBeenSignaled = true;
+                                Constants.NearestIncidents
+                                    .FirstOrDefault(a => a.IncidentId == closestIncident.IncidentId).HasBeenSignaled = true;
                                 Constants.IsBeingAskedToConfirm = false;
-                                //Sending the confirmation to the API
-                                await App.IncidentManager.ConfirmIncident(closestIncident);
+                                ////Sending the confirmation to the API
+                                //await App.IncidentManager.ConfirmIncident(closestIncident);
                             }
                         }
                     }
