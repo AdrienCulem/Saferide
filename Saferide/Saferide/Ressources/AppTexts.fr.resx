@@ -375,4 +375,7 @@
   <data name="YesListen" xml:space="preserve">
     <value>oui</value>
   </data>
+  <data name="ConfirmDescription" xml:space="preserve">
+    <value>Confirmez vous cet description?</value>
+  </data>
 </root>

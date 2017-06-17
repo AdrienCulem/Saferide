@@ -8,11 +8,11 @@
     <StackLayout>
         <Grid HorizontalOptions="Center">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
+                <RowDefinition Height="150" />
+                <RowDefinition Height="150" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="400" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Button TextColor="White" 
                     BackgroundColor="#46B482"

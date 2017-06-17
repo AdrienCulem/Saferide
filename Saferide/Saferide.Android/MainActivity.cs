@@ -91,6 +91,8 @@ namespace Saferide.Droid
                 _textToSpeech.SetLanguage(_lang);
         }
 
+   
+
         public async Task WaitForActivityResult()
         {
             await Task.Run(() => { while (!_activityResult) { } });

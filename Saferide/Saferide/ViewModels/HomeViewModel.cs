@@ -313,7 +313,7 @@ namespace Saferide.ViewModels
             {
                 CrossGeolocator.Current.AllowsBackgroundUpdates = true;
                 //Change distance
-                await CrossGeolocator.Current.StartListeningAsync(3000, 50, true);
+                await CrossGeolocator.Current.StartListeningAsync(2000, 50, true);
                 IsStoped = false;
                 IsStarted = true;
             }

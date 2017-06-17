@@ -163,7 +163,7 @@
     <value>Obstacle</value>
   </data>
   <data name="Oups" xml:space="preserve">
-    <value>Something went wrong :/ </value>
+    <value>Something went wrong</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>
@@ -375,5 +375,8 @@
   </data>
   <data name="YesListen" xml:space="preserve">
     <value>yes</value>
+  </data>
+  <data name="ConfirmDescription" xml:space="preserve">
+    <value>Do you confirm that description?</value>
   </data>
 </root>

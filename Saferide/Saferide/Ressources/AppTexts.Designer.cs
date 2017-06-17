@@ -134,6 +134,15 @@ namespace Saferide.Ressources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do you confirm that description?.
+        /// </summary>
+        public static string ConfirmDescription {
+            get {
+                return ResourceManager.GetString("ConfirmDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do you confirm that the incident was there?.
         /// </summary>
         public static string ConfirmText {
@@ -539,7 +548,7 @@ namespace Saferide.Ressources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Something went wrong :/ .
+        ///   Looks up a localized string similar to Something went wrong.
         /// </summary>
         public static string Oups {
             get {
