@@ -73,7 +73,7 @@ namespace Saferide.ViewModels
                         if (promptResult == String.Empty) return;
                         TextToSpeech.Talk(AppTexts.ConfirmDescription + promptResult);
                         await Task.Delay(1000);
-                        var tempResult = await XFToast.ConfirmAsync(AppTexts.ConfirmDescription, "", AppTexts.Yes, AppTexts.No);
+                        var tempResult = await XFToast.ConfirmAsync(AppTexts.ConfirmDescription, promptResult, AppTexts.Yes, AppTexts.No);
                         if (tempResult) isSure = true;
                     }
                 }
