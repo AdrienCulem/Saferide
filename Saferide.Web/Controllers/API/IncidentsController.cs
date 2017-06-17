@@ -72,7 +72,7 @@ namespace Saferide.Web.Controllers.API
                 Debug.WriteLine(e.ToString());
                 return null;
             }
-            Position pos = new Position
+            var pos = new Position
             {
                 Latitude = doublePosLat,
                 Longitude = doublePosLong

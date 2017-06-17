@@ -270,7 +270,7 @@
   <data name="SignalIncident" xml:space="preserve">
     <value>Il y a un incidant du type {0} dans {1} {2}. La description est {3}</value>
   </data>
-  <data name="SlidingZone" xml:space="preserve">
+  <data name="Slidingzone" xml:space="preserve">
     <value>Zone glissante</value>
   </data>
   <data name="Speed" xml:space="preserve">
@@ -374,5 +374,8 @@
   </data>
   <data name="YesListen" xml:space="preserve">
     <value>oui</value>
+  </data>
+  <data name="ConfirmDescription" xml:space="preserve">
+    <value>Confirmez vous cet description?</value>
   </data>
 </root>

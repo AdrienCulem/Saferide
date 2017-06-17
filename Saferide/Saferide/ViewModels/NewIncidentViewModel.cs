@@ -118,6 +118,7 @@ namespace Saferide.ViewModels
 
         public async void NewIncident(string key)
         {
+            var isSure = false;
             if (UserPosition.Latitude != 0 && UserPosition.Longitude != 0)
             {
                 String result;
@@ -133,9 +134,15 @@ namespace Saferide.ViewModels
                 }
                 else if(actionResult == AppTexts.Speak)
                 {
-                    await DependencyService.Get<ISpeechService>().StopListening();
-                    IsListenning = false;
-                    promptResult = await DependencyService.Get<ISpeechRecognition>().Listen();
+                    while (!isSure)
+                    {
+                        promptResult = await DependencyService.Get<ISpeechRecognition>().Listen();
+                        if (promptResult == String.Empty) return;
+                        TextToSpeech.Talk(AppTexts.ConfirmDescription + promptResult);
+                        await Task.Delay(1000);
+                        var tempResult = await XFToast.ConfirmAsync(AppTexts.ConfirmDescription, promptResult, AppTexts.Yes, AppTexts.No);
+                        if (tempResult) isSure = true;
+                    }
                 }
                 DependencyService.Get<ISpeechService>().StartListening("keyword");
                 IsListenning = true;

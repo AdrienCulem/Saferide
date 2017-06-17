@@ -46,8 +46,7 @@ namespace Saferide.Views
 
         protected override void OnAppearing()
         {
-            base.OnAppearing();
-            MessagingCenter.Send(this, "Init");
+            MessagingCenter.Send(this, "OnAppearing");
         }
     }
 }

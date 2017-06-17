@@ -163,7 +163,7 @@
     <value>Obstacle</value>
   </data>
   <data name="Oups" xml:space="preserve">
-    <value>Something went wrong :/ </value>
+    <value>Something went wrong</value>
   </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>
@@ -186,7 +186,7 @@
   <data name="SendAnIncident" xml:space="preserve">
     <value>You just sinagled and incident!</value>
   </data>
-  <data name="SlidingZone" xml:space="preserve">
+  <data name="Slidingzone" xml:space="preserve">
     <value>Sliding Zone</value>
   </data>
   <data name="SpeedView" xml:space="preserve">
@@ -250,7 +250,7 @@
     <value>Listen</value>
   </data>
   <data name="ListenNewIncident" xml:space="preserve">
-    <value>new incident</value>
+    <value>[new incident]</value>
   </data>
   <data name="ListenStartRiding" xml:space="preserve">
     <value>start riding</value>
@@ -353,7 +353,7 @@
     <value>Choose the unit system</value>
   </data>
   <data name="AvailableCommands" xml:space="preserve">
-    <value>To start reporting an incident just say New incident or click on the attention button</value>
+    <value>To start reporting a new incident just say New incident or press the attention icon</value>
   </data>
   <data name="Help" xml:space="preserve">
     <value>Help</value>
@@ -375,6 +375,9 @@
   </data>
   <data name="YesListen" xml:space="preserve">
     <value>yes</value>
+  </data>
+  <data name="ConfirmDescription" xml:space="preserve">
+    <value>Do you confirm that description?</value>
   </data>
   <data name="GiveADescription" xml:space="preserve">
     <value>Describe the incident please.</value>

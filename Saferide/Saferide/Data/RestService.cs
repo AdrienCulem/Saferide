@@ -20,7 +20,7 @@ namespace Saferide.Data
 
         public RestService()
         {
-            client = new HttpClient { MaxResponseContentBufferSize = 256000 };
+            client = new HttpClient { MaxResponseContentBufferSize = 256000, Timeout = TimeSpan.FromSeconds(10)};
         }
         /// <summary>
         /// Authenticate the user on the sever

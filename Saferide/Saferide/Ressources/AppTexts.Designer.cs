@@ -80,7 +80,7 @@ namespace Saferide.Ressources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to To start reporting an incident just say New incident or click on the attention button.
+        ///   Looks up a localized string similar to To start reporting a new incident just say New incident or press the attention icon.
         /// </summary>
         public static string AvailableCommands {
             get {
@@ -130,6 +130,15 @@ namespace Saferide.Ressources {
         public static string Confirm {
             get {
                 return ResourceManager.GetString("Confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you confirm that description?.
+        /// </summary>
+        public static string ConfirmDescription {
+            get {
+                return ResourceManager.GetString("ConfirmDescription", resourceCulture);
             }
         }
         
@@ -377,7 +386,7 @@ namespace Saferide.Ressources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to new incident.
+        ///   Looks up a localized string similar to [new incident].
         /// </summary>
         public static string ListenNewIncident {
             get {
@@ -566,7 +575,7 @@ namespace Saferide.Ressources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Something went wrong :/ .
+        ///   Looks up a localized string similar to Something went wrong.
         /// </summary>
         public static string Oups {
             get {
@@ -667,9 +676,9 @@ namespace Saferide.Ressources {
         /// <summary>
         ///   Looks up a localized string similar to Sliding Zone.
         /// </summary>
-        public static string SlidingZone {
+        public static string Slidingzone {
             get {
-                return ResourceManager.GetString("SlidingZone", resourceCulture);
+                return ResourceManager.GetString("Slidingzone", resourceCulture);
             }
         }
         

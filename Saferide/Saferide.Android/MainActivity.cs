@@ -41,25 +41,8 @@ namespace Saferide.Droid
             Forms.Init(this, bundle);
             Xamarin.FormsMaps.Init(this, bundle);
             UserDialogs.Init(this);
-            //var langAvailable = new List<string>();
-            //var localesAvailable = Java.Util.Locale.GetAvailableLocales().ToList();
-            //foreach (var locale in localesAvailable)
-            //{
-            //    var res = _textToSpeech.IsLanguageAvailable(locale);
-            //    switch (res)
-            //    {
-            //        case LanguageAvailableResult.Available:
-            //            langAvailable.Add(locale.DisplayLanguage);
-            //            break;
-            //        case LanguageAvailableResult.CountryAvailable:
-            //            langAvailable.Add(locale.DisplayLanguage);
-            //            break;
-            //        case LanguageAvailableResult.CountryVarAvailable:
-            //            langAvailable.Add(locale.DisplayLanguage);
-            //            break;
-            //    }
-            //}
-            
+            Talk("Welcome");
+            //SetupBluetooth();
             LoadApplication(new App());
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
@@ -98,7 +81,7 @@ namespace Saferide.Droid
                 _textToSpeech.SetPitch(0.8f);
                 _textToSpeech.SetSpeechRate(1);
             }
-            _textToSpeech.Speak(textToSay, QueueMode.Flush, null, null);
+            _textToSpeech.Speak(textToSay, QueueMode.Add, null, null);
         }
 
         void TextToSpeech.IOnInitListener.OnInit(OperationResult status)
@@ -110,6 +93,8 @@ namespace Saferide.Droid
             if (status == OperationResult.Success)
                 _textToSpeech.SetLanguage(_lang);
         }
+
+   
 
         public async Task WaitForActivityResult()
         {
@@ -190,6 +175,39 @@ namespace Saferide.Droid
 
                 }
             }
+        }
+
+        private void SetupBluetooth()
+        {
+            btAdapt = BluetoothAdapter.DefaultAdapter;
+            if (!btAdapt.IsEnabled)
+                return;
+            pairedDevices = btAdapt.BondedDevices;
+            pairedDevices = new List<BluetoothDevice>();
+            profileListener = new BluetoothServiceListener();
+            IBluetoothProfileServiceListener test = new BluetoothServiceListener();
+            //btAdapt.GetProfileProxy(ApplicationContext, test, BluetoothProfile.Headset);
+        }
+
+        public async Task<String> Listen()
+        {
+            //if (profileListener.btHeadset == null || !btAdapt.IsEnabled) return await startVoice();
+            //foreach (var device in pairedDevices)
+            //{
+            //    try
+            //    {
+            //        if (profileListener.btHeadset.StartVoiceRecognition(device))
+            //        {
+            //            break;
+            //        }
+            //    }
+            //    catch (Exception e)
+            //    {
+            //        Console.WriteLine(e.ToString());
+            //    }
+
+            //}
+            return await StartVoice();
         }
     }
 }
