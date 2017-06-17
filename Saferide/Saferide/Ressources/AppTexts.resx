@@ -380,7 +380,7 @@
     <value>Do you confirm that description?</value>
   </data>
   <data name="GiveADescription" xml:space="preserve">
-    <value>Describe the incident please.</value>
+    <value>Describe the incident please</value>
   </data>
   <data name="GiveANewIncident" xml:space="preserve">
     <value>Which type of incident would you like to report?</value>

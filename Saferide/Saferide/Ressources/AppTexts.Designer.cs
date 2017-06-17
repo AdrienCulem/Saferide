@@ -251,7 +251,7 @@ namespace Saferide.Ressources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Describe the incident please..
+        ///   Looks up a localized string similar to Describe the incident please.
         /// </summary>
         public static string GiveADescription {
             get {

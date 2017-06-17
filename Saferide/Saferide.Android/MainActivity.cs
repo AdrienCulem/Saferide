@@ -176,39 +176,6 @@ namespace Saferide.Droid
                 }
             }
         }
-
-        private void SetupBluetooth()
-        {
-            btAdapt = BluetoothAdapter.DefaultAdapter;
-            if (!btAdapt.IsEnabled)
-                return;
-            pairedDevices = btAdapt.BondedDevices;
-            pairedDevices = new List<BluetoothDevice>();
-            profileListener = new BluetoothServiceListener();
-            IBluetoothProfileServiceListener test = new BluetoothServiceListener();
-            //btAdapt.GetProfileProxy(ApplicationContext, test, BluetoothProfile.Headset);
-        }
-
-        public async Task<String> Listen()
-        {
-            //if (profileListener.btHeadset == null || !btAdapt.IsEnabled) return await startVoice();
-            //foreach (var device in pairedDevices)
-            //{
-            //    try
-            //    {
-            //        if (profileListener.btHeadset.StartVoiceRecognition(device))
-            //        {
-            //            break;
-            //        }
-            //    }
-            //    catch (Exception e)
-            //    {
-            //        Console.WriteLine(e.ToString());
-            //    }
-
-            //}
-            return await StartVoice();
-        }
     }
 }
 

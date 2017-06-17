@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Acr.UserDialogs;
 using Saferide.GPS;
@@ -49,7 +50,6 @@ namespace Saferide.ViewModels
 
         private string _speechResult;
         private bool _isListenning;
-        private bool _askedAIncident;
 
         public NewIncidentViewModel()
         {
@@ -62,7 +62,6 @@ namespace Saferide.ViewModels
             MessagingCenter.Unsubscribe<ISpeechRecognized, string>(this, "Incident");
             MessagingCenter.Subscribe<ISpeechRecognized, string>(this, "Incident", (sender, arg) =>
             {
-                _askedAIncident = true;
                 if (arg == AppTexts.NewHole)
                 {
                     UserDialogs.Instance.ShowLoading(AppTexts.WaitASec, null);
@@ -121,28 +120,17 @@ namespace Saferide.ViewModels
             var isSure = false;
             if (UserPosition.Latitude != 0 && UserPosition.Longitude != 0)
             {
+                await DependencyService.Get<ISpeechService>().StopListening();
                 String result;
-                //var actionResult = await XFToast.ActionSheet(AppTexts.WhatOptionForIncident, AppTexts.Cancel, AppTexts.Write, AppTexts.Speak);
                 var promptResult = String.Empty;
-                var actionResult = AppTexts.Speak;
-                if (actionResult == AppTexts.Write)
+                while (!isSure)
                 {
-                    var tempResult = await XFToast.PromptAsync(AppTexts.Description, AppTexts.Done, AppTexts.Cancel,
-                        AppTexts.EnterDescription);
-                    if (!tempResult.Ok) return;
-                    promptResult = tempResult.Text;
-                }
-                else if(actionResult == AppTexts.Speak)
-                {
-                    while (!isSure)
-                    {
-                        promptResult = await DependencyService.Get<ISpeechRecognition>().Listen();
-                        if (promptResult == String.Empty) return;
-                        TextToSpeech.Talk(AppTexts.ConfirmDescription + promptResult);
-                        await Task.Delay(1000);
-                        var tempResult = await XFToast.ConfirmAsync(AppTexts.ConfirmDescription, promptResult, AppTexts.Yes, AppTexts.No);
-                        if (tempResult) isSure = true;
-                    }
+                    promptResult = await DependencyService.Get<ISpeechRecognition>().Listen();
+                    if (promptResult == String.Empty) return;
+                    TextToSpeech.Talk(AppTexts.ConfirmDescription + promptResult);
+                    await Task.Delay(2000);
+                    var tempResult = await XFToast.ConfirmAsync(AppTexts.ConfirmDescription, promptResult, AppTexts.Yes, AppTexts.No);
+                    if (tempResult) isSure = true;
                 }
                 DependencyService.Get<ISpeechService>().StartListening("keyword");
                 IsListenning = true;
