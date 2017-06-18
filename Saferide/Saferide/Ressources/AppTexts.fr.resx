@@ -378,4 +378,13 @@
   <data name="ConfirmDescription" xml:space="preserve">
     <value>Confirmez vous cet description?</value>
   </data>
+  <data name="GiveADescription" xml:space="preserve">
+    <value>Décrivez cet incident</value>
+  </data>
+  <data name="GiveANewIncident" xml:space="preserve">
+    <value>Quel type d'incident voulez vous signaler?</value>
+  </data>
+  <data name="GoToNewIncident" xml:space="preserve">
+    <value>Dîtes nouvel incident pour commencer à signaler un nouvel incident</value>
+  </data>
 </root>

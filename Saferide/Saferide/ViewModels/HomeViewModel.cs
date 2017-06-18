@@ -238,10 +238,14 @@ namespace Saferide.ViewModels
             await DependencyService.Get<ISpeechService>().Setup();
             DependencyService.Get<ISpeechService>().StartListening("keyphrase");
             IsListenning = true;
-            MessagingCenter.Unsubscribe<HomePageView>(this, "Init");
-            MessagingCenter.Subscribe<HomePageView>(this, "Init", sender =>
+            MessagingCenter.Unsubscribe<HomePageView>(this, "OnAppearing");
+            MessagingCenter.Subscribe<HomePageView>(this, "OnAppearing", async sender =>
             {
                 OnStartListening(false);
+                if (!CrossGeolocator.Current.IsListening)
+                {
+                    await GetGpsInfos();
+                }
             });
         }
 
@@ -327,14 +331,6 @@ namespace Saferide.ViewModels
                 await GetIncidents();
                 await StartListening();
                 XFToast.HideLoading();
-                MessagingCenter.Unsubscribe<HomePageView>(this, "OnAppearing");
-                MessagingCenter.Subscribe<HomePageView>(this, "OnAppearing", async sender =>
-                {
-                    if (!CrossGeolocator.Current.IsListening)
-                    {
-                        await GetGpsInfos();
-                    }
-                });
             }
             catch (Exception ex)
             {

@@ -26,7 +26,7 @@ namespace Saferide.Droid.Services
         private static string KWS_SEARCH = "newIncident";
         private static string KWS_SEARCH_FILE = "NewIncidentList";
 
-        private string KEYPHRASE = "new incident";
+        private string KEYPHRASE = "incident";
 
         private static File assetsDir;
 
@@ -117,7 +117,7 @@ namespace Saferide.Droid.Services
             {
                 lastHypo = e.Hypothesis.Hypstr.Substring(0, e.Hypothesis.Hypstr.Count() - n); // get the last word detected (the first one in Hypstr)
                 n = e.Hypothesis.Hypstr.Count();
-                if (lastHypo == "new incident")
+                if (lastHypo == "incident")
                 {
                     MessagingCenter.Send<ISpeechRecognized>(this, "NewIncident");
                 }
@@ -125,8 +125,8 @@ namespace Saferide.Droid.Services
                 {
                     MessagingCenter.Send<ISpeechRecognized, string>(this, "Incident", lastHypo);
                 }
-                lastHypo = null;
             }
+            lastHypo = null;
         }
 
         private void SwitchSearch(String searchName, string keyPhrase)

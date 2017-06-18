@@ -19,7 +19,6 @@ namespace Saferide.ViewModels
         public ICommand IncidentButton { get; set; }
         public ICommand ListenMicrophone { get; set; }
 
-
         /// <summary>
         /// The result of the speech recognition
         /// </summary>
@@ -85,6 +84,13 @@ namespace Saferide.ViewModels
                     UserDialogs.Instance.ShowLoading(AppTexts.WaitASec, null);
                     NewIncident("danger");
                     UserDialogs.Instance.HideLoading();
+                }else if (arg == "back")
+                {
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        var mainpage = Application.Current.MainPage as MasterDetailPage;
+                        mainpage.Detail.Navigation.PopAsync();
+                    });
                 }
             });
             OnStartListening();
@@ -128,12 +134,11 @@ namespace Saferide.ViewModels
                     promptResult = await DependencyService.Get<ISpeechRecognition>().Listen();
                     if (promptResult == String.Empty) return;
                     TextToSpeech.Talk(AppTexts.ConfirmDescription + promptResult);
-                    await Task.Delay(2000);
+                    await Task.Delay(4000);
                     var tempResult = await XFToast.ConfirmAsync(AppTexts.ConfirmDescription, promptResult, AppTexts.Yes, AppTexts.No);
                     if (tempResult) isSure = true;
                 }
                 DependencyService.Get<ISpeechService>().StartListening("keyword");
-                IsListenning = true;
                 if (promptResult == String.Empty)return;
                 XFToast.ShowLoading();
                 Incident incident = new Incident

@@ -2,3 +2,4 @@
 sliding zone/1e-0/
 obstacle/1e-0/
 danger/1e-0/
+back/1e-0/
