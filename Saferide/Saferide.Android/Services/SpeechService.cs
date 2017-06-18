@@ -120,13 +120,15 @@ namespace Saferide.Droid.Services
                 if (lastHypo == "incident")
                 {
                     MessagingCenter.Send<ISpeechRecognized>(this, "NewIncident");
+                    lastHypo = null;
+
                 }
                 else
                 {
                     MessagingCenter.Send<ISpeechRecognized, string>(this, "Incident", lastHypo);
+                    lastHypo = null;
                 }
             }
-            lastHypo = null;
         }
 
         private void SwitchSearch(String searchName, string keyPhrase)

@@ -220,17 +220,13 @@ namespace Saferide.ViewModels
             PositionHeading = "N";
             PositionSpeed = "0";
             MetricSystemToShow = Constants.MetricSystem.ToString();
-            MessagingCenter.Unsubscribe<ISpeechRecognized>(this, "NewIncident");
-            MessagingCenter.Subscribe<ISpeechRecognized>(this, "NewIncident", sender =>
-            {
-                Device.BeginInvokeOnMainThread(async () =>
-                {
-                    await GoToNewIncident();
-                });
-                
-            });
             SetUpandListen();
             DependencyService.Get<IAskPermissions>().AskPermissions();
+            MessagingCenter.Unsubscribe<HomePageView>(this, "OnDisappearing");
+            MessagingCenter.Subscribe<HomePageView>(this, "OnDisappearing", sender =>
+            {
+                MessagingCenter.Unsubscribe<ISpeechRecognized>(this, "NewIncident");
+            });
         }
 
         private async void SetUpandListen()
@@ -238,6 +234,13 @@ namespace Saferide.ViewModels
             await DependencyService.Get<ISpeechService>().Setup();
             DependencyService.Get<ISpeechService>().StartListening("keyphrase");
             IsListenning = true;
+            MessagingCenter.Subscribe<ISpeechRecognized>(this, "NewIncident", sender2 =>
+            {
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    await GoToNewIncident();
+                });
+            });
             MessagingCenter.Unsubscribe<HomePageView>(this, "OnAppearing");
             MessagingCenter.Subscribe<HomePageView>(this, "OnAppearing", async sender =>
             {
@@ -501,23 +504,23 @@ namespace Saferide.ViewModels
                                 TextToSpeech.Talk(AppTexts.ConfirmText);
                                 await Task.Delay(4000);
                                 //Prompts the user to confirm the incident
-                                var resultOfConfirmation = await DependencyService.Get<ISpeechRecognition>().Listen();
-                                if (resultOfConfirmation == AppTexts.YesListen)
-                                {
-                                    closestIncident.Confirmed = true;
-                                    Constants.NearestIncidents
-                                        .FirstOrDefault(a => a.IncidentId == closestIncident.IncidentId).Confirmed = closestIncident.Confirmed;
-                                    await App.IncidentManager.ConfirmIncident(closestIncident);
-                                }
-                                else if (resultOfConfirmation == AppTexts.NoListen)
-                                {
-                                    closestIncident.Confirmed = false;
-                                    Constants.NearestIncidents
-                                        .FirstOrDefault(a => a.IncidentId == closestIncident.IncidentId).Confirmed = closestIncident.Confirmed;
-                                    await App.IncidentManager.ConfirmIncident(closestIncident);
-                                }
-                                else
-                                {
+                                //var resultOfConfirmation = await DependencyService.Get<ISpeechRecognition>().Listen();
+                                //if (resultOfConfirmation == AppTexts.YesListen)
+                                //{
+                                //    closestIncident.Confirmed = true;
+                                //    Constants.NearestIncidents
+                                //        .FirstOrDefault(a => a.IncidentId == closestIncident.IncidentId).Confirmed = closestIncident.Confirmed;
+                                //    await App.IncidentManager.ConfirmIncident(closestIncident);
+                                //}
+                                //else if (resultOfConfirmation == AppTexts.NoListen)
+                                //{
+                                //    closestIncident.Confirmed = false;
+                                //    Constants.NearestIncidents
+                                //        .FirstOrDefault(a => a.IncidentId == closestIncident.IncidentId).Confirmed = closestIncident.Confirmed;
+                                //    await App.IncidentManager.ConfirmIncident(closestIncident);
+                                //}
+                                //else
+                                //{
                                     //isConfirmed = await XFToast.ConfirmAsync(AppTexts.Confirm, AppTexts.ConfirmText,
                                     //    AppTexts.Yes,
                                     //    AppTexts.No);
@@ -526,7 +529,7 @@ namespace Saferide.ViewModels
                                     {
                                         await mainpage.Detail.Navigation.PushModalAsync(new ConfirmIncident(closestIncident));
                                     }
-                                }
+                                //}
                                 //Setting the incident to confirmed
                                 closestIncident.HasBeenSignaled = true;
                                 Constants.NearestIncidents
